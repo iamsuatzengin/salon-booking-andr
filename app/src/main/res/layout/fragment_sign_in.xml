@@ -38,6 +38,7 @@
             android:background="@drawable/bg_edittext_white_rounded"
             android:fontFamily="@font/inter_18pt_regular"
             android:hint="@string/hint_enter_your_email_or_phone_number"
+            android:inputType="textEmailAddress|phone"
             android:textSize="14sp" />
 
         <com.google.android.material.button.MaterialButton

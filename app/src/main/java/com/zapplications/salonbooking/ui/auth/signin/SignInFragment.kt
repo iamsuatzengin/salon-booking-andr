@@ -3,7 +3,6 @@ package com.zapplications.salonbooking.ui.auth.signin
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
