@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/regularHorizontalPadding"
+    tools:context=".ui.auth.verify.VerifyFragment">
+
+    <TextView
+        android:id="@+id/tvVerifyTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin64"
+        android:fontFamily="@font/inter_24pt_bold"
+        android:text="@string/title_verify_your_identity"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin48"
+        android:layout_marginTop="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin24"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:text="We’ve sent a 4-digit code to 071*****05 Please enter it below."
+        android:textAlignment="center"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size14" />
+
+    <com.zapplications.salonbooking.core.ui.otp.OtpLayout
+        android:id="@+id/layoutOtp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvOtpErrorText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin24"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:text="@string/text_otp_error_message"
+        android:visibility="gone"
+        android:textAlignment="center"
+        android:textColor="@color/color_error" />
+
+    <TextView
+        android:id="@+id/tvResendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin16"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:text="@string/text_resend_message"
+        android:textAlignment="center"
+        android:textColor="@color/color_gray3" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin36"
+        android:text="Continue"
+        app:backgroundTint="@color/color_main"
+        app:cornerRadius="@dimen/corner_radius_default" />
+
+</LinearLayout>

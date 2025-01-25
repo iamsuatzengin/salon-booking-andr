@@ -2,7 +2,21 @@
     <string name="app_name">SalonBooking</string>
 
     <!-- Content descriptions -->
-    <string name="description_splashLogo">Splash logo</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_description_splashLogo">Splash logo</string>
+    <string name="content_description_sign_in_background">Sign in background image</string>
+
+    <!-- Title -->
+    <string name="title_sign_in">Book Your Perfect\nLook in Minutes!</string>
+    <string name="title_verify_your_identity">Verify Your Identity</string>
+
+    <!-- Text -->
+    <string name="hint_enter_your_email_or_phone_number">Enter your email or phone number.</string>
+    <string name="text_or">Or</string>
+    <string name="text_otp_error_message">The code you entered is incorrect.\nPlease try again.</string>
+    <string name="text_otp_empty_message">Eksik alanlar bulunuyor</string>
+    <string name="text_resend_message">Didn’t receive a code? <font color='#007AFF'>Resend</font></string>
+
+    <!-- Button text -->
+    <string name="btn_text_continue">Continue</string>
+    <string name="content_description_button_icon">Button icon</string>
 </resources>

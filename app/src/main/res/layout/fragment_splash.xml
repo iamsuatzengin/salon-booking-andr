@@ -12,6 +12,6 @@
         android:layout_width="@dimen/splashWidth"
         android:layout_height="@dimen/splashHeight"
         android:src="@drawable/splashlogo"
-        android:contentDescription="@string/description_splashLogo"
+        android:contentDescription="@string/content_description_splashLogo"
         android:layout_gravity="center"/>
 </FrameLayout>

@@ -21,5 +21,15 @@
         android:id="@+id/signInFragment"
         android:name="com.zapplications.salonbooking.ui.auth.signin.SignInFragment"
         tools:layout="@layout/fragment_sign_in"
-        android:label="fragment_sign_in" />
+        android:label="fragment_sign_in" >
+        <action
+            android:id="@+id/signInFragmentToVerifyFragment"
+            app:destination="@id/verifyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyFragment"
+        android:name="com.zapplications.salonbooking.ui.auth.verify.VerifyFragment"
+        android:label="fragment_verify"
+        tools:layout="@layout/fragment_verify" />
+
 </navigation>

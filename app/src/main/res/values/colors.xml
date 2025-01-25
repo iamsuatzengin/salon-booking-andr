@@ -9,6 +9,7 @@
 
     <!-- State colors -->
     <color name="color_error">#FF3B30</color>
+    <color name="color_error_bg">#FFF5F5</color>
     <color name="color_warning">#FFCC00</color>
     <color name="color_info">#0063F7</color>
     <color name="color_success">#06C270</color>
@@ -20,4 +21,8 @@
     <!-- Light colors -->
     <color name="color_gray1">#939393</color>
     <color name="color_gray2">#A0A0A0</color>
+    <color name="color_gray3">#9D9EA6</color>
+
+    <color name="color_otp_edit_text_bg">#F5F5F5</color>
+    <color name="color_resend">#007AFF</color>
 </resources>

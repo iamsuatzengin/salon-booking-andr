@@ -1,12 +1,8 @@
 package com.zapplications.salonbooking.ui.splash
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -34,9 +30,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                             findNavController().navigate(R.id.splashToSignIn)
                         }
                     }
-
                 }
-
             }
         }
     }

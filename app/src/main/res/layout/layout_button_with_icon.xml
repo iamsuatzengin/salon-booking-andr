@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_button_icon_rounded"
+    android:backgroundTint="@color/black"
+    android:foreground="?android:selectableItemBackground"
+    android:gravity="center"
+    android:padding="@dimen/padding14">
+
+    <ImageView
+        android:id="@+id/buttonIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/buttonText"
+        android:layout_alignBottom="@id/buttonText"
+        android:layout_marginEnd="@dimen/margin8"
+        android:contentDescription="@string/content_description_button_icon"
+        tools:src="@drawable/ic_applex" />
+
+    <TextView
+        android:id="@+id/buttonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/buttonIcon"
+        android:fontFamily="@font/inter_18pt_semibold"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size16"
+        tools:text="Continue with Apple" />
+</RelativeLayout>

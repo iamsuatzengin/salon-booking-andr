@@ -1,15 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.auth.signin.SignInFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/ivBgImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/hello_blank_fragment" />
+        android:contentDescription="@string/content_description_sign_in_background"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_signin" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/regularHorizontalPadding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin24"
+            android:fontFamily="@font/inter_28pt_bold"
+            android:text="@string/title_sign_in"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+        <EditText
+            android:id="@+id/etEmailOrPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin24"
+            android:background="@drawable/bg_edittext_white_rounded"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:hint="@string/hint_enter_your_email_or_phone_number"
+            android:textSize="14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin24"
+            android:backgroundTint="@color/color_main"
+            android:paddingVertical="14dp"
+            android:text="@string/btn_text_continue"
+            app:cornerRadius="@dimen/corner_radius_default" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin24"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="@string/text_or"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <com.zapplications.salonbooking.core.ui.ButtonWithIcon
+            android:id="@+id/btnContinueWithApple"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin24"
+            app:buttonBackgroundColor="@color/black"
+            app:buttonIcon="@drawable/ic_applex"
+            app:buttonText="Continue with Apple"
+            app:buttonTextColor="@color/white" />
+
+        <com.zapplications.salonbooking.core.ui.ButtonWithIcon
+            android:id="@+id/btnContinueWithGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin24"
+            app:buttonBackgroundColor="@color/white"
+            app:buttonIcon="@drawable/ic_googlepn"
+            app:buttonText="Continue with Apple"
+            app:buttonTextColor="@color/black" />
+    </LinearLayout>
 </FrameLayout>

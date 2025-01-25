@@ -3,4 +3,33 @@
     <dimen name="splashWidth">240dp</dimen>
     <dimen name="splashHeight">80dp</dimen>
 
+    <!-- Padding -->
+    <dimen name="regularHorizontalPadding">16dp</dimen>
+    <dimen name="regularVerticalPadding">16dp</dimen>
+    <dimen name="padding14">14dp</dimen>
+    <dimen name="padding16">16dp</dimen>
+    <dimen name="padding24">24dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin8">8dp</dimen>
+    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin12">12dp</dimen>
+    <dimen name="margin14">14dp</dimen>
+    <dimen name="margin16">16dp</dimen>
+    <dimen name="margin18">18dp</dimen>
+    <dimen name="margin24">24dp</dimen>
+    <dimen name="margin36">36dp</dimen>
+    <dimen name="margin48">48dp</dimen>
+    <dimen name="margin64">64dp</dimen>
+
+    <!-- Corner radius -->
+    <dimen name="corner_radius_default">10dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="size10">10sp</dimen>
+    <dimen name="size12">12sp</dimen>
+    <dimen name="size14">14sp</dimen>
+    <dimen name="size16">16sp</dimen>
+    <dimen name="size18">18sp</dimen>
+    <dimen name="size20">20sp</dimen>
 </resources>
