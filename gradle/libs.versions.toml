@@ -10,6 +10,8 @@ material = "1.12.0"
 activity = "1.10.0"
 constraintlayout = "2.2.0"
 kotlinxSerialization = "2.0.21"
+playServicesAuth = "21.3.0"
+playServicesAuthApiPhone = "18.1.0"
 serializationJsonPlugin = "1.8.0"
 parcelize = "2.0.21"
 navigation = "2.8.5"
@@ -36,6 +38,8 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 
 lifecycle-viewModel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+play-services-auth-api-phone = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "playServicesAuthApiPhone" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

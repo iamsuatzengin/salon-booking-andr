@@ -58,6 +58,9 @@ dependencies {
 
     implementation(libs.kotlinxSerializationJson)
 
+    implementation (libs.play.services.auth)
+    implementation (libs.play.services.auth.api.phone)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 

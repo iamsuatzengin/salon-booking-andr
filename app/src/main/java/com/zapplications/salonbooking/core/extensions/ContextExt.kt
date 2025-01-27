@@ -16,6 +16,11 @@ fun Context.hideKeyboard(input: AppCompatEditText) {
     manager.hideSoftInputFromWindow(input.windowToken, 0)
 }
 
+fun Context.showKeyboard(input: AppCompatEditText) {
+    val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    manager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT)
+}
+
 fun Activity.hideKeyboard() {
     val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     manager.hideSoftInputFromWindow(window.decorView.windowToken, 0)

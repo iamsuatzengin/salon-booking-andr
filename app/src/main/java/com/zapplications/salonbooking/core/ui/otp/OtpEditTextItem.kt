@@ -29,22 +29,18 @@ class OtpEditTextItem(
         override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-            if (isErrorState) {
-                background = resources.drawable(R.drawable.bg_otp_edit_text)
+            if (isFirstItem && text?.isNotEmpty() == true) {
                 onClearState?.invoke()
                 isErrorState = false
             }
-
-            if (!isLastItem && text?.length == 1) nextItem?.requestFocus()
-
-            if (!isFirstItem && before == 1) {
-                previousItem?.requestFocus()
+            if (text.isNullOrEmpty().not()) {
+                nextItem?.isEnabled = true
+                nextItem?.requestFocus()
             }
 
             if (isLastItem && text?.isNotEmpty() == true) {
                 context.hideKeyboard(this@OtpEditTextItem)
                 clearFocus()
-                background = resources.drawable(R.drawable.bg_otp_edit_text)
             }
         }
 

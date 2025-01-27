@@ -26,7 +26,3 @@ class SplashViewModel @Inject constructor(): ViewModel() {
         }
     }
 }
-
-sealed interface SplashUiEvent {
-    data object NavigateToSignIn : SplashUiEvent
-}
