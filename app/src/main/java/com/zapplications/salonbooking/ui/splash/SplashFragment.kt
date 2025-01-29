@@ -29,6 +29,10 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                         SplashUiEvent.NavigateToSignIn -> {
                             findNavController().navigate(R.id.splashToSignIn)
                         }
+
+                        SplashUiEvent.NavigateToHome -> {
+                            findNavController().navigate(R.id.splashToHome)
+                        }
                     }
                 }
             }

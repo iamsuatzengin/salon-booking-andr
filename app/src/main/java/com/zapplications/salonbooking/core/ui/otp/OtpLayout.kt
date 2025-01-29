@@ -54,20 +54,34 @@ class OtpLayout @JvmOverloads constructor(
             }
 
             et4.apply {
-                isLastItem = true
                 previousItem = et3
+                nextItem = et5
+                onClearState = { clearErrorState() }
+            }
+
+            et5.apply {
+                previousItem = et4
+                nextItem = et6
+                onClearState = { clearErrorState() }
+            }
+
+            et6.apply {
+                isLastItem = true
+                previousItem = et5
                 onClearState = { clearErrorState() }
             }
         }
     }
 
     fun setOtpText(otp: String?) {
-        if (otp.isNullOrEmpty() || otp.length != 4) return
+        if (otp.isNullOrEmpty() || otp.length != 6) return
 
         binding.et1.setText(otp[0].toString())
         binding.et2.setText(otp[1].toString())
         binding.et3.setText(otp[2].toString())
         binding.et4.setText(otp[3].toString())
+        binding.et5.setText(otp[4].toString())
+        binding.et6.setText(otp[5].toString())
     }
 
     fun getOtpText(): String = buildString {
@@ -75,9 +89,11 @@ class OtpLayout @JvmOverloads constructor(
         append(binding.et2.text)
         append(binding.et3.text)
         append(binding.et4.text)
+        append(binding.et5.text)
+        append(binding.et6.text)
     }
 
-    private fun fields() = listOf(binding.et1, binding.et2, binding.et3, binding.et4)
+    private fun fields() = listOf(binding.et1, binding.et2, binding.et3, binding.et4, binding.et5, binding.et6)
 
     fun hasAnyEmptyField() = fields().map { it.text }.any { it?.isEmpty() == true }
 

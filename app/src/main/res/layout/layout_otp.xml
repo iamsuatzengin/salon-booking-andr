@@ -10,7 +10,7 @@
         style="@style/OtpEditTextItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin16"
+        android:layout_marginEnd="@dimen/margin10"
         tools:text="2" />
 
     <com.zapplications.salonbooking.core.ui.otp.OtpEditTextItem
@@ -18,7 +18,7 @@
         style="@style/OtpEditTextItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin16"
+        android:layout_marginEnd="@dimen/margin10"
         tools:text="5" />
 
     <com.zapplications.salonbooking.core.ui.otp.OtpEditTextItem
@@ -26,11 +26,27 @@
         style="@style/OtpEditTextItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin16"
+        android:layout_marginEnd="@dimen/margin10"
         tools:text="5" />
 
     <com.zapplications.salonbooking.core.ui.otp.OtpEditTextItem
         android:id="@+id/et4"
+        style="@style/OtpEditTextItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin10"
+        android:autofillHints="phone" />
+
+    <com.zapplications.salonbooking.core.ui.otp.OtpEditTextItem
+        android:id="@+id/et5"
+        style="@style/OtpEditTextItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin10"
+        android:autofillHints="phone" />
+
+    <com.zapplications.salonbooking.core.ui.otp.OtpEditTextItem
+        android:id="@+id/et6"
         style="@style/OtpEditTextItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

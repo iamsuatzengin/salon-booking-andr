@@ -15,6 +15,7 @@
     <string name="text_otp_error_message">The code you entered is incorrect.\nPlease try again.</string>
     <string name="text_otp_empty_message">Eksik alanlar bulunuyor</string>
     <string name="text_resend_message">Didn’t receive a code? <font color='#007AFF'>Resend</font></string>
+    <string name="text_sent_digit_code_info">We’ve sent a 6-digit code to <b>%s</b>\nPlease enter it below.</string>
 
     <!-- Button text -->
     <string name="btn_text_continue">Continue</string>

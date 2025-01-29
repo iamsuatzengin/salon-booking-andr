@@ -35,11 +35,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin24"
+            android:autofillHints="emailAddress|phone"
             android:background="@drawable/bg_edittext_white_rounded"
             android:fontFamily="@font/inter_18pt_regular"
             android:hint="@string/hint_enter_your_email_or_phone_number"
-            android:inputType="textEmailAddress|phone"
-            android:textSize="14sp" />
+            android:inputType="text"
+            android:textSize="14sp"
+            tools:ignore="TextFields" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnContinue"
