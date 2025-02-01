@@ -9,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.extensions.checkLocationPermission
+import com.zapplications.salonbooking.core.extensions.checkNotificationPermission
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,10 +33,20 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                         }
 
                         SplashUiEvent.NavigateToHome -> {
-                            findNavController().navigate(R.id.splashToHome)
+                            checkPermissionsAndNavigate()
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun checkPermissionsAndNavigate() {
+        with(requireContext()) {
+            if (checkNotificationPermission() && checkLocationPermission()) {
+                findNavController().navigate(R.id.splashToHome)
+            } else {
+                findNavController().navigate(R.id.splashToAppPermissions)
             }
         }
     }

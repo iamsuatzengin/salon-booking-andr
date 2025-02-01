@@ -4,10 +4,14 @@
     <!-- Content descriptions -->
     <string name="content_description_splashLogo">Splash logo</string>
     <string name="content_description_sign_in_background">Sign in background image</string>
+    <string name="content_description_button_icon">Button icon</string>
+    <string name="content_description_location_permission_icon">Location permission icon</string>
+    <string name="content_description_notification_permission_icon">Notification permission icon</string>
 
     <!-- Title -->
     <string name="title_sign_in">Book Your Perfect\nLook in Minutes!</string>
     <string name="title_verify_your_identity">Verify Your Identity</string>
+    <string name="title_app_permissions">App Permissions</string>
 
     <!-- Text -->
     <string name="hint_enter_your_email_or_phone_number">Enter your email or phone number.</string>
@@ -16,8 +20,14 @@
     <string name="text_otp_empty_message">Eksik alanlar bulunuyor</string>
     <string name="text_resend_message">Didn’t receive a code? <font color='#007AFF'>Resend</font></string>
     <string name="text_sent_digit_code_info">We’ve sent a 6-digit code to <b>%s</b>\nPlease enter it below.</string>
+    <string name="text_permission_screen_bottom_info">You can always adjust these later from within the <font color='#007AFF'>Settings app</font>.</string>
+    <string name="text_app_permissions_subtitle">One last thing! You\'ll need to grant the following app permissions to enable the features you\'ve chosen:</string>
+    <string name="text_notifications_perm_title">Notifications</string>
+    <string name="text_notification_perm_description">For important activity that takes place in yor Cocoon For important activity that takes place in yor Cocoon gre</string>
+    <string name="text_notifications_perm_location">Location</string>
+    <string name="text_notifications_perm_description">For important activity that takes place in yor Cocoon For important activity that takes place in yor Cocoon gre</string>
 
     <!-- Button text -->
     <string name="btn_text_continue">Continue</string>
-    <string name="content_description_button_icon">Button icon</string>
+    <string name="btn_text_done">Done</string>
 </resources>

@@ -25,4 +25,5 @@
 
     <color name="color_otp_edit_text_bg">#F5F5F5</color>
     <color name="color_resend">#007AFF</color>
+    <color name="color_perm_bg">#f2f0eb</color>
 </resources>

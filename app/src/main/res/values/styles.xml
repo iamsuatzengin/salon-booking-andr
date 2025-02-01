@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbTint">@color/white</item>
+        <item name="thumbIcon">@android:color/transparent</item>
+        <item name="trackDecorationTint">@android:color/transparent</item>
+        <item name="trackTint">@color/thumb_color_state</item>
+    </style>
+
+</resources>

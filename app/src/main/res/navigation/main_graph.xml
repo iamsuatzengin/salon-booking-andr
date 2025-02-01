@@ -5,6 +5,8 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/splashFragment">
 
+    <include app:graph="@navigation/home_graph" />
+
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.zapplications.salonbooking.ui.splash.SplashFragment"
@@ -21,6 +23,9 @@
             app:destination="@+id/home_graph"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/splashToAppPermissions"
+            app:destination="@id/appPermissionsFragment" />
     </fragment>
 
     <fragment
@@ -51,6 +56,10 @@
             app:popUpToInclusive="true"/>
     </fragment>
 
-    <include app:graph="@navigation/home_graph" />
+    <fragment
+        android:id="@+id/appPermissionsFragment"
+        android:name="com.zapplications.salonbooking.ui.permissions.AppPermissionsFragment"
+        android:label="fragment_app_permissions"
+        tools:layout="@layout/fragment_app_permissions" />
 
 </navigation>

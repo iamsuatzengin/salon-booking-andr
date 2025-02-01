@@ -24,6 +24,7 @@
 
     <!-- Corner radius -->
     <dimen name="corner_radius_default">10dp</dimen>
+    <dimen name="radius32">32dp</dimen>
 
     <!-- Text sizes -->
     <dimen name="size10">10sp</dimen>

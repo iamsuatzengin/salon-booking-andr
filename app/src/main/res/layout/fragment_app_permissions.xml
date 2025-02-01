@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/margin16"
+    android:orientation="vertical"
+    tools:context=".ui.permissions.AppPermissionsFragment">
+
+    <TextView
+        android:id="@+id/tvAppPermissionsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin64"
+        android:fontFamily="@font/inter_24pt_bold"
+        android:text="@string/title_app_permissions"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvAppPermissionsSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin24"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:text="@string/text_app_permissions_subtitle"
+        android:textAlignment="center"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size16" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/color_perm_bg"
+        app:cardUseCompatPadding="true"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding16">
+
+            <ImageView
+                android:id="@+id/ivNotificationIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_notification_permission_icon"
+                android:src="@drawable/ic_notification"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvNotificationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin8"
+                android:fontFamily="@font/inter_18pt_medium"
+                android:text="@string/text_notifications_perm_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/ivNotificationIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvNotificationDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin8"
+                android:fontFamily="@font/inter_18pt_medium"
+                android:text="@string/text_notification_perm_description"
+                android:textColor="@color/color_gray1"
+                app:layout_constraintEnd_toStartOf="@id/switchNotification"
+                app:layout_constraintStart_toStartOf="@id/tvNotificationTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvNotificationTitle" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchNotification"
+                style="@style/AppSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/color_perm_bg"
+        app:cardUseCompatPadding="true"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding16">
+
+            <ImageView
+                android:id="@+id/ivLocationIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_location_permission_icon"
+                android:src="@drawable/ic_location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLocationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin8"
+                android:fontFamily="@font/inter_18pt_medium"
+                android:text="@string/text_notifications_perm_location"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/ivLocationIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLocationDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin8"
+                android:fontFamily="@font/inter_18pt_medium"
+                android:text="@string/text_notifications_perm_description"
+                android:textColor="@color/color_gray1"
+                app:layout_constraintEnd_toStartOf="@id/switchLocation"
+                app:layout_constraintStart_toStartOf="@id/tvLocationTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvLocationTitle" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchLocation"
+                style="@style/AppSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tvBottomInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin8"
+        android:layout_marginTop="@dimen/margin16"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:text="@string/text_permission_screen_bottom_info"
+        android:textAlignment="center"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size16" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:layout_marginBottom="@dimen/margin36"
+        android:text="@string/btn_text_done"
+        app:backgroundTint="@color/color_main"
+        app:cornerRadius="@dimen/corner_radius_default" />
+</LinearLayout>
