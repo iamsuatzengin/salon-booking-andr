@@ -37,7 +37,11 @@
         tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/signInFragmentToVerifyFragment"
-            app:destination="@id/verifyFragment" />
+            app:destination="@id/verifyFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit"/>
     </fragment>
     <fragment
         android:id="@+id/verifyFragment"
@@ -54,6 +58,10 @@
         <action
             android:id="@+id/verifyToHome"
             app:destination="@id/home_graph"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit"
             app:popUpTo="@id/verifyFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -66,8 +74,11 @@
         <action
             android:id="@+id/appPermissionsToHomeGraph"
             app:destination="@id/home_graph"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit"
             app:popUpTo="@id/appPermissionsFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"/>
     </fragment>
-
 </navigation>

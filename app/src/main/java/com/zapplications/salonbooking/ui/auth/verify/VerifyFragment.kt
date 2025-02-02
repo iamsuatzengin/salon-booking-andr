@@ -156,7 +156,8 @@ class VerifyFragment : Fragment(R.layout.fragment_verify), SmsReceiverListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        requireActivity().unregisterReceiver(receiver)
+        receiver?.let { requireActivity().unregisterReceiver(it) }
+        receiver = null
     }
 
     companion object {

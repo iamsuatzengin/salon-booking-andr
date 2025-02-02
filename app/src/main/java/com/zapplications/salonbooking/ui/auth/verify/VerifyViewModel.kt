@@ -23,6 +23,10 @@ class VerifyViewModel @Inject constructor(
 
     var otpCode: String? = null
 
+    /**
+     *TODO: check request OTP delay
+     * "AuthRestException: For security purposes, you can only request this after 60 seconds."
+     */
     fun sendOTP() {
         viewModelScope.launch {
             delay(100)
