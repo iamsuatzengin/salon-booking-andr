@@ -19,6 +19,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.extensions.checkLocationPermission
+import com.zapplications.salonbooking.core.extensions.checkNotificationPermission
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentVerifyBinding
 import com.zapplications.salonbooking.domain.model.SignInType
@@ -74,7 +76,7 @@ class VerifyFragment : Fragment(R.layout.fragment_verify), SmsReceiverListener {
             viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
                 viewModel.authenticationState.collect { state ->
                     if (state is SessionStatus.Authenticated) {
-                        findNavController().navigate(R.id.verifyToHome)
+                        checkPermissionsAndNavigate()
                     }
                 }
             }
@@ -150,6 +152,16 @@ class VerifyFragment : Fragment(R.layout.fragment_verify), SmsReceiverListener {
                 val code = regex.find(sms)?.value
                 viewModel.otpCode = code
                 binding.layoutOtp.setOtpText(code)
+            }
+        }
+    }
+
+    private fun checkPermissionsAndNavigate() {
+        with(requireContext()) {
+            if (checkNotificationPermission() && checkLocationPermission()) {
+                findNavController().navigate(R.id.verifyToHome)
+            } else {
+                findNavController().navigate(R.id.verifyToAppPermissions)
             }
         }
     }

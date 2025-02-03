@@ -11,6 +11,7 @@
     <dimen name="padding24">24dp</dimen>
 
     <!-- Margin -->
+    <dimen name="margin4">4dp</dimen>
     <dimen name="margin8">8dp</dimen>
     <dimen name="margin10">10dp</dimen>
     <dimen name="margin12">12dp</dimen>

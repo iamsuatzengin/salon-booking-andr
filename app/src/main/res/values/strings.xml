@@ -12,6 +12,7 @@
     <string name="title_sign_in">Book Your Perfect\nLook in Minutes!</string>
     <string name="title_verify_your_identity">Verify Your Identity</string>
     <string name="title_app_permissions">App Permissions</string>
+    <string name="title_location">Location</string>
 
     <!-- Text -->
     <string name="hint_enter_your_email_or_phone_number">Enter your email or phone number.</string>
@@ -26,6 +27,8 @@
     <string name="text_notification_perm_description">For important activity that takes place in yor Cocoon For important activity that takes place in yor Cocoon gre</string>
     <string name="text_notifications_perm_location">Location</string>
     <string name="text_notifications_perm_description">For important activity that takes place in yor Cocoon For important activity that takes place in yor Cocoon gre</string>
+    <string name="text_location_subadminarea_adminarea">%s, %s</string>
+    <string name="text_turn_on_location">Turn on your location</string>
 
     <!-- Button text -->
     <string name="btn_text_continue">Continue</string>

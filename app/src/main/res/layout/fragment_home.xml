@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/margin48"
     tools:context=".ui.home.HomeFragment">
 
+    <ImageView
+        android:id="@+id/ivLocationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:src="@drawable/ic_location"
+        app:layout_constraintBottom_toBottomOf="@id/tvLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/color_main" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello from Home Screen"
-        android:textSize="56sp"
-        android:gravity="center"/>
-</FrameLayout>
+        android:id="@+id/tvLocationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin8"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:text="@string/title_location"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size14"
+        app:layout_constraintStart_toEndOf="@id/ivLocationIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin8"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:text="@string/text_turn_on_location"
+        android:textColor="@color/color_dark1"
+        android:textSize="@dimen/size16"
+        app:layout_constraintStart_toEndOf="@id/ivLocationIcon"
+        app:layout_constraintTop_toBottomOf="@id/tvLocationTitle" />
+
+    <ImageView
+        android:id="@+id/ivArrowDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLocation"
+        app:layout_constraintStart_toEndOf="@+id/tvLocation"
+        android:layout_marginStart="@dimen/margin4"
+        app:tint="@color/color_gray1"
+        app:layout_constraintTop_toTopOf="@+id/tvLocation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,8 +62,14 @@
             app:exitAnim="@anim/slide_exit"
             app:popEnterAnim="@anim/slide_pop_enter"
             app:popExitAnim="@anim/slide_pop_exit"
-            app:popUpTo="@id/verifyFragment"
+            app:popUpTo="@id/signInFragment"
             app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/verifyToAppPermissions"
+            app:destination="@id/appPermissionsFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
