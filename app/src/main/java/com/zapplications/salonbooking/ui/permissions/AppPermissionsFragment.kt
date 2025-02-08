@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.LocationUtil.getLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkNotificationPermission
 import com.zapplications.salonbooking.core.viewBinding
@@ -106,11 +107,6 @@ class AppPermissionsFragment : Fragment(R.layout.fragment_app_permissions) {
         binding.switchLocation.isChecked = permissionGranted
         binding.switchLocation.isEnabled = !permissionGranted
     }
-
-    private fun getLocationPermission() = arrayOf(
-        android.Manifest.permission.ACCESS_COARSE_LOCATION,
-        android.Manifest.permission.ACCESS_FINE_LOCATION
-    )
 
     private fun navigateToSettingsAppForPermission() = runCatching {
         val intent = Intent(

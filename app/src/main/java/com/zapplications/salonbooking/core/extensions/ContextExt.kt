@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.location.LocationManager
 import android.os.Build
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.DrawableRes
@@ -54,4 +55,9 @@ fun Context.checkLocationPermission(): Boolean {
         this,
         Manifest.permission.ACCESS_FINE_LOCATION
     ) == PackageManager.PERMISSION_GRANTED
+}
+
+fun Context.checkLocationProviderEnabled(): Boolean {
+    val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }

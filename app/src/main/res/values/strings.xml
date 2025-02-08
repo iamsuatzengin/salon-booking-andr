@@ -33,4 +33,12 @@
     <!-- Button text -->
     <string name="btn_text_continue">Continue</string>
     <string name="btn_text_done">Done</string>
+    <string name="btn_text_yes">Yes</string>
+    <string name="btn_text_no">No</string>
+
+    <!-- Dialog text -->
+    <string name="title_location_permission">Location Permission</string>
+    <string name="description_location_permission">You can list salons near you. Can you grant location permission?</string>
+    <string name="title_location_settings">Open location settings</string>
+    <string name="description_location_settings">You can list salons near you. Can you turn on location?</string>
 </resources>
