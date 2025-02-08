@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
+    private val viewModel: HomeViewModel by viewModels()
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
 
@@ -41,6 +43,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        viewModel.getAllHomePageData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,7 +79,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             address?.subAdminArea,
                             address?.adminArea
                         )
-                        // TODO request - param(longitude, latitude)
+                        // request - param(longitude, latitude)
                     }
                 }
             }?.addOnFailureListener {
