@@ -6,6 +6,8 @@
     <!-- Padding -->
     <dimen name="regularHorizontalPadding">16dp</dimen>
     <dimen name="regularVerticalPadding">16dp</dimen>
+    <dimen name="padding4">4dp</dimen>
+    <dimen name="padding12">12dp</dimen>
     <dimen name="padding14">14dp</dimen>
     <dimen name="padding16">16dp</dimen>
     <dimen name="padding24">24dp</dimen>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:backgroundTint="@color/white"
+    android:padding="@dimen/padding12">
+
+    <ImageView
+        android:id="@+id/ivSalonImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/salonimage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSalonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size16"
+        app:layout_constraintStart_toEndOf="@id/ivSalonImage"
+        app:layout_constraintTop_toTopOf="@id/ivSalonImage"
+        tools:text="Hair Avenue" />
+
+    <ImageView
+        android:id="@+id/ivLocationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin8"
+        android:src="@drawable/ic_location"
+        app:layout_constraintStart_toEndOf="@id/ivSalonImage"
+        app:layout_constraintTop_toBottomOf="@id/tvSalonName"
+        app:tint="@color/color_gray1" />
+
+    <TextView
+        android:id="@+id/tvSalonLocationString"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:textColor="@color/color_gray1"
+        app:layout_constraintBottom_toBottomOf="@id/ivLocationIcon"
+        app:layout_constraintStart_toEndOf="@id/ivLocationIcon"
+        app:layout_constraintTop_toTopOf="@id/ivLocationIcon"
+        tools:text="Lakewood, California" />
+
+    <ImageView
+        android:id="@+id/ivRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin12"
+        android:src="@drawable/ic_rating"
+        app:layout_constraintStart_toEndOf="@id/ivSalonImage"
+        app:layout_constraintTop_toBottomOf="@id/ivLocationIcon" />
+
+    <TextView
+        android:id="@+id/tvRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin4"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:textSize="@dimen/size14"
+        app:layout_constraintBottom_toBottomOf="@id/ivRating"
+        app:layout_constraintStart_toEndOf="@id/ivRating"
+        app:layout_constraintTop_toTopOf="@id/ivRating"
+        tools:text="4.7 (312)" />
+</androidx.constraintlayout.widget.ConstraintLayout>

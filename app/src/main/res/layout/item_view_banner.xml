@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog">
+
+    <ImageView
+        android:id="@+id/ivBgImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description_banner_image"
+        android:minHeight="180dp"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        android:background="@drawable/bg_dialog"
+        android:src="@drawable/image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_banner_gradient"
+        app:layout_constraintBottom_toBottomOf="@id/ivBgImage"
+        app:layout_constraintEnd_toEndOf="@id/ivBgImage"
+        app:layout_constraintStart_toStartOf="@id/ivBgImage"
+        app:layout_constraintTop_toTopOf="@id/ivBgImage" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin16"
+        android:fontFamily="@font/inter_18pt_extra_bold"
+        android:textSize="@dimen/size16"
+        app:layout_constraintStart_toStartOf="@id/ivBgImage"
+        app:layout_constraintTop_toTopOf="@id/ivBgImage"
+        tools:text="Morning speciallll"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tvCampaign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:fontFamily="@font/inter_18pt_extra_bold"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="@id/ivBgImage"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        tools:text="Get %20 Off ahmet"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:textSize="@dimen/size12"
+        app:layout_constraintStart_toStartOf="@id/ivBgImage"
+        app:layout_constraintTop_toBottomOf="@id/tvCampaign"
+        tools:text="on All Haircuts Between 9-10 AM."
+        android:textColor="@color/white" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin12"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="@dimen/corner_radius_default"
+        app:layout_constraintStart_toStartOf="@id/ivBgImage"
+        app:layout_constraintTop_toBottomOf="@id/tvInfo"
+        tools:text="Book Now" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

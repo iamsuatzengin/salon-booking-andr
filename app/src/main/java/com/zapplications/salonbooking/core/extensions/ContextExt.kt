@@ -14,6 +14,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 
+fun Int.dpToPx(context: Context): Int {
+    return (this * context.resources.displayMetrics.density).toInt()
+}
+
 fun Resources.drawable(@DrawableRes resId: Int) = ResourcesCompat.getDrawable(this, resId, null)
 
 fun Context.hideKeyboard(input: AppCompatEditText) {

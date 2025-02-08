@@ -7,6 +7,8 @@
     <string name="content_description_button_icon">Button icon</string>
     <string name="content_description_location_permission_icon">Location permission icon</string>
     <string name="content_description_notification_permission_icon">Notification permission icon</string>
+    <string name="content_description_search_icon">Search icon</string>
+    <string name="content_description_banner_image">Banner image</string>
 
     <!-- Title -->
     <string name="title_sign_in">Book Your Perfect\nLook in Minutes!</string>

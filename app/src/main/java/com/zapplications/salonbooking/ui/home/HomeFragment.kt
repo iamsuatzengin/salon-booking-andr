@@ -6,7 +6,9 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.zapplications.salonbooking.R
@@ -17,6 +19,8 @@ import com.zapplications.salonbooking.core.extensions.checkLocationProviderEnabl
 import com.zapplications.salonbooking.core.ui.dialog.CustomDialog
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentHomeBinding
+import com.zapplications.salonbooking.ui.home.adapter.HomeAdapter
+import com.zapplications.salonbooking.ui.home.adapter.decorator.MarginDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,6 +28,8 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
     private val viewModel: HomeViewModel by viewModels()
+
+    private val adapter by lazy { HomeAdapter() }
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
 
@@ -43,18 +49,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        viewModel.getAllHomePageData()
+        viewModel.getAllHomePageData(
+            onLocationClick = { handleLocationTitleClick() }
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (!isLocationAvailable()) {
-            // TODO request for all salon
+        initRecyclerView()
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homePageUiState.collect { state ->
+                    adapter.submitList(state.homePageUiModel)
+                }
+            }
         }
 
-        binding.tvLocation.setOnClickListener {
-            handleLocationTitleClick()
+        if (!isLocationAvailable()) {
+            // TODO request for all salon
         }
     }
 
@@ -74,10 +88,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             longitude = location.longitude,
                             latitude = location.latitude
                         )
-                        binding.tvLocation.text = getString(
-                            R.string.text_location_subadminarea_adminarea,
-                            address?.subAdminArea,
-                            address?.adminArea
+
+                        viewModel.updateLocation(
+                            getString(
+                                R.string.text_location_subadminarea_adminarea,
+                                address?.subAdminArea,
+                                address?.adminArea
+                            )
                         )
                         // request - param(longitude, latitude)
                     }
@@ -86,6 +103,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 Log.e("HomeFragment", "Exception occurred!", it)
             }
         }
+    }
+
+    private fun initRecyclerView() {
+        binding.rvHome.adapter = adapter
+        binding.rvHome.itemAnimator = null
+        binding.rvHome.addItemDecoration(MarginDecorator())
     }
 
     private fun handleLocationTitleClick() {

@@ -1,20 +1,73 @@
 package com.zapplications.salonbooking.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zapplications.salonbooking.domain.repository.HomeRepository
+import com.zapplications.salonbooking.ui.home.adapter.item.BannerViewItem
+import com.zapplications.salonbooking.ui.home.adapter.item.Item
+import com.zapplications.salonbooking.ui.home.adapter.item.NearbySalonViewItem
+import com.zapplications.salonbooking.ui.home.adapter.item.SearchViewItem
+import com.zapplications.salonbooking.ui.home.adapter.item.TitleViewItem
+import com.zapplications.salonbooking.ui.home.adapter.item.TopViewItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: HomeRepository
+    private val repository: HomeRepository,
 ) : ViewModel() {
+    private val _homePageUiState = MutableStateFlow(HomeUiState.Empty)
+    val homePageUiState get() = _homePageUiState.asStateFlow()
 
-    fun getAllHomePageData() {
+    fun getAllHomePageData(
+        onLocationClick: () -> Unit,
+    ) {
         viewModelScope.launch {
-            repository.getAllHomePageData()
+            val homePage = repository.getAllHomePageData()
+            val recyclerItems: MutableList<Item> = mutableListOf(
+                TopViewItem(
+                    title = "Location",
+                    locationString = homePageUiState.value.locationString,
+                    clickHandler = onLocationClick
+                ),
+                SearchViewItem(hint = "Enter address or city name"),
+            )
+            homePage?.banner?.let { recyclerItems.add(BannerViewItem(bannerUiModel = it)) }
+            recyclerItems.add(
+                TitleViewItem(
+                    title = "Nearby Salons",
+                    actionText = "View on map",
+                    actionClickHandler = {
+                        Log.i("HomeViewModel", "Action text clicked")
+                    }
+                )
+            )
+            homePage?.salons?.let {
+                val model = it.mapNotNull { salon ->
+                    salon?.let { NearbySalonViewItem(salonUiModel = salon) }
+                }
+                recyclerItems.addAll(model)
+            }
+
+            _homePageUiState.update { it.copy(homePageUiModel = recyclerItems) }
         }
+    }
+
+    fun updateLocation(locationString: String) {
+        _homePageUiState.update { it.copy(locationString = locationString) }
+    }
+}
+
+data class HomeUiState(
+    val homePageUiModel: List<Item>? = null,
+    val locationString: String = "",
+) {
+    companion object {
+        val Empty = HomeUiState()
     }
 }
