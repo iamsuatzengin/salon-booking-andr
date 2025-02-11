@@ -31,6 +31,10 @@
     <string name="text_notifications_perm_description">For important activity that takes place in yor Cocoon For important activity that takes place in yor Cocoon gre</string>
     <string name="text_location_subadminarea_adminarea">%s, %s</string>
     <string name="text_turn_on_location">Turn on your location</string>
+    <string name="text_service_category_haircut">Hair Cut</string>
+    <string name="text_service_category_hairstyling">Hair Styling</string>
+    <string name="text_service_category_nail_art">Nail Art</string>
+    <string name="text_service_category_hair_treatments">Hair Treatments</string>
 
     <!-- Button text -->
     <string name="btn_text_continue">Continue</string>

@@ -2,23 +2,25 @@ package com.zapplications.salonbooking.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.zapplications.salonbooking.databinding.ItemViewBannerBinding
 import com.zapplications.salonbooking.databinding.ItemViewHomeTopBinding
 import com.zapplications.salonbooking.databinding.ItemViewNearbySalonsBinding
 import com.zapplications.salonbooking.databinding.ItemViewSearchHomeBinding
+import com.zapplications.salonbooking.databinding.ItemViewServiceCategoryBinding
 import com.zapplications.salonbooking.databinding.ItemViewTitleBinding
 import com.zapplications.salonbooking.ui.home.adapter.item.BannerViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.Item
 import com.zapplications.salonbooking.ui.home.adapter.item.NearbySalonViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.SearchViewItem
+import com.zapplications.salonbooking.ui.home.adapter.item.ServiceCategoryViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.TitleViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.TopViewItem
 import com.zapplications.salonbooking.ui.home.adapter.viewholder.BannerViewHolder
 import com.zapplications.salonbooking.ui.home.adapter.viewholder.NearbySalonViewHolder
 import com.zapplications.salonbooking.ui.home.adapter.viewholder.SearchViewHolder
+import com.zapplications.salonbooking.ui.home.adapter.viewholder.ServiceCategoryViewHolder
 import com.zapplications.salonbooking.ui.home.adapter.viewholder.TitleViewHolder
 import com.zapplications.salonbooking.ui.home.adapter.viewholder.TopViewHolder
 
@@ -30,6 +32,7 @@ class HomeAdapter : ListAdapter<Item, RecyclerView.ViewHolder>(HomeDiffUtil()) {
             1 -> SearchViewHolder(ItemViewSearchHomeBinding.inflate(inflater, parent, false))
             2 -> BannerViewHolder(ItemViewBannerBinding.inflate(inflater, parent, false))
             3 -> TitleViewHolder(ItemViewTitleBinding.inflate(inflater, parent, false))
+            4 -> ServiceCategoryViewHolder(ItemViewServiceCategoryBinding.inflate(inflater, parent, false))
             else -> NearbySalonViewHolder(ItemViewNearbySalonsBinding.inflate(inflater, parent, false))
         }
     }
@@ -41,20 +44,11 @@ class HomeAdapter : ListAdapter<Item, RecyclerView.ViewHolder>(HomeDiffUtil()) {
             is BannerViewHolder -> holder.bind(getItem(position) as BannerViewItem)
             is TitleViewHolder -> holder.bind(getItem(position) as TitleViewItem)
             is NearbySalonViewHolder -> holder.bind(getItem(position) as NearbySalonViewItem)
+            is ServiceCategoryViewHolder -> holder.bind(getItem(position) as ServiceCategoryViewItem)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return getItem(position).type
-    }
-}
-
-class HomeDiffUtil : DiffUtil.ItemCallback<Item>() {
-    override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
-        return oldItem.areItemsTheSame(oldItem, newItem) == newItem.areItemsTheSame(oldItem, newItem)
-    }
-
-    override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-        return oldItem.areContentsTheSame(oldItem, newItem) == newItem.areContentsTheSame(oldItem, newItem)
     }
 }

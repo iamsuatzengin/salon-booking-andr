@@ -8,6 +8,7 @@ import com.zapplications.salonbooking.ui.home.adapter.item.BannerViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.Item
 import com.zapplications.salonbooking.ui.home.adapter.item.NearbySalonViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.SearchViewItem
+import com.zapplications.salonbooking.ui.home.adapter.item.ServiceCategoryViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.TitleViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.TopViewItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,6 +39,15 @@ class HomeViewModel @Inject constructor(
                 SearchViewItem(hint = "Enter address or city name"),
             )
             homePage?.banner?.let { recyclerItems.add(BannerViewItem(bannerUiModel = it)) }
+            homePage?.categories?.let { categories ->
+                recyclerItems.add(TitleViewItem(title = "Services"))
+                recyclerItems.add(ServiceCategoryViewItem(
+                    categories,
+                    onCategoryClick = {
+                        Log.i("HomeViewModel", "Category clicked: $it")
+                    }
+                ))
+            }
             recyclerItems.add(
                 TitleViewItem(
                     title = "Nearby Salons",

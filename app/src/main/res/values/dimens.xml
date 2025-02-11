@@ -7,6 +7,7 @@
     <dimen name="regularHorizontalPadding">16dp</dimen>
     <dimen name="regularVerticalPadding">16dp</dimen>
     <dimen name="padding4">4dp</dimen>
+    <dimen name="padding10">10dp</dimen>
     <dimen name="padding12">12dp</dimen>
     <dimen name="padding14">14dp</dimen>
     <dimen name="padding16">16dp</dimen>
@@ -30,10 +31,14 @@
     <dimen name="radius32">32dp</dimen>
 
     <!-- Text sizes -->
+    <dimen name="size8">8sp</dimen>
     <dimen name="size10">10sp</dimen>
     <dimen name="size12">12sp</dimen>
     <dimen name="size14">14sp</dimen>
     <dimen name="size16">16sp</dimen>
     <dimen name="size18">18sp</dimen>
     <dimen name="size20">20sp</dimen>
+
+    <!-- View sizes -->
+    <dimen name="small_icon">18dp</dimen>
 </resources>
