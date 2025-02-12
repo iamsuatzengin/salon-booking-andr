@@ -27,7 +27,7 @@
             android:id="@+id/splashToAppPermissions"
             app:destination="@id/appPermissionsFragment"
             app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -41,7 +41,7 @@
             app:enterAnim="@anim/slide_enter"
             app:exitAnim="@anim/slide_exit"
             app:popEnterAnim="@anim/slide_pop_enter"
-            app:popExitAnim="@anim/slide_pop_exit"/>
+            app:popExitAnim="@anim/slide_pop_exit" />
     </fragment>
     <fragment
         android:id="@+id/verifyFragment"
@@ -69,7 +69,7 @@
             android:id="@+id/verifyToAppPermissions"
             app:destination="@id/appPermissionsFragment"
             app:popUpTo="@id/signInFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -85,6 +85,6 @@
             app:popEnterAnim="@anim/slide_pop_enter"
             app:popExitAnim="@anim/slide_pop_exit"
             app:popUpTo="@id/appPermissionsFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

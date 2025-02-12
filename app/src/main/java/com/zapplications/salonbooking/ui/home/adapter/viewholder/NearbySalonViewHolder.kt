@@ -12,6 +12,10 @@ class NearbySalonViewHolder(
             tvSalonName.text = salonName
             tvSalonLocationString.text = address
             tvRating.text = "$rating ($reviewerCount)"
+
+            root.setOnClickListener {
+                nearbySalonViewItem.clickHandler(id)
+            }
         }
     }
 }

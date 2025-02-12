@@ -14,7 +14,8 @@ data class SalonUiModel(
     val workHours: String,
     val description: String,
     val reviewerCount: Int,
-    val createdAt: String
+    val createdAt: String,
+    val services: List<ServiceUiModel> = emptyList()
 )
 
 fun SalonApiModel.toUiModel() = SalonUiModel(
@@ -28,5 +29,6 @@ fun SalonApiModel.toUiModel() = SalonUiModel(
     workHours = workHours.orEmpty(),
     description = description.orEmpty(),
     reviewerCount = reviewerCount.orZero(),
-    createdAt = createdAt.orEmpty()
+    createdAt = createdAt.orEmpty(),
+    services = services?.mapNotNull { it?.toUiModel() }.orEmpty()
 )

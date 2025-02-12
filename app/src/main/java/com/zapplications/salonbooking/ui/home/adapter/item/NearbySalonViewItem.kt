@@ -4,6 +4,7 @@ import com.zapplications.salonbooking.domain.model.SalonUiModel
 
 data class NearbySalonViewItem(
     val salonUiModel: SalonUiModel,
+    val clickHandler: (salonId: String) -> Unit = {},
 ) : Item() {
     override val type: Int get() = 5
 

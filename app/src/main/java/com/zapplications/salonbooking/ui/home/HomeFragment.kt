@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.zapplications.salonbooking.R
@@ -61,8 +62,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homePageUiState.collect { state ->
-                    adapter.submitList(state.homePageUiModel)
+                launch {
+                    viewModel.homePageUiState.collect { state ->
+                        adapter.submitList(state.homePageUiModel)
+                    }
+                }
+
+                launch {
+                    viewModel.homePageUiEvent.collect { event ->
+                        handleUiEvent(event)
+                    }
                 }
             }
         }
@@ -109,6 +118,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.rvHome.adapter = adapter
         binding.rvHome.itemAnimator = null
         binding.rvHome.addItemDecoration(MarginDecorator())
+    }
+
+    private fun handleUiEvent(event: HomeUiEvent) {
+        when (event) {
+            is HomeUiEvent.NavigateToSalonDetail -> {
+                val action = HomeFragmentDirections.actionHomeToSalonDetail(event.salonId)
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun handleLocationTitleClick() {

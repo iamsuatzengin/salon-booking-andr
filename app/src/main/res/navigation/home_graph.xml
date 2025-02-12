@@ -9,5 +9,22 @@
         android:id="@+id/homeFragment"
         android:name="com.zapplications.salonbooking.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/actionHomeToSalonDetail"
+            app:destination="@id/salonDetailFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/salonDetailFragment"
+        android:name="com.zapplications.salonbooking.ui.salondetail.SalonDetailFragment"
+        android:label="fragment_salon_detail"
+        tools:layout="@layout/fragment_salon_detail" >
+        <argument
+            android:name="salonId"
+            app:argType="string" />
+    </fragment>
 </navigation>

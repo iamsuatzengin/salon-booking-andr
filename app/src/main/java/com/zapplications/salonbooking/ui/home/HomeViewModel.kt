@@ -12,7 +12,9 @@ import com.zapplications.salonbooking.ui.home.adapter.item.ServiceCategoryViewIt
 import com.zapplications.salonbooking.ui.home.adapter.item.TitleViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.TopViewItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -22,8 +24,12 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repository: HomeRepository,
 ) : ViewModel() {
+
     private val _homePageUiState = MutableStateFlow(HomeUiState.Empty)
     val homePageUiState get() = _homePageUiState.asStateFlow()
+
+    private val _homePageUiEvent = MutableSharedFlow<HomeUiEvent>()
+    val homePageUiEvent get() = _homePageUiEvent.asSharedFlow()
 
     fun getAllHomePageData(
         onLocationClick: () -> Unit,
@@ -59,7 +65,11 @@ class HomeViewModel @Inject constructor(
             )
             homePage?.salons?.let {
                 val model = it.mapNotNull { salon ->
-                    salon?.let { NearbySalonViewItem(salonUiModel = salon) }
+                    salon?.let {
+                        NearbySalonViewItem(salonUiModel = salon, clickHandler = { salonId ->
+                            navigateToSalonDetail(salonId)
+                        })
+                    }
                 }
                 recyclerItems.addAll(model)
             }
@@ -71,13 +81,10 @@ class HomeViewModel @Inject constructor(
     fun updateLocation(locationString: String) {
         _homePageUiState.update { it.copy(locationString = locationString) }
     }
-}
 
-data class HomeUiState(
-    val homePageUiModel: List<Item>? = null,
-    val locationString: String = "",
-) {
-    companion object {
-        val Empty = HomeUiState()
+    private fun navigateToSalonDetail(salonId: String) {
+        viewModelScope.launch {
+            _homePageUiEvent.emit(HomeUiEvent.NavigateToSalonDetail(salonId))
+        }
     }
 }

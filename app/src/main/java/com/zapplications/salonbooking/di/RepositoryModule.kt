@@ -2,8 +2,10 @@ package com.zapplications.salonbooking.di
 
 import com.zapplications.salonbooking.data.repository.AuthRepositoryImpl
 import com.zapplications.salonbooking.data.repository.HomeRepositoryImpl
+import com.zapplications.salonbooking.data.repository.SalonDetailRepositoryImpl
 import com.zapplications.salonbooking.domain.repository.AuthRepository
 import com.zapplications.salonbooking.domain.repository.HomeRepository
+import com.zapplications.salonbooking.domain.repository.SalonDetailRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,4 +24,9 @@ abstract class RepositoryModule {
     abstract fun bindHomeRepository(
         homeRepositoryImpl: HomeRepositoryImpl
     ): HomeRepository
+
+    @Binds
+    abstract fun bindSalonDetailRepository(
+        salonDetailRepositoryImpl: SalonDetailRepositoryImpl
+    ): SalonDetailRepository
 }

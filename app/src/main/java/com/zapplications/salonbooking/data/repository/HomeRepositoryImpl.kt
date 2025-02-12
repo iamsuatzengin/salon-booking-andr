@@ -9,6 +9,7 @@ import javax.inject.Inject
 class HomeRepositoryImpl @Inject constructor(
     private val remoteDataSource: HomePageRemoteDataSource
 ) : HomeRepository {
+
     override suspend fun getAllHomePageData(): HomePageUiModel? = remoteDataSource.getAllHomePageData()?.toUiModel()
 
     override suspend fun getHomePageDataByLocation(
