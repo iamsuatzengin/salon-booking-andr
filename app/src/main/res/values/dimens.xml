@@ -22,6 +22,7 @@
     <dimen name="margin16">16dp</dimen>
     <dimen name="margin18">18dp</dimen>
     <dimen name="margin24">24dp</dimen>
+    <dimen name="margin32">32dp</dimen>
     <dimen name="margin36">36dp</dimen>
     <dimen name="margin48">48dp</dimen>
     <dimen name="margin64">64dp</dimen>

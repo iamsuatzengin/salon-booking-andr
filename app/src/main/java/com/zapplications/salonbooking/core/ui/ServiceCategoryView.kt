@@ -10,9 +10,7 @@ import androidx.core.view.updateLayoutParams
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.domain.model.ServiceCategoryType
 
-class ServiceCategoryView(
-    private val context: Context,
-) : LinearLayout(context) {
+class ServiceCategoryView(private val context: Context) : LinearLayout(context) {
     private var text: TextView? = null
     private var icon: ImageView? = null
 

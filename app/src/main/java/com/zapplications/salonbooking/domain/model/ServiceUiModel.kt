@@ -1,5 +1,7 @@
 package com.zapplications.salonbooking.domain.model
 
+import androidx.annotation.DrawableRes
+import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.orZero
 import com.zapplications.salonbooking.data.response.ServiceApiModel
 
@@ -11,7 +13,19 @@ data class ServiceUiModel(
     val defaultDuration: String,
     val customDuration: String,
     val category: ServiceCategoryUiModel
-)
+) {
+    val price: Double
+        get() = if (customPrice > 0) customPrice else defaultPrice
+
+    val duration : String
+        get() = customDuration.ifEmpty { defaultDuration }
+
+    var selected: Boolean = false
+
+    @get:DrawableRes
+    val selectedIcon: Int
+        get() = if (selected) R.drawable.ic_check_circle else R.drawable.ic_add
+}
 
 fun ServiceApiModel.toUiModel() = ServiceUiModel(
     serviceId = serviceId.orEmpty(),

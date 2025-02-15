@@ -7,4 +7,8 @@
         <item name="trackTint">@color/thumb_color_state</item>
     </style>
 
+    <style name="TabLayoutTextAppearance" parent="" >
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/inter_18pt_medium</item>
+    </style>
 </resources>

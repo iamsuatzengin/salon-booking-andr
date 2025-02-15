@@ -1,14 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F8F8"
     tools:context=".ui.salondetail.SalonDetailFragment">
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp" />
-</FrameLayout>
+        android:layout_marginHorizontal="@dimen/margin16">
+
+        <ImageView
+            android:id="@+id/ivBackIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dp"
+            android:background="@drawable/icon_border_rounded"
+            android:padding="@dimen/padding10"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivFavoriteIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_border_rounded"
+            android:padding="@dimen/padding10"
+            android:src="@drawable/ic_favorite_outlined"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivBackIcon" />
+
+        <ImageView
+            android:id="@+id/ivSalonImage"
+            android:layout_width="0dp"
+            android:layout_height="256dp"
+            android:layout_marginTop="@dimen/margin24"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_salon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivBackIcon" />
+
+        <TextView
+            android:id="@+id/tvSalonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            android:fontFamily="@font/inter_24pt_bold"
+            android:textColor="@color/color_dark1"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@id/ivSalonImage"
+            tools:text="Hair Avenue test" />
+
+        <ImageView
+            android:id="@+id/ivLocationIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin8"
+            android:src="@drawable/ic_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSalonName"
+            app:tint="@color/color_gray1" />
+
+        <TextView
+            android:id="@+id/tvSalonLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin4"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:textColor="@color/color_gray1"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivLocationIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivLocationIcon"
+            app:layout_constraintTop_toTopOf="@id/ivLocationIcon"
+            tools:text="No 03,Kadalana Road, Kadalana, Moratuwa" />
+
+        <ImageView
+            android:id="@+id/ivTimeIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin8"
+            android:src="@drawable/ic_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivLocationIcon"
+            app:tint="@color/color_gray1" />
+
+        <TextView
+            android:id="@+id/tvSalonWorkHours"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin4"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:textColor="@color/color_gray1"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivTimeIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivTimeIcon"
+            app:layout_constraintTop_toTopOf="@id/ivTimeIcon"
+            tools:text="9AM-10PM, Mon-*-Sun test" />
+
+        <ImageView
+            android:id="@+id/ivRatingIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin8"
+            android:minWidth="24dp"
+            android:minHeight="24dp"
+            android:src="@drawable/ic_rating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivTimeIcon" />
+
+        <TextView
+            android:id="@+id/tvSalonRating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin4"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:textColor="@color/color_gray1"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivRatingIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivRatingIcon"
+            app:layout_constraintTop_toTopOf="@id/ivRatingIcon"
+            tools:text="3.7 (999)" />
+
+        <TextView
+            android:id="@+id/tvSalonDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:textColor="@color/color_gray1"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivRatingIcon"
+            tools:text="TEST - Hair Avenue provides expert haircuts, styling, along with services like facials, cleanups, skincare and makeup to keep you looking your best." />
+
+        <com.zapplications.salonbooking.core.ui.tabview.CustomTabView
+            android:id="@+id/customTabView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin32"
+            app:layout_constraintTop_toBottomOf="@id/tvSalonDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
