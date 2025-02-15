@@ -5,6 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.google.android.material.tabs.TabLayout
+import com.zapplications.salonbooking.core.customobserver.CustomObservable
+import com.zapplications.salonbooking.core.customobserver.ObservableClass
 import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.orZero
 import com.zapplications.salonbooking.core.ui.tabview.adapter.TabAdapter
@@ -22,6 +24,9 @@ class CustomTabView @JvmOverloads constructor(
     var tabItems: Map<ServiceCategoryUiModel, List<ServiceUiModel>>? = null
 
     private var tabAdapter: TabAdapter? = null
+
+    val observable: CustomObservable<List<ServiceUiModel>> by lazy { ObservableClass() }
+    private var selectedServices: MutableList<ServiceUiModel>? = mutableListOf()
 
     fun initTabs() = with(binding) {
         tabItems?.keys?.forEach { tab ->
@@ -54,6 +59,9 @@ class CustomTabView @JvmOverloads constructor(
     private fun handleItemClick(uiModel: ServiceUiModel, position: Int) {
         uiModel.selected = !uiModel.selected
         tabAdapter?.notifyItemChanged(position)
+
+        if (uiModel.selected) selectedServices?.add(uiModel) else selectedServices?.remove(uiModel)
+        selectedServices?.let { observable.notifyObservers(it) }
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {

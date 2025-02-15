@@ -2,6 +2,7 @@ package com.zapplications.salonbooking.ui.salondetail
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,9 +25,15 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getSalonDetail()
-
         collectData()
         binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
+
+        binding.customTabView.observable.addObserver {
+            binding.btnContinue.apply {
+                isVisible = it.isNotEmpty()
+                text = getString(R.string.btn_text_continue_with_selected_count, it.size)
+            }
+        }
     }
 
     private fun collectData() {
@@ -51,9 +58,8 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail) {
                 append(reviewerCount)
                 append(")")
             }
-            
-            val categories = services.groupBy { it.category }
 
+            val categories = services.groupBy { it.category }
             customTabView.tabItems = categories
             customTabView.initTabs()
         }

@@ -38,6 +38,7 @@
 
     <!-- Button text -->
     <string name="btn_text_continue">Continue</string>
+    <string name="btn_text_continue_with_selected_count">Continue (%d)</string>
     <string name="btn_text_done">Done</string>
     <string name="btn_text_yes">Yes</string>
     <string name="btn_text_no">No</string>
