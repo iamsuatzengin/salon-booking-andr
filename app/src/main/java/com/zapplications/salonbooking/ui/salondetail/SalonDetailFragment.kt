@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.extensions.scaleAnimation
+import com.zapplications.salonbooking.core.extensions.scaleVisibilityAnimation
 import com.zapplications.salonbooking.core.ui.tabview.CustomTabView
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentSalonDetailBinding
@@ -25,6 +27,8 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
     private val binding by viewBinding(FragmentSalonDetailBinding::bind)
     private val viewModel: SalonDetailViewModel by viewModels()
 
+    private var isButtonAnimated = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,7 +41,21 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
                 isVisible = it.isNotEmpty()
                 text = getString(R.string.btn_text_continue_with_selected_count, it.size)
                 scrollToButton()
+
+                if (!isVisible) isButtonAnimated = false; animate().cancel()
+
+                if (isVisible && it.size == 1 && !isButtonAnimated) {
+                    isButtonAnimated = true
+                    scaleVisibilityAnimation()
+                }
             }
+        }
+
+        binding.ivFavoriteIcon.setOnClickListener {
+            viewModel.isFavoriteSelected = !viewModel.isFavoriteSelected
+            binding.ivFavoriteIcon.setImageResource(viewModel.favoriteIcon)
+
+            binding.ivFavoriteIcon.scaleAnimation()
         }
     }
 
