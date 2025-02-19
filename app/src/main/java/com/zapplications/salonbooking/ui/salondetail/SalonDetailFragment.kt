@@ -10,14 +10,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.ui.tabview.CustomTabView
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentSalonDetailBinding
 import com.zapplications.salonbooking.domain.model.SalonUiModel
+import com.zapplications.salonbooking.domain.model.ServiceUiModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail) {
+class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
+    CustomTabView.TabChangeListener {
     private val binding by viewBinding(FragmentSalonDetailBinding::bind)
     private val viewModel: SalonDetailViewModel by viewModels()
 
@@ -32,6 +36,7 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail) {
             binding.btnContinue.apply {
                 isVisible = it.isNotEmpty()
                 text = getString(R.string.btn_text_continue_with_selected_count, it.size)
+                scrollToButton()
             }
         }
     }
@@ -59,9 +64,26 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail) {
                 append(")")
             }
 
-            val categories = services.groupBy { it.category }
-            customTabView.tabItems = categories
-            customTabView.initTabs()
+            initCustomTab(services)
         }
+    }
+
+    private fun initCustomTab(services: List<ServiceUiModel>) = with(binding.customTabView) {
+        tabItems = services.groupBy { it.category }
+        tabChangeListener = this@SalonDetailFragment
+        initTabs()
+    }
+
+    private fun scrollToButton() = with(binding.btnContinue) {
+        if (isVisible) {
+            lifecycleScope.launch {
+                delay(50)
+                binding.root.smoothScrollTo(0, binding.root.height)
+            }
+        }
+    }
+
+    override fun onTabChanged(position: Int) {
+        scrollToButton()
     }
 }

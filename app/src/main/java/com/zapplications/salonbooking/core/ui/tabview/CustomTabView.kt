@@ -20,13 +20,13 @@ class CustomTabView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : LinearLayout(context, attrs, defStyleAttr), TabLayout.OnTabSelectedListener {
     private val binding = LayoutTabviewBinding.inflate(LayoutInflater.from(context), this, true)
-
-    var tabItems: Map<ServiceCategoryUiModel, List<ServiceUiModel>>? = null
-
     private var tabAdapter: TabAdapter? = null
 
-    val observable: CustomObservable<List<ServiceUiModel>> by lazy { ObservableClass() }
+    var tabItems: Map<ServiceCategoryUiModel, List<ServiceUiModel>>? = null
     private var selectedServices: MutableList<ServiceUiModel>? = mutableListOf()
+
+    val observable: CustomObservable<List<ServiceUiModel>> by lazy { ObservableClass() }
+    var tabChangeListener: TabChangeListener? = null
 
     fun initTabs() = with(binding) {
         tabItems?.keys?.forEach { tab ->
@@ -67,8 +67,13 @@ class CustomTabView @JvmOverloads constructor(
     override fun onTabSelected(tab: TabLayout.Tab?) {
         val position = tab?.position.orZero()
         tabAdapter?.submitList(tabItems?.values?.toList()?.getOrNull(position).orEmpty())
+        tabChangeListener?.onTabChanged(position)
     }
 
     override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
     override fun onTabReselected(tab: TabLayout.Tab?) = Unit
+
+    interface TabChangeListener {
+        fun onTabChanged(position: Int)
+    }
 }
