@@ -79,6 +79,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
+    implementation(libs.glide)
+
     // Ktor
     implementation(libs.bundles.ktor.bundle)
 

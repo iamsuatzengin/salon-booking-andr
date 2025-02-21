@@ -16,5 +16,6 @@ data class SalonApiModel(
     @SerialName("description") val description: String? = null,
     @SerialName("reviewer_count") val reviewerCount: Int? = null,
     @SerialName("created_at") val createdAt: String? = null,
+    @SerialName("image_url") val imageUrl: String? = null,
     @SerialName("services") val services: List<ServiceApiModel?>? = null
 )

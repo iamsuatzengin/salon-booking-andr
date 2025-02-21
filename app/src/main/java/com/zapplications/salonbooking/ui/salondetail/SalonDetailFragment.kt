@@ -10,6 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.extensions.ONE
+import com.zapplications.salonbooking.core.extensions.ZERO
+import com.zapplications.salonbooking.core.extensions.loadImage
 import com.zapplications.salonbooking.core.extensions.scaleAnimation
 import com.zapplications.salonbooking.core.extensions.scaleVisibilityAnimation
 import com.zapplications.salonbooking.core.ui.tabview.CustomTabView
@@ -44,7 +47,7 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
 
                 if (!isVisible) isButtonAnimated = false; animate().cancel()
 
-                if (isVisible && it.size == 1 && !isButtonAnimated) {
+                if (isVisible && it.size == ONE && !isButtonAnimated) {
                     isButtonAnimated = true
                     scaleVisibilityAnimation()
                 }
@@ -83,6 +86,7 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
             }
 
             initCustomTab(services)
+            initSalonImage(uiModel.imageUrl)
         }
     }
 
@@ -92,11 +96,19 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
         initTabs()
     }
 
+    private fun initSalonImage(url: String) {
+        loadImage(
+            url = url,
+            target = binding.ivSalonImage,
+            radius = resources.getDimensionPixelSize(R.dimen.corner_radius_default)
+        )
+    }
+
     private fun scrollToButton() = with(binding.btnContinue) {
         if (isVisible) {
             lifecycleScope.launch {
                 delay(50)
-                binding.root.smoothScrollTo(0, binding.root.height)
+                binding.root.smoothScrollTo(ZERO, binding.root.height)
             }
         }
     }
