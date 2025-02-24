@@ -37,7 +37,7 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
 
         viewModel.getSalonDetail()
         collectData()
-        binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
+        handleClickListeners()
 
         binding.customTabView.observable.addObserver {
             binding.btnContinue.apply {
@@ -52,13 +52,6 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
                     scaleVisibilityAnimation()
                 }
             }
-        }
-
-        binding.ivFavoriteIcon.setOnClickListener {
-            viewModel.isFavoriteSelected = !viewModel.isFavoriteSelected
-            binding.ivFavoriteIcon.setImageResource(viewModel.favoriteIcon)
-
-            binding.ivFavoriteIcon.scaleAnimation()
         }
     }
 
@@ -102,6 +95,22 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
             target = binding.ivSalonImage,
             radius = resources.getDimensionPixelSize(R.dimen.corner_radius_default)
         )
+    }
+
+    private fun handleClickListeners() {
+        binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
+
+        binding.btnContinue.setOnClickListener {
+            val action = SalonDetailFragmentDirections.actionSalonDetailToStylistList(viewModel.salonId)
+            findNavController().navigate(action)
+        }
+
+        binding.ivFavoriteIcon.setOnClickListener {
+            viewModel.isFavoriteSelected = !viewModel.isFavoriteSelected
+            binding.ivFavoriteIcon.setImageResource(viewModel.favoriteIcon)
+
+            binding.ivFavoriteIcon.scaleAnimation()
+        }
     }
 
     private fun scrollToButton() = with(binding.btnContinue) {

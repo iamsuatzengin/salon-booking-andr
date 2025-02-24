@@ -23,7 +23,7 @@ class SalonDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<SalonUiModel?>(null)
     val uiState get() = _uiState.asStateFlow()
 
-    private val salonId = savedStateHandle.get<String>(SALON_ID).orEmpty()
+    val salonId = savedStateHandle.get<String>(SALON_ID).orEmpty()
 
     var isFavoriteSelected: Boolean = false
 

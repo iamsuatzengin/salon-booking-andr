@@ -11,4 +11,7 @@ class SalonDetailRepositoryImpl @Inject constructor(
 
     override suspend fun getSalonDetail(salonId: String) =
         salonDetailRemoteDataSource.getSalonDetail(salonId)?.toUiModel()
+
+    override suspend fun getStylistsBySalonId(salonId: String) =
+        salonDetailRemoteDataSource.getStylistsBySalonId(salonId)?.map { it.toUiModel() }
 }

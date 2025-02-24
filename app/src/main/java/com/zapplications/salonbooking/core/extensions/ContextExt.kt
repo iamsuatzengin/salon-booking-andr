@@ -8,11 +8,15 @@ import android.content.res.Resources
 import android.location.LocationManager
 import android.os.Build
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 fun Int.dpToPx(context: Context): Int {
     return (this * context.resources.displayMetrics.density).toInt()
@@ -64,4 +68,15 @@ fun Context.checkLocationPermission(): Boolean {
 fun Context.checkLocationProviderEnabled(): Boolean {
     val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
     return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+}
+
+fun Context.loadImage(
+    url: String,
+    target: ImageView,
+    radius: Int,
+) {
+    Glide.with(this)
+        .load(url)
+        .transform(CenterCrop(), RoundedCorners(radius))
+        .into(target)
 }

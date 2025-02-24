@@ -5,16 +5,21 @@
     <string name="content_description_splashLogo">Splash logo</string>
     <string name="content_description_sign_in_background">Sign in background image</string>
     <string name="content_description_button_icon">Button icon</string>
+    <string name="content_description_back_icon">Button icon</string>
     <string name="content_description_location_permission_icon">Location permission icon</string>
     <string name="content_description_notification_permission_icon">Notification permission icon</string>
     <string name="content_description_search_icon">Search icon</string>
     <string name="content_description_banner_image">Banner image</string>
+    <string name="content_description_top_rated">Top Rated medal icon</string>
+    <string name="content_description_stylist_image">Stylist image</string>
 
     <!-- Title -->
     <string name="title_sign_in">Book Your Perfect\nLook in Minutes!</string>
     <string name="title_verify_your_identity">Verify Your Identity</string>
     <string name="title_app_permissions">App Permissions</string>
     <string name="title_location">Location</string>
+    <string name="title_stylist_list">Choose your stylist</string>
+    <string name="title_any_stylist">Any Stylist</string>
 
     <!-- Text -->
     <string name="hint_enter_your_email_or_phone_number">Enter your email or phone number.</string>
@@ -35,6 +40,7 @@
     <string name="text_service_category_hairstyling">Hair Styling</string>
     <string name="text_service_category_nail_art">Nail Art</string>
     <string name="text_service_category_hair_treatments">Hair Treatments</string>
+    <string name="text_next_available_stylist">Next available stylist</string>
 
     <!-- Button text -->
     <string name="btn_text_continue">Continue</string>
@@ -42,10 +48,12 @@
     <string name="btn_text_done">Done</string>
     <string name="btn_text_yes">Yes</string>
     <string name="btn_text_no">No</string>
+    <string name="btn_text_stylist_select">Select &amp; Continue</string>
 
     <!-- Dialog text -->
     <string name="title_location_permission">Location Permission</string>
     <string name="description_location_permission">You can list salons near you. Can you grant location permission?</string>
     <string name="title_location_settings">Open location settings</string>
     <string name="description_location_settings">You can list salons near you. Can you turn on location?</string>
+    <string name="title_top_rated">Top Rated</string>
 </resources>

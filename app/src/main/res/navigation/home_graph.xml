@@ -26,5 +26,21 @@
         <argument
             android:name="salonId"
             app:argType="string" />
+        <action
+            android:id="@+id/actionSalonDetailToStylistList"
+            app:destination="@id/stylistListFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit"/>
+    </fragment>
+    <fragment
+        android:id="@+id/stylistListFragment"
+        android:name="com.zapplications.salonbooking.ui.stylistlist.StylistListFragment"
+        android:label="fragment_stylist_list"
+        tools:layout="@layout/fragment_stylist_list" >
+        <argument
+            android:name="salonId"
+            app:argType="string" />
     </fragment>
 </navigation>

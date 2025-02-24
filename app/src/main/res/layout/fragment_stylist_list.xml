@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/margin16"
+    android:background="#F8F8F8"
+    android:orientation="vertical"
+    android:paddingTop="54dp"
+    tools:context=".ui.stylistlist.StylistListFragment">
+
+    <ImageView
+        android:id="@+id/ivBackIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description_back_icon"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTopBarTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin8"
+        android:fontFamily="@font/inter_18pt_semibold"
+        android:text="@string/title_stylist_list"
+        android:textColor="@color/color_dark1"
+        android:textSize="@dimen/size16"
+        app:layout_constraintBottom_toBottomOf="@id/ivBackIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivBackIcon"
+        app:layout_constraintTop_toTopOf="@id/ivBackIcon" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStylists"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin24"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTopBarTitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin16"
+        android:backgroundTint="@color/btn_bg_color_state"
+        android:enabled="false"
+        android:text="@string/btn_text_stylist_select"
+        android:textColor="@color/white"
+        app:cornerRadius="@dimen/corner_radius_default"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

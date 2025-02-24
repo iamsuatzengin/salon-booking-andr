@@ -27,4 +27,7 @@
     <color name="color_icon_border">#F5F5F5</color>
     <color name="color_resend">#007AFF</color>
     <color name="color_perm_bg">#f2f0eb</color>
+
+    <color name="color_any_stylist">#E1E6FA</color>
+    <color name="color_top_rated_background">#F7D794</color>
 </resources>

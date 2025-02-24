@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_stylist_item"
+    android:padding="@dimen/padding12">
+
+    <FrameLayout
+        android:id="@+id/flStylistIconContainer"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:background="@drawable/bg_any_stylist_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivStylistIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/content_description_stylist_image"
+            android:src="@drawable/anystylist" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvStylistName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:textColor="@color/color_dark1"
+        android:textSize="@dimen/size16"
+        app:layout_constraintStart_toEndOf="@id/flStylistIconContainer"
+        app:layout_constraintTop_toTopOf="@id/flStylistIconContainer"
+        android:text="@string/title_any_stylist" />
+
+    <TextView
+        android:id="@+id/tvStylistSpecialization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size14"
+        app:layout_constraintStart_toEndOf="@id/flStylistIconContainer"
+        app:layout_constraintTop_toBottomOf="@id/tvStylistName"
+        android:text="@string/text_next_available_stylist" />
+
+    <LinearLayout
+        android:id="@+id/llTopRated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin4"
+        android:background="@drawable/bg_top_rated_rounded"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:paddingHorizontal="@dimen/padding8"
+        android:paddingVertical="@dimen/padding4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivTopRatedIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/content_description_top_rated"
+            android:src="@drawable/ic_medal_star" />
+
+        <TextView
+            android:id="@+id/tvTopRatedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin4"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="@string/title_top_rated"
+            android:textColor="@color/color_dark2"
+            android:textSize="@dimen/size12" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
