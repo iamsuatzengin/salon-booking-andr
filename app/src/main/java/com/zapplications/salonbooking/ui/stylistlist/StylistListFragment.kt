@@ -1,12 +1,15 @@
 package com.zapplications.salonbooking.ui.stylistlist
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentStylistListBinding
@@ -28,6 +31,11 @@ class StylistListFragment : Fragment(R.layout.fragment_stylist_list) {
         viewModel.getStylistsBySalonId()
         initRecyclerView()
         collectData()
+
+        binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
+        binding.btnSelectAndContinue.setOnClickListener {
+            Log.d("TAG", "onViewCreated: ${viewModel.selectedStylist}")
+        }
     }
 
     private fun collectData() {
@@ -43,13 +51,21 @@ class StylistListFragment : Fragment(R.layout.fragment_stylist_list) {
     }
 
     private fun initRecyclerView() {
-        adapter = StylistAdapter()
+        adapter = StylistAdapter(onStylistClick = ::handleStylistClick)
         binding.rvStylists.addItemDecoration(
             MarginDecoration(
                 excludeLastItem = true,
                 marginBottomPx = 16
             )
         )
+        binding.rvStylists.itemAnimator = null
         binding.rvStylists.adapter = adapter
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun handleStylistClick(stylistUiModel: StylistUiModel) {
+        viewModel.selectStylist(stylistUiModel)
+        adapter?.notifyDataSetChanged()
+        binding.btnSelectAndContinue.isEnabled = viewModel.isSelectAndContinueButtonEnabled
     }
 }

@@ -11,5 +11,6 @@ class StylistDiffUtil : DiffUtil.ItemCallback<StylistUiModel>() {
     override fun areContentsTheSame(oldItem: StylistUiModel, newItem: StylistUiModel): Boolean {
         return oldItem.id == newItem.id
                 && oldItem.salonId == newItem.salonId
+                && oldItem.isSelected == newItem.isSelected
     }
 }

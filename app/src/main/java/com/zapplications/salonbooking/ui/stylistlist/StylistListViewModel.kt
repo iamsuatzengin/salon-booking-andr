@@ -23,6 +23,11 @@ class StylistListViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<List<StylistUiModel>>(emptyList())
     val uiState get() = _uiState.asStateFlow()
 
+    var selectedStylist: StylistUiModel? = null
+        private set
+    var isSelectAndContinueButtonEnabled: Boolean = false
+        private set
+
     val salonId = savedStateHandle.get<String>(SALON_ID).orEmpty()
 
     fun getStylistsBySalonId() {
@@ -32,5 +37,17 @@ class StylistListViewModel @Inject constructor(
             stylists.addAll(repository.getStylistsBySalonId(salonId).orEmpty())
             _uiState.update { stylists }
         }
+    }
+
+    fun selectStylist(stylistUiModel: StylistUiModel) {
+        val stylistList = uiState.value
+        stylistList.filter { it != stylistUiModel && it.isSelected }.forEach { item ->
+            item.isSelected = false
+        }
+
+        stylistUiModel.isSelected = !stylistUiModel.isSelected
+
+        selectedStylist = if (stylistUiModel.isSelected) stylistUiModel else null
+        isSelectAndContinueButtonEnabled = stylistList.any { it.isSelected }
     }
 }

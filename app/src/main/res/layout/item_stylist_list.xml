@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_stylist_item"
@@ -30,11 +31,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin16"
         android:fontFamily="@font/inter_18pt_regular"
+        android:text="@string/title_any_stylist"
         android:textColor="@color/color_dark1"
         android:textSize="@dimen/size16"
         app:layout_constraintStart_toEndOf="@id/flStylistIconContainer"
-        app:layout_constraintTop_toTopOf="@id/flStylistIconContainer"
-        android:text="@string/title_any_stylist" />
+        app:layout_constraintTop_toTopOf="@id/flStylistIconContainer" />
 
     <TextView
         android:id="@+id/tvStylistSpecialization"
@@ -42,11 +43,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin16"
         android:fontFamily="@font/inter_18pt_regular"
+        android:text="@string/text_next_available_stylist"
         android:textColor="@color/color_gray1"
         android:textSize="@dimen/size14"
         app:layout_constraintStart_toEndOf="@id/flStylistIconContainer"
-        app:layout_constraintTop_toBottomOf="@id/tvStylistName"
-        android:text="@string/text_next_available_stylist" />
+        app:layout_constraintTop_toBottomOf="@id/tvStylistName" />
 
     <LinearLayout
         android:id="@+id/llTopRated"
@@ -56,9 +57,9 @@
         android:background="@drawable/bg_top_rated_rounded"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="gone"
         android:paddingHorizontal="@dimen/padding8"
         android:paddingVertical="@dimen/padding4"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">

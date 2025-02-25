@@ -1,5 +1,6 @@
 package com.zapplications.salonbooking.ui.stylistlist.adapter
 
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.zapplications.salonbooking.R
@@ -10,7 +11,18 @@ import com.zapplications.salonbooking.domain.model.StylistUiModel
 class StylistViewHolder(
     private val binding: ItemStylistListBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(stylistUiModel: StylistUiModel) = with(binding) {
+    fun bind(
+        stylistUiModel: StylistUiModel,
+        onStylistClick: (StylistUiModel) -> Unit
+    ) = with(binding) {
+        root.setOnClickListener { onStylistClick(stylistUiModel) }
+
+        container.background = if (stylistUiModel.isSelected) {
+            AppCompatResources.getDrawable(root.context, R.drawable.bg_stylist_item_selected)
+        } else {
+            AppCompatResources.getDrawable(root.context, R.drawable.bg_stylist_item)
+        }
+
         if (stylistUiModel.isAnyStylist) {
             ivStylistIcon.setImageResource(R.drawable.anystylist)
             tvStylistName.text = root.context.getString(R.string.title_any_stylist)
