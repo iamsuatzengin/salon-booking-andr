@@ -22,7 +22,7 @@
         android:id="@+id/salonDetailFragment"
         android:name="com.zapplications.salonbooking.ui.salondetail.SalonDetailFragment"
         android:label="fragment_salon_detail"
-        tools:layout="@layout/fragment_salon_detail" >
+        tools:layout="@layout/fragment_salon_detail">
         <argument
             android:name="salonId"
             app:argType="string" />
@@ -32,15 +32,31 @@
             app:enterAnim="@anim/slide_enter"
             app:exitAnim="@anim/slide_exit"
             app:popEnterAnim="@anim/slide_pop_enter"
-            app:popExitAnim="@anim/slide_pop_exit"/>
+            app:popExitAnim="@anim/slide_pop_exit" />
     </fragment>
     <fragment
         android:id="@+id/stylistListFragment"
         android:name="com.zapplications.salonbooking.ui.stylistlist.StylistListFragment"
         android:label="fragment_stylist_list"
-        tools:layout="@layout/fragment_stylist_list" >
+        tools:layout="@layout/fragment_stylist_list">
         <argument
             android:name="salonId"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionStylistListToDateTimeSelection"
+            app:destination="@id/dateTimeSelectionFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/dateTimeSelectionFragment"
+        android:name="com.zapplications.salonbooking.ui.datetimeselection.DateTimeSelectionFragment"
+        android:label="fragment_date_time_selection"
+        tools:layout="@layout/fragment_date_time_selection">
+        <argument
+            android:name="stylistId"
             app:argType="string" />
     </fragment>
 </navigation>

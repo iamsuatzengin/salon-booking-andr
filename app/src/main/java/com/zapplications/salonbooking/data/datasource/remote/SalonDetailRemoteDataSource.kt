@@ -3,8 +3,10 @@ package com.zapplications.salonbooking.data.datasource.remote
 import android.util.Log
 import com.zapplications.salonbooking.data.client.SupabaseConstants
 import com.zapplications.salonbooking.data.client.supabaseClient
+import com.zapplications.salonbooking.data.request.StylistAvailabilityRequest
 import com.zapplications.salonbooking.data.response.SalonApiModel
 import com.zapplications.salonbooking.data.response.StylistApiModel
+import com.zapplications.salonbooking.data.response.StylistAvailabilityApiModel
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -38,7 +40,19 @@ class SalonDetailRemoteDataSource @Inject constructor() {
             }
         }
 
-    companion object {
-
+    suspend fun getStylistAvailability(
+        stylistId: String,
+        date: String
+    ) : StylistAvailabilityApiModel? = withContext(Dispatchers.IO) {
+        runCatching {
+            val request = StylistAvailabilityRequest(stylistId, date).jsonObject
+            supabaseClient.postgrest.rpc(
+                function = SupabaseConstants.FUNC_GET_STYLIST_AVAILABILITY,
+                parameters = request
+            ).decodeList<StylistAvailabilityApiModel>().lastOrNull()
+        }.getOrElse {
+            Log.e("SalonDetailRemoteDataSource", "getStylistAvailability: $it")
+            null
+        }
     }
 }

@@ -34,6 +34,8 @@ class StylistListFragment : Fragment(R.layout.fragment_stylist_list) {
 
         binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
         binding.btnSelectAndContinue.setOnClickListener {
+
+            viewModel.selectedStylist?.id?.let { selectedId -> navigateToDateTimeSelection(stylistId = selectedId) }
             Log.d("TAG", "onViewCreated: ${viewModel.selectedStylist}")
         }
     }
@@ -67,5 +69,11 @@ class StylistListFragment : Fragment(R.layout.fragment_stylist_list) {
         viewModel.selectStylist(stylistUiModel)
         adapter?.notifyDataSetChanged()
         binding.btnSelectAndContinue.isEnabled = viewModel.isSelectAndContinueButtonEnabled
+    }
+
+    private fun navigateToDateTimeSelection(stylistId: String) {
+        val action =
+            StylistListFragmentDirections.actionStylistListToDateTimeSelection(stylistId = stylistId)
+        findNavController().navigate(action)
     }
 }

@@ -1,6 +1,7 @@
 package com.zapplications.salonbooking.data.repository
 
 import com.zapplications.salonbooking.data.datasource.remote.SalonDetailRemoteDataSource
+import com.zapplications.salonbooking.domain.model.StylistAvailabilityUiModel
 import com.zapplications.salonbooking.domain.model.toUiModel
 import com.zapplications.salonbooking.domain.repository.SalonDetailRepository
 import javax.inject.Inject
@@ -14,4 +15,12 @@ class SalonDetailRepositoryImpl @Inject constructor(
 
     override suspend fun getStylistsBySalonId(salonId: String) =
         salonDetailRemoteDataSource.getStylistsBySalonId(salonId)?.map { it.toUiModel() }
+
+    override suspend fun getStylistAvailability(
+        stylistId: String,
+        date: String,
+    ): StylistAvailabilityUiModel? = salonDetailRemoteDataSource.getStylistAvailability(
+        stylistId = stylistId,
+        date = date,
+    )?.toUiModel()
 }
