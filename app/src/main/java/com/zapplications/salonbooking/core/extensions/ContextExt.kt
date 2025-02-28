@@ -9,6 +9,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
@@ -23,6 +24,7 @@ fun Int.dpToPx(context: Context): Int {
 }
 
 fun Resources.drawable(@DrawableRes resId: Int) = ResourcesCompat.getDrawable(this, resId, null)
+fun Resources.color(@ColorRes resId: Int) = ResourcesCompat.getColor(this, resId, null)
 
 fun Context.hideKeyboard(input: AppCompatEditText) {
     val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

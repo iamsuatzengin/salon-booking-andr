@@ -45,6 +45,7 @@
     <string name="text_service_category_hair_treatments">Hair Treatments</string>
     <string name="text_next_available_stylist">Next available stylist</string>
     <string name="text_more_dates">More\ndates</string>
+    <string name="text_40_mins">40 mins</string>
 
     <!-- Button text -->
     <string name="btn_text_continue">Continue</string>

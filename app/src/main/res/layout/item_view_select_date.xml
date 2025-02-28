@@ -16,6 +16,7 @@
         android:fontFamily="@font/inter_18pt_semibold"
         android:textColor="@color/color_gray1"
         android:textSize="@dimen/size14"
+        android:textAllCaps="true"
         tools:text="TUE" />
 
     <TextView
@@ -35,5 +36,5 @@
         android:fontFamily="@font/inter_18pt_regular"
         android:textColor="@color/color_gray1"
         android:textSize="@dimen/size12"
-        tools:text="40 mins" />
+        android:text="@string/text_40_mins" />
 </LinearLayout>

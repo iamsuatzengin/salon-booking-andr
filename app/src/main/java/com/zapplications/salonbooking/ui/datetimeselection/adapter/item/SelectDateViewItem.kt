@@ -5,8 +5,9 @@ import com.zapplications.salonbooking.core.adapter.Item
 
 class SelectDateViewItem(
     val dateUiModel: List<DateUiModel>,
-    val clickHandler: (DateUiModel) -> Unit = {},
-    val moreClickHandler: () -> Unit = {}
+    var selectedDate: DateUiModel? = null,
+    val clickHandler: (date: DateUiModel, viewItem: SelectDateViewItem, Int) -> Unit = { _, _, _ -> },
+    val moreClickHandler: () -> Unit = {},
 ) : Item() {
     override val type: Int get() = 1
 

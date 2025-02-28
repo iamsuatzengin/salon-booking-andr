@@ -6,7 +6,8 @@ import com.zapplications.salonbooking.core.adapter.Item
 class SelectTimeViewItem(
     val timeUiModel: TimeUiModel,
     val discount: Int = 0,
-    val clickHandler: (TimeUiModel) -> Unit = {},
+    var isSelected: Boolean = false,
+    val clickHandler: (SelectTimeViewItem, Int) -> Unit = { _, _ -> },
 ) : Item() {
     override val type: Int get() = 2
     override var marginBottomPx: Int = 16

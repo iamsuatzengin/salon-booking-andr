@@ -9,9 +9,12 @@ import com.zapplications.salonbooking.domain.usecase.GetThreeDateFromNowUseCase
 import com.zapplications.salonbooking.domain.usecase.GetWorkingHoursUseCase
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.item.SelectDateViewItem
 import com.zapplications.salonbooking.core.adapter.Item
+import com.zapplications.salonbooking.domain.model.datetime.DateUiModel
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.item.SelectTimeViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.TitleViewItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,10 +23,17 @@ class DateTimeSelectionViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: SalonDetailRepository,
     private val getThreeDateFromNowUseCase: GetThreeDateFromNowUseCase,
-    private val getWorkingHoursUseCase: GetWorkingHoursUseCase
+    private val getWorkingHoursUseCase: GetWorkingHoursUseCase,
 ) : ViewModel() {
 
+    private val _uiEvent = MutableSharedFlow<DateTimeSelectionUiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
+
     private val stylistId = savedStateHandle.get<String>(STYLIST_ID_KEY)
+
+    private var selectedPosition: Int? = null
+    private var selectedTime: SelectTimeViewItem? = null
+    private var selectedDate: DateUiModel? = null
 
     fun getStylistAvailability(date: String) {
         viewModelScope.launch {
@@ -40,8 +50,13 @@ class DateTimeSelectionViewModel @Inject constructor(
         list.add(
             SelectDateViewItem(
                 dateUiModel = getThreeDateFromNowUseCase(),
-                clickHandler = {
-                    Log.i("DateTimeSelectionViewModel", "clickHandler is called: $it")
+                selectedDate = selectedDate,
+                clickHandler = { item, viewItem, position ->
+                    selectedDate = item
+                    viewItem.selectedDate = selectedDate
+                    viewModelScope.launch {
+                        _uiEvent.emit(DateTimeSelectionUiEvent.SelectDate(position))
+                    }
                 },
                 moreClickHandler = {
                     Log.i("DateTimeSelectionViewModel", "moreClickHandler is called")
@@ -52,11 +67,20 @@ class DateTimeSelectionViewModel @Inject constructor(
         getWorkingHoursUseCase().map { timeUiModel ->
             SelectTimeViewItem(
                 timeUiModel = timeUiModel,
-                clickHandler = {
-                    Log.i("DateTimeSelectionViewModel", "Time - clickHandler is called: $it")
-                }
+                clickHandler = ::handleSelectTime
             )
         }.also { list.addAll(it) }
+    }
+
+    private fun handleSelectTime(item: SelectTimeViewItem, position: Int) {
+        val previousPosition = selectedPosition
+        selectedTime?.let { it.isSelected = false }
+        selectedTime = item
+        selectedPosition = position
+        selectedTime?.isSelected = true
+        viewModelScope.launch {
+            _uiEvent.emit(DateTimeSelectionUiEvent.SelectTime(previousPosition, selectedPosition))
+        }
     }
 
     companion object {

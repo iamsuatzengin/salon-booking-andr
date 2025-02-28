@@ -1,11 +1,12 @@
 package com.zapplications.salonbooking.ui.datetimeselection.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
+import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.databinding.ItemViewSelectTimeBinding
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.item.SelectTimeViewItem
 
 class SelectTimeViewHolder(
-    private val binding: ItemViewSelectTimeBinding
+    private val binding: ItemViewSelectTimeBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(selectTimeViewItem: SelectTimeViewItem) {
         binding.apply {
@@ -13,7 +14,13 @@ class SelectTimeViewHolder(
             tvTime.text = selectTimeViewItem.timeUiModel.time.toString() + " " + amPm
             tvDiscount.text = selectTimeViewItem.discount.toString()
             root.setOnClickListener {
-                selectTimeViewItem.clickHandler(selectTimeViewItem.timeUiModel)
+                selectTimeViewItem.clickHandler(selectTimeViewItem, adapterPosition)
+            }
+
+            if (selectTimeViewItem.isSelected) {
+                root.setBackgroundResource(R.drawable.bg_stylist_item_selected)
+            } else {
+                root.setBackgroundResource(R.drawable.bg_stylist_item)
             }
         }
     }
