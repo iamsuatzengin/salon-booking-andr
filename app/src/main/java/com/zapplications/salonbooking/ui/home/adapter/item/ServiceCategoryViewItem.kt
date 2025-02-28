@@ -1,5 +1,6 @@
 package com.zapplications.salonbooking.ui.home.adapter.item
 
+import com.zapplications.salonbooking.core.adapter.Item
 import com.zapplications.salonbooking.domain.model.ServiceCategoryUiModel
 
 data class ServiceCategoryViewItem(
@@ -7,7 +8,7 @@ data class ServiceCategoryViewItem(
     val onCategoryClick: (ServiceCategoryUiModel) -> Unit,
 ) : Item() {
     override val type: Int get() = 4
-    override val marginBottomPx: Int get() = 32
+    override var marginBottomPx: Int = 32
 
     override fun areContentsTheSame(
         old: Item,

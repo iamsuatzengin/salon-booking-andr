@@ -2,8 +2,8 @@ package com.zapplications.salonbooking.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.zapplications.salonbooking.core.adapter.BaseItemAdapter
 import com.zapplications.salonbooking.databinding.ItemViewBannerBinding
 import com.zapplications.salonbooking.databinding.ItemViewHomeTopBinding
 import com.zapplications.salonbooking.databinding.ItemViewNearbySalonsBinding
@@ -11,7 +11,6 @@ import com.zapplications.salonbooking.databinding.ItemViewSearchHomeBinding
 import com.zapplications.salonbooking.databinding.ItemViewServiceCategoryBinding
 import com.zapplications.salonbooking.databinding.ItemViewTitleBinding
 import com.zapplications.salonbooking.ui.home.adapter.item.BannerViewItem
-import com.zapplications.salonbooking.ui.home.adapter.item.Item
 import com.zapplications.salonbooking.ui.home.adapter.item.NearbySalonViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.SearchViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.ServiceCategoryViewItem
@@ -24,7 +23,7 @@ import com.zapplications.salonbooking.ui.home.adapter.viewholder.ServiceCategory
 import com.zapplications.salonbooking.ui.home.adapter.viewholder.TitleViewHolder
 import com.zapplications.salonbooking.ui.home.adapter.viewholder.TopViewHolder
 
-class HomeAdapter : ListAdapter<Item, RecyclerView.ViewHolder>(HomeDiffUtil()) {
+class HomeAdapter : BaseItemAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
@@ -46,9 +45,5 @@ class HomeAdapter : ListAdapter<Item, RecyclerView.ViewHolder>(HomeDiffUtil()) {
             is NearbySalonViewHolder -> holder.bind(getItem(position) as NearbySalonViewItem)
             is ServiceCategoryViewHolder -> holder.bind(getItem(position) as ServiceCategoryViewItem)
         }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return getItem(position).type
     }
 }

@@ -4,19 +4,38 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentDateTimeSelectionBinding
+import com.zapplications.salonbooking.ui.datetimeselection.adapter.DateTimeSelectionAdapter
+import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DateTimeSelectionFragment : Fragment(R.layout.fragment_date_time_selection) {
     private val binding by viewBinding(FragmentDateTimeSelectionBinding::bind)
     private val viewModel by viewModels<DateTimeSelectionViewModel>()
+    private val adapter by lazy { DateTimeSelectionAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerView()
+
+        binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
+
         viewModel.getStylistAvailability(date = "2025-02-28")
+
+        viewModel.generateUiAdapter()
+
+        adapter.submitList(viewModel.list)
+    }
+
+    private fun initRecyclerView() = with(binding) {
+        rvMultiType.adapter = adapter
+        rvMultiType.setHasFixedSize(true)
+        rvMultiType.itemAnimator = null
+        rvMultiType.addItemDecoration(MultiTypeMarginDecoration())
     }
 }

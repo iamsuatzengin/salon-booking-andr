@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_stylist_item"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/padding12">
+
+    <TextView
+        android:id="@+id/tvDayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin4"
+        android:fontFamily="@font/inter_18pt_semibold"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size14"
+        tools:text="TUE" />
+
+    <TextView
+        android:id="@+id/tvDayOfMonthAndName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin4"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:textColor="@color/color_dark1"
+        android:textSize="@dimen/size14"
+        tools:text="Sep 9" />
+
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size12"
+        tools:text="40 mins" />
+</LinearLayout>

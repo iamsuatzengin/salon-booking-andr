@@ -14,7 +14,7 @@ import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentStylistListBinding
 import com.zapplications.salonbooking.domain.model.StylistUiModel
-import com.zapplications.salonbooking.core.decoration.MarginDecoration
+import com.zapplications.salonbooking.core.adapter.decoration.MarginDecoration
 import com.zapplications.salonbooking.ui.stylistlist.adapter.StylistAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

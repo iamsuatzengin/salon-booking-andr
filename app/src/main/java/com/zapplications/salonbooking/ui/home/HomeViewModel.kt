@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zapplications.salonbooking.domain.repository.HomeRepository
 import com.zapplications.salonbooking.ui.home.adapter.item.BannerViewItem
-import com.zapplications.salonbooking.ui.home.adapter.item.Item
+import com.zapplications.salonbooking.core.adapter.Item
 import com.zapplications.salonbooking.ui.home.adapter.item.NearbySalonViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.SearchViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.ServiceCategoryViewItem

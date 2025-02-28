@@ -1,5 +1,6 @@
 package com.zapplications.salonbooking.ui.home.adapter.item
 
+import com.zapplications.salonbooking.core.adapter.Item
 import com.zapplications.salonbooking.domain.model.BannerUiModel
 
 data class BannerViewItem(
@@ -7,7 +8,7 @@ data class BannerViewItem(
     val bookNowClick: (() -> Unit)? = null
 ) : Item() {
     override val type: Int get() = 2
-    override val marginBottomPx: Int get() = 32
+    override var marginBottomPx: Int = 32
 
     override fun areContentsTheSame(old: Item, new: Item): Boolean {
         return old == new

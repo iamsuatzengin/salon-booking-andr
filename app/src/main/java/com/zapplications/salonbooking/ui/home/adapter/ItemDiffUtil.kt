@@ -1,9 +1,9 @@
 package com.zapplications.salonbooking.ui.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.zapplications.salonbooking.ui.home.adapter.item.Item
+import com.zapplications.salonbooking.core.adapter.Item
 
-class HomeDiffUtil : DiffUtil.ItemCallback<Item>() {
+class ItemDiffUtil : DiffUtil.ItemCallback<Item>() {
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
         return oldItem.areItemsTheSame(oldItem, newItem) == newItem.areItemsTheSame(oldItem, newItem)
     }

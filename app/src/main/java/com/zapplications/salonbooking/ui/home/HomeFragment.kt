@@ -21,7 +21,7 @@ import com.zapplications.salonbooking.core.ui.dialog.CustomDialog
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentHomeBinding
 import com.zapplications.salonbooking.ui.home.adapter.HomeAdapter
-import com.zapplications.salonbooking.ui.home.adapter.decorator.MarginDecorator
+import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -117,7 +117,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun initRecyclerView() {
         binding.rvHome.adapter = adapter
         binding.rvHome.itemAnimator = null
-        binding.rvHome.addItemDecoration(MarginDecorator())
+        binding.rvHome.addItemDecoration(MultiTypeMarginDecoration())
     }
 
     private fun handleUiEvent(event: HomeUiEvent) {

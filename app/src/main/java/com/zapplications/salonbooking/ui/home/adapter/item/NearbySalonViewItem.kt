@@ -1,5 +1,6 @@
 package com.zapplications.salonbooking.ui.home.adapter.item
 
+import com.zapplications.salonbooking.core.adapter.Item
 import com.zapplications.salonbooking.domain.model.SalonUiModel
 
 data class NearbySalonViewItem(
@@ -8,7 +9,7 @@ data class NearbySalonViewItem(
 ) : Item() {
     override val type: Int get() = 5
 
-    override val marginBottomPx: Int get() = 16
+    override var marginBottomPx: Int = 16
 
     override fun areContentsTheSame(old: Item, new: Item): Boolean {
         return old == new

@@ -1,4 +1,4 @@
-package com.zapplications.salonbooking.ui.home.adapter.decorator
+package com.zapplications.salonbooking.core.adapter.decoration
 
 import android.graphics.Rect
 import android.view.View
@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.dpToPx
 import com.zapplications.salonbooking.core.extensions.orZero
-import com.zapplications.salonbooking.ui.home.adapter.HomeAdapter
 
-class MarginDecorator(
+class MarginDecoration(
     private val excludeLastItem: Boolean = false,
+    private val marginStartPx: Int = ZERO,
+    private val marginEndPx: Int = ZERO,
+    private val marginTopPx: Int = ZERO,
+    private val marginBottomPx: Int = ZERO,
 ) : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(
         outRect: Rect,
@@ -22,15 +25,13 @@ class MarginDecorator(
         val position = parent.getChildAdapterPosition(view)
         if (position == RecyclerView.NO_POSITION) return
         val itemCount = parent.adapter?.itemCount.orZero()
-        val adapter = (parent.adapter as? HomeAdapter) ?: return
-        val item = adapter.currentList.getOrNull(position)
 
-        outRect.left = item?.marginStartPx.orZero().dpToPx(view.context)
-        outRect.right = item?.marginEndPx.orZero().dpToPx(view.context)
-        outRect.top = item?.marginTopPx.orZero().dpToPx(view.context)
+        outRect.left = marginStartPx.orZero().dpToPx(view.context)
+        outRect.right = marginEndPx.orZero().dpToPx(view.context)
+        outRect.top = marginTopPx.orZero().dpToPx(view.context)
         outRect.bottom =
             if (position == itemCount - 1 && excludeLastItem)
                 ZERO
-            else item?.marginBottomPx.orZero().dpToPx(view.context)
+            else marginBottomPx.orZero().dpToPx(view.context)
     }
 }

@@ -1,12 +1,14 @@
 package com.zapplications.salonbooking.ui.home.adapter.item
 
+import com.zapplications.salonbooking.core.adapter.Item
+
 data class TitleViewItem(
     val title: String,
     val actionText: String? = null,
-    val actionClickHandler: (() -> Unit)? = null
+    val actionClickHandler: (() -> Unit)? = null,
 ) : Item() {
     override val type: Int get() = 3
-    override val marginBottomPx: Int get() = 24
+    override var marginBottomPx: Int = 24
 
     override fun areContentsTheSame(old: Item, new: Item): Boolean {
         return old == new

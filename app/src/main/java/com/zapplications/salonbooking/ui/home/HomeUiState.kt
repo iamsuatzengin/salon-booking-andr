@@ -1,6 +1,6 @@
 package com.zapplications.salonbooking.ui.home
 
-import com.zapplications.salonbooking.ui.home.adapter.item.Item
+import com.zapplications.salonbooking.core.adapter.Item
 
 data class HomeUiState(
     val homePageUiModel: List<Item>? = null,
