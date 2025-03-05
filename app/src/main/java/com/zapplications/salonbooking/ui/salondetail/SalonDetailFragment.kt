@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.ONE
 import com.zapplications.salonbooking.core.extensions.ZERO
@@ -20,6 +21,7 @@ import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentSalonDetailBinding
 import com.zapplications.salonbooking.domain.model.SalonUiModel
 import com.zapplications.salonbooking.domain.model.ServiceUiModel
+import com.zapplications.salonbooking.ui.shared.AppointmentSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,6 +31,7 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
     CustomTabView.TabChangeListener {
     private val binding by viewBinding(FragmentSalonDetailBinding::bind)
     private val viewModel: SalonDetailViewModel by viewModels()
+    private val sharedViewModel: AppointmentSharedViewModel by navGraphViewModels(R.id.home_graph)
 
     private var isButtonAnimated = false
 
@@ -102,6 +105,10 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
 
         binding.btnContinue.setOnClickListener {
             val action = SalonDetailFragmentDirections.actionSalonDetailToStylistList(viewModel.salonId)
+            sharedViewModel.apply {
+                salon = viewModel.uiState.value
+                selectedServices = binding.customTabView.selectedServices
+            }
             findNavController().navigate(action)
         }
 

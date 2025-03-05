@@ -23,7 +23,7 @@ class CustomTabView @JvmOverloads constructor(
     private var tabAdapter: TabAdapter? = null
 
     var tabItems: Map<ServiceCategoryUiModel, List<ServiceUiModel>>? = null
-    private var selectedServices: MutableList<ServiceUiModel>? = mutableListOf()
+    var selectedServices: MutableList<ServiceUiModel>? = mutableListOf()
 
     val observable: CustomObservable<List<ServiceUiModel>> by lazy { ObservableClass() }
     var tabChangeListener: TabChangeListener? = null

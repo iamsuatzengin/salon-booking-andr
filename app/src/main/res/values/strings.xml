@@ -23,6 +23,7 @@
     <string name="title_any_stylist">Any Stylist</string>
     <string name="title_date_and_time">Date and time</string>
     <string name="title_top_rated">Top Rated</string>
+    <string name="title_booking_summary">Booking summary</string>
 
     <!-- Text -->
     <string name="hint_enter_your_email_or_phone_number">Enter your email or phone number.</string>

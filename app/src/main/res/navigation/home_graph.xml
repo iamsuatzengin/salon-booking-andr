@@ -58,5 +58,17 @@
         <argument
             android:name="stylistId"
             app:argType="string" />
+        <action
+            android:id="@+id/actionDateTimeSelectionToBookingSummary"
+            app:destination="@id/bookingSummaryFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit" />
     </fragment>
+    <fragment
+        android:id="@+id/bookingSummaryFragment"
+        android:name="com.zapplications.salonbooking.ui.bookingsummary.BookingSummaryFragment"
+        android:label="fragment_booking_summary"
+        tools:layout="@layout/fragment_booking_summary" />
 </navigation>

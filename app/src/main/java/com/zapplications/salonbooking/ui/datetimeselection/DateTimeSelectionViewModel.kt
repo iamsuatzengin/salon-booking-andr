@@ -41,8 +41,10 @@ class DateTimeSelectionViewModel @Inject constructor(
 
     private val uiItems = mutableListOf<Item>()
     private var selectedPosition: Int? = null
-    private var selectedTime: SelectTimeViewItem? = null
-    private var selectedDate: DateUiModel? = null
+    var selectedTime: SelectTimeViewItem? = null
+        private set
+    var selectedDate: DateUiModel? = null
+        private set
 
     private fun getStylistAvailability(date: String) {
         if (stylistId.isNullOrEmpty()) return

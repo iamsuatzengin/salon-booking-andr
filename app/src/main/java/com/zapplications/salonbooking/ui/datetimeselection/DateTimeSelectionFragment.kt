@@ -8,11 +8,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentDateTimeSelectionBinding
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.DateTimeSelectionAdapter
+import com.zapplications.salonbooking.ui.shared.AppointmentSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,6 +22,7 @@ import kotlinx.coroutines.launch
 class DateTimeSelectionFragment : Fragment(R.layout.fragment_date_time_selection) {
     private val binding by viewBinding(FragmentDateTimeSelectionBinding::bind)
     private val viewModel by viewModels<DateTimeSelectionViewModel>()
+    private val sharedViewModel: AppointmentSharedViewModel by navGraphViewModels(R.id.home_graph)
     private val adapter by lazy { DateTimeSelectionAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,6 +33,15 @@ class DateTimeSelectionFragment : Fragment(R.layout.fragment_date_time_selection
         binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
 
         viewModel.generateUiAdapter()
+
+        binding.btnConfirm.setOnClickListener {
+            sharedViewModel.apply {
+                selectedDate = viewModel.selectedDate
+                selectedTime = viewModel.selectedTime?.timeUiModel
+            }
+
+            findNavController().navigate(R.id.actionDateTimeSelectionToBookingSummary)
+        }
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
