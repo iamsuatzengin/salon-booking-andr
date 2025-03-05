@@ -31,21 +31,24 @@ class DateTimeSelectionFragment : Fragment(R.layout.fragment_date_time_selection
 
         viewModel.generateUiAdapter()
 
-        adapter.submitList(viewModel.uiItems.toList())
-
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiEvent.collect { uiEvent ->
-                    when (uiEvent) {
-                        is DateTimeSelectionUiEvent.SelectTime -> {
-                            adapter.submitList(uiEvent.uiItems.toList())
-                        }
+                launch {
+                    viewModel.uiState.collect { uiState ->
+                        adapter.submitList(uiState.items.toList())
+                    }
+                }
 
-                        is DateTimeSelectionUiEvent.SelectDate -> {
-                            adapter.submitList(viewModel.uiItems.toList())
+                launch {
+                    viewModel.uiEvent.collect { uiEvent ->
+                        when (uiEvent) {
+                            DateTimeSelectionUiEvent.MoreDate -> {
+                                // TODO handle on more dates click. It should open a bottom sheet for selecting date
+                            }
                         }
                     }
                 }
+
             }
         }
     }

@@ -16,7 +16,10 @@ import com.zapplications.salonbooking.ui.datetimeselection.adapter.item.SelectTi
 import com.zapplications.salonbooking.ui.home.adapter.item.TitleViewItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,13 +31,15 @@ class DateTimeSelectionViewModel @Inject constructor(
     private val getWorkingHoursUseCase: GetWorkingHoursUseCase,
 ) : ViewModel() {
 
+    private val _uiState = MutableStateFlow(DateTimeSelectionUiState())
+    val uiState get() = _uiState.asStateFlow()
+
     private val _uiEvent = MutableSharedFlow<DateTimeSelectionUiEvent>()
     val uiEvent = _uiEvent.asSharedFlow()
 
-    val uiItems = mutableListOf<Item>()
-
     private val stylistId = savedStateHandle.get<String>(STYLIST_ID_KEY)
 
+    private val uiItems = mutableListOf<Item>()
     private var selectedPosition: Int? = null
     private var selectedTime: SelectTimeViewItem? = null
     private var selectedDate: DateUiModel? = null
@@ -48,7 +53,7 @@ class DateTimeSelectionViewModel @Inject constructor(
             uiItems.removeAll { item -> item is SelectTimeViewItem }
             generateTimes(availability).also { t -> uiItems.addAll(t) }
 
-            _uiEvent.emit(DateTimeSelectionUiEvent.SelectDate(selectedDate))
+            _uiState.update { it.copy(items = uiItems.toList()) }
         }
     }
 
@@ -73,6 +78,7 @@ class DateTimeSelectionViewModel @Inject constructor(
         }
 
         generateTimes(availability).also { uiItems.addAll(it) }
+        _uiState.update { it.copy(items = uiItems.toList()) }
     }
 
     private fun generateTimes(availability: StylistAvailabilityUiModel?) =
@@ -98,7 +104,6 @@ class DateTimeSelectionViewModel @Inject constructor(
             selectedDate = date
 
             getStylistAvailability(date.formattedDate)
-
         }
     }
 
@@ -115,7 +120,7 @@ class DateTimeSelectionViewModel @Inject constructor(
         uiItems.updateSelectedTime(position = position, isSelected = true)
 
         viewModelScope.launch {
-            _uiEvent.emit(DateTimeSelectionUiEvent.SelectTime(uiItems.toList()))
+            _uiState.update { it.copy(items = uiItems.toList()) }
         }
     }
 
