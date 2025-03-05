@@ -9,10 +9,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentDateTimeSelectionBinding
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.DateTimeSelectionAdapter
-import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -29,25 +29,20 @@ class DateTimeSelectionFragment : Fragment(R.layout.fragment_date_time_selection
 
         binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
 
-        viewModel.getStylistAvailability(date = "2025-02-28")
-
         viewModel.generateUiAdapter()
 
-        adapter.submitList(viewModel.list)
+        adapter.submitList(viewModel.uiItems.toList())
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiEvent.collect { uiEvent ->
                     when (uiEvent) {
                         is DateTimeSelectionUiEvent.SelectTime -> {
-                            val previous = uiEvent.previousSelectedPosition
-                            val selected = uiEvent.selectedPosition
-                            previous?.let { adapter.notifyItemChanged(it) }
-                            selected?.let { adapter.notifyItemChanged(it) }
+                            adapter.submitList(uiEvent.uiItems.toList())
                         }
 
                         is DateTimeSelectionUiEvent.SelectDate -> {
-                            adapter.notifyItemChanged(uiEvent.dateSelectionPosition)
+                            adapter.submitList(viewModel.uiItems.toList())
                         }
                     }
                 }

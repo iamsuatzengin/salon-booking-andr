@@ -2,6 +2,7 @@ package com.zapplications.salonbooking.ui.datetimeselection.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.extensions.color
 import com.zapplications.salonbooking.databinding.ItemViewSelectTimeBinding
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.item.SelectTimeViewItem
 
@@ -13,6 +14,7 @@ class SelectTimeViewHolder(
             val amPm = if (selectTimeViewItem.timeUiModel.isAM) "AM" else "PM"
             tvTime.text = selectTimeViewItem.timeUiModel.time.toString() + " " + amPm
             tvDiscount.text = selectTimeViewItem.discount.toString()
+            root.isEnabled = selectTimeViewItem.isAvailable
             root.setOnClickListener {
                 selectTimeViewItem.clickHandler(selectTimeViewItem, adapterPosition)
             }
@@ -22,6 +24,11 @@ class SelectTimeViewHolder(
             } else {
                 root.setBackgroundResource(R.drawable.bg_stylist_item)
             }
+
+            tvTime.setTextColor(
+                if (selectTimeViewItem.isAvailable) root.resources.color(R.color.color_dark1)
+                else root.resources.color(R.color.color_gray1)
+            )
         }
     }
 }

@@ -8,6 +8,6 @@ abstract class Item {
     open var marginStartPx: Int = 0
     open var marginEndPx: Int = 0
 
-    abstract fun areItemsTheSame(old: Item, new: Item): Boolean
-    abstract fun areContentsTheSame(old: Item, new: Item): Boolean
+    abstract fun areItemsTheSame(new: Item): Boolean
+    abstract fun areContentsTheSame(new: Item): Boolean
 }

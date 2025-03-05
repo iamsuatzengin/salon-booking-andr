@@ -1,10 +1,14 @@
 package com.zapplications.salonbooking.ui.datetimeselection
 
+import com.zapplications.salonbooking.core.adapter.Item
+import com.zapplications.salonbooking.domain.model.datetime.DateUiModel
+
 sealed interface DateTimeSelectionUiEvent {
     data class SelectTime(
-        val previousSelectedPosition: Int?,
-        val selectedPosition: Int?,
+        val uiItems: List<Item>
     ) : DateTimeSelectionUiEvent
 
-    data class SelectDate(val dateSelectionPosition: Int) : DateTimeSelectionUiEvent
+    data class SelectDate(
+        val selectedDate: DateUiModel? = null
+    ) : DateTimeSelectionUiEvent
 }

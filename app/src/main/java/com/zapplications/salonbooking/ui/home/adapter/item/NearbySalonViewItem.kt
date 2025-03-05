@@ -11,13 +11,13 @@ data class NearbySalonViewItem(
 
     override var marginBottomPx: Int = 16
 
-    override fun areContentsTheSame(old: Item, new: Item): Boolean {
-        return old == new
+    override fun areContentsTheSame(new: Item): Boolean {
+        return this == (new as? NearbySalonViewItem)
     }
 
-    override fun areItemsTheSame(old: Item, new: Item): Boolean {
-        val oldItem = old as NearbySalonViewItem
-        val newItem = new as NearbySalonViewItem
+    override fun areItemsTheSame(new: Item): Boolean {
+        val oldItem = this
+        val newItem = new as? NearbySalonViewItem ?: return false
         return oldItem.salonUiModel == newItem.salonUiModel && oldItem.salonUiModel.id == newItem.salonUiModel.id
     }
 }

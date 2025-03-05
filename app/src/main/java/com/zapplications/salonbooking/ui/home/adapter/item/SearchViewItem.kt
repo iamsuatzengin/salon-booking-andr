@@ -8,13 +8,13 @@ data class SearchViewItem(
     override val type: Int get() = 1
     override var marginBottomPx: Int = 24
 
-    override fun areContentsTheSame(old: Item, new: Item): Boolean {
-        return old == new
+    override fun areContentsTheSame(new: Item): Boolean {
+        return this == (new as? SearchViewItem)
     }
 
-    override fun areItemsTheSame(old: Item, new: Item): Boolean {
-        val oldItem = old as SearchViewItem
-        val newItem = new as SearchViewItem
+    override fun areItemsTheSame(new: Item): Boolean {
+        val oldItem = this
+        val newItem = new as? SearchViewItem ?: return false
         return oldItem.hint == newItem.hint
     }
 }
