@@ -54,6 +54,7 @@
     <string name="btn_text_yes">Yes</string>
     <string name="btn_text_no">No</string>
     <string name="btn_text_stylist_select">Select &amp; Continue</string>
+    <string name="btn_text_confirm_appointment">Confirm Appointment</string>
 
     <!-- Dialog text -->
     <string name="title_location_permission">Location Permission</string>

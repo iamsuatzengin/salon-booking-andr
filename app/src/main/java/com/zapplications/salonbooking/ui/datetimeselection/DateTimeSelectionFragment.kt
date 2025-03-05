@@ -36,6 +36,8 @@ class DateTimeSelectionFragment : Fragment(R.layout.fragment_date_time_selection
                 launch {
                     viewModel.uiState.collect { uiState ->
                         adapter.submitList(uiState.items.toList())
+
+                        binding.btnConfirm.isEnabled = uiState.isConfirmButtonEnabled
                     }
                 }
 

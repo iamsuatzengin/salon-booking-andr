@@ -53,7 +53,12 @@ class DateTimeSelectionViewModel @Inject constructor(
             uiItems.removeAll { item -> item is SelectTimeViewItem }
             generateTimes(availability).also { t -> uiItems.addAll(t) }
 
-            _uiState.update { it.copy(items = uiItems.toList()) }
+            _uiState.update {
+                it.copy(
+                    items = uiItems.toList(),
+                    isConfirmButtonEnabled = handleConfirmButtonEnabledState()
+                )
+            }
         }
     }
 
@@ -78,7 +83,12 @@ class DateTimeSelectionViewModel @Inject constructor(
         }
 
         generateTimes(availability).also { uiItems.addAll(it) }
-        _uiState.update { it.copy(items = uiItems.toList()) }
+        _uiState.update {
+            it.copy(
+                items = uiItems.toList(),
+                isConfirmButtonEnabled = handleConfirmButtonEnabledState()
+            )
+        }
     }
 
     private fun generateTimes(availability: StylistAvailabilityUiModel?) =
@@ -102,7 +112,8 @@ class DateTimeSelectionViewModel @Inject constructor(
             val new = viewItem.copy(selectedDate = date)
             uiItems[rowPosition] = new
             selectedDate = date
-
+            selectedTime = null
+            selectedPosition = null
             getStylistAvailability(date.formattedDate)
         }
     }
@@ -120,7 +131,12 @@ class DateTimeSelectionViewModel @Inject constructor(
         uiItems.updateSelectedTime(position = position, isSelected = true)
 
         viewModelScope.launch {
-            _uiState.update { it.copy(items = uiItems.toList()) }
+            _uiState.update {
+                it.copy(
+                    items = uiItems.toList(),
+                    isConfirmButtonEnabled = handleConfirmButtonEnabledState()
+                )
+            }
         }
     }
 
@@ -132,6 +148,8 @@ class DateTimeSelectionViewModel @Inject constructor(
     }.onFailure { throwable ->
         Log.e(TAG, "onFailure: $throwable")
     }.getOrNull()
+
+    private fun handleConfirmButtonEnabledState() = selectedDate != null && selectedTime != null
 
     companion object {
         const val STYLIST_ID_KEY = "stylistId"
