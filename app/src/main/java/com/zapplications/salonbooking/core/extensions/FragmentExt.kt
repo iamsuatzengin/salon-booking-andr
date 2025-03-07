@@ -1,6 +1,7 @@
 package com.zapplications.salonbooking.core.extensions
 
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -15,4 +16,11 @@ fun Fragment.loadImage(
         .load(url)
         .transform(CenterCrop(), RoundedCorners(radius))
         .into(target)
+}
+
+fun Fragment.toast(
+    message: String,
+    duration: Int = Toast.LENGTH_SHORT
+) {
+    Toast.makeText(requireContext(), message, duration).show()
 }

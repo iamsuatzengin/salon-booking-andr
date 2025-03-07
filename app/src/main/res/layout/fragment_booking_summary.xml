@@ -1,37 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="@dimen/margin16"
     android:background="#F8F8F8"
-    android:orientation="vertical"
+    android:fillViewport="true"
     android:paddingTop="54dp"
+    android:paddingBottom="24dp"
+    android:scrollbars="none"
     tools:context=".ui.bookingsummary.BookingSummaryFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/ivBackIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/content_description_back_icon"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/ivBackIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/content_description_back_icon"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvTopBarTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin8"
-        android:fontFamily="@font/inter_18pt_semibold"
-        android:text="@string/title_booking_summary"
-        android:textColor="@color/color_dark1"
-        android:textSize="@dimen/size16"
-        app:layout_constraintBottom_toBottomOf="@id/ivBackIcon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivBackIcon"
-        app:layout_constraintTop_toTopOf="@id/ivBackIcon" />
+        <TextView
+            android:id="@+id/tvTopBarTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin8"
+            android:fontFamily="@font/inter_18pt_semibold"
+            android:text="@string/title_booking_summary"
+            android:textColor="@color/color_dark1"
+            android:textSize="@dimen/size16"
+            app:layout_constraintBottom_toBottomOf="@id/ivBackIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBackIcon"
+            app:layout_constraintTop_toTopOf="@id/ivBackIcon" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/layoutSalonCard"
+            layout="@layout/item_view_nearby_salons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTopBarTitle" />
+
+        <TextView
+            android:id="@+id/tvBookingDetailsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            android:fontFamily="@font/inter_18pt_semibold"
+            android:text="Booking Details"
+            android:textColor="@color/color_dark1"
+            android:textSize="@dimen/size16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutSalonCard" />
+
+        <TextView
+            android:id="@+id/tvBookingDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin16"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Date"
+            android:textColor="@color/color_dark1"
+            android:textSize="@dimen/size14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBookingDetailsTitle" />
+
+        <TextView
+            android:id="@+id/tvBookingDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin4"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:textColor="@color/color_gray1"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBookingDateLabel"
+            tools:text="Wed, Sep 10 at 9:30 AM" />
+
+        <TextView
+            android:id="@+id/tvStylistLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin16"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Stylist"
+            android:textColor="@color/color_dark1"
+            android:textSize="@dimen/size14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBookingDate" />
+
+        <TextView
+            android:id="@+id/tvStylist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin4"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:textColor="@color/color_gray1"
+            android:textSize="@dimen/size14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStylistLabel"
+            tools:text="Any stylist - 40 Mins" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/tvDivider1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            app:layout_constraintTop_toBottomOf="@id/tvStylist" />
+
+        <TextView
+            android:id="@+id/tvPaymentTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            android:fontFamily="@font/inter_18pt_semibold"
+            android:text="Payment"
+            android:textColor="@color/color_dark1"
+            android:textSize="@dimen/size16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDivider1" />
+
+        <TextView
+            android:id="@+id/tvPayNowLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin16"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Pay Online Now"
+            android:textColor="@color/color_dark1"
+            android:textSize="@dimen/size14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPaymentTitle" />
+
+        <TextView
+            android:id="@+id/tvPayNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin4"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Secure your booking instantly"
+            android:textColor="@color/color_gray1"
+            android:textSize="@dimen/size14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPayNowLabel" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbPayOnlineNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:buttonTint="@color/tint_radio_button"
+            app:layout_constraintBottom_toBottomOf="@id/tvPayNow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvPayNowLabel" />
+
+        <TextView
+            android:id="@+id/tvPayAtSalonLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin16"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Pay at Salon"
+            android:textColor="@color/color_dark1"
+            android:textSize="@dimen/size14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPayNow" />
+
+        <TextView
+            android:id="@+id/tvPayAtSalon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin4"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Settle payment after your appointment"
+            android:textColor="@color/color_gray1"
+            android:textSize="@dimen/size14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPayAtSalonLabel" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbPayAtSalon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:buttonTint="@color/tint_radio_button"
+            app:layout_constraintBottom_toBottomOf="@id/tvPayAtSalon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvPayAtSalonLabel" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/tvDivider2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            app:layout_constraintTop_toBottomOf="@id/tvPayAtSalon" />
+
+        <com.zapplications.salonbooking.core.ui.pricingdetails.BookingPricingDetailsView
+            android:id="@+id/layoutBookingPricingDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin16"
+            android:layout_marginBottom="@dimen/margin24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDivider2" />
+
+        <Space
+            android:id="@+id/spacer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btnProceed"
+            app:layout_constraintTop_toBottomOf="@id/layoutBookingPricingDetails" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProceed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            android:backgroundTint="@color/color_main"
+            android:text="@string/btn_text_proceed"
+            app:cornerRadius="@dimen/corner_radius_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spacer" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
