@@ -13,6 +13,7 @@
     <string name="content_description_top_rated">Top Rated medal icon</string>
     <string name="content_description_stylist_image">Stylist image</string>
     <string name="content_description_calendar">More date</string>
+    <string name="content_description_qr_code">QR Code</string>
 
     <!-- Title -->
     <string name="title_sign_in">Book Your Perfect\nLook in Minutes!</string>
@@ -24,6 +25,17 @@
     <string name="title_date_and_time">Date and time</string>
     <string name="title_top_rated">Top Rated</string>
     <string name="title_booking_summary">Booking summary</string>
+    <string name="title_pricing_details">Pricing Details</string>
+    <string name="title_total">Total</string>
+    <string name="title_qr_code_info">Scan this QR code at the salon for\nquick check-in.</string>
+    <string name="title_booking_date">Booking Date</string>
+    <string name="title_booking_time">Booking Time</string>
+    <string name="title_stylist">Stylist</string>
+    <string name="title_status">Status</string>
+    <string name="title_payment_type">Payment Type</string>
+    <string name="title_receipt">Receipt</string>
+    <string name="title_salon">Salon</string>
+    <string name="title_customer_name">Customer Name</string>
 
     <!-- Text -->
     <string name="hint_enter_your_email_or_phone_number">Enter your email or phone number.</string>
@@ -56,14 +68,20 @@
     <string name="btn_text_no">No</string>
     <string name="btn_text_stylist_select">Select &amp; Continue</string>
     <string name="btn_text_confirm_appointment">Confirm Appointment</string>
+    <string name="btn_text_proceed">Proceed</string>
+    <string name="btn_download_receipt">Download Receipt</string>
 
     <!-- Dialog text -->
     <string name="title_location_permission">Location Permission</string>
     <string name="description_location_permission">You can list salons near you. Can you grant location permission?</string>
     <string name="title_location_settings">Open location settings</string>
     <string name="description_location_settings">You can list salons near you. Can you turn on location?</string>
-    <string name="title_pricing_details">Pricing Details</string>
-    <string name="title_total">Total</string>
-    <string name="btn_text_proceed">Proceed</string>
 
+    <string name="at_salon">At salon</string>
+    <string name="online">Online</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="completed">Completed</string>
+    <string name="cancelled">Cancelled</string>
+
+    <string name="mock_name_john_doe">John Doe</string>
 </resources>

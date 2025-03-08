@@ -70,5 +70,24 @@
         android:id="@+id/bookingSummaryFragment"
         android:name="com.zapplications.salonbooking.ui.bookingsummary.BookingSummaryFragment"
         android:label="fragment_booking_summary"
-        tools:layout="@layout/fragment_booking_summary" />
+        tools:layout="@layout/fragment_booking_summary">
+        <action
+            android:id="@+id/actionBookingSummaryToReceipt"
+            app:destination="@id/receiptFragment"
+            app:enterAnim="@anim/slide_enter"
+            app:exitAnim="@anim/slide_exit"
+            app:popEnterAnim="@anim/slide_pop_enter"
+            app:popExitAnim="@anim/slide_pop_exit"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/receiptFragment"
+        android:name="com.zapplications.salonbooking.ui.receiptscreen.ReceiptFragment"
+        android:label="fragment_receipt"
+        tools:layout="@layout/fragment_receipt" >
+        <argument
+            android:name="bookingAppointmentUiModel"
+            app:argType="com.zapplications.salonbooking.domain.model.BookingAppointmentUiModel" />
+    </fragment>
 </navigation>

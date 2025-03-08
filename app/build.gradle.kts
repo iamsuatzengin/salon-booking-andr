@@ -88,6 +88,8 @@ dependencies {
 
     implementation(libs.kotlinx.datetime)
 
+    implementation(libs.qrGenerator)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

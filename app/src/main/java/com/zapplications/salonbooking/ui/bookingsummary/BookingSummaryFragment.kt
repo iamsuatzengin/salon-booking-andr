@@ -53,7 +53,10 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
                     viewModel.uiEvent.collect { uiEvent ->
                         when (uiEvent) {
                             is BookingSummaryUiEvent.BookingAppointmentSuccessFull -> {
-                                // TODO navigate to receipt screen with booking result [uiEvent.bookingAppointmentUiModel]
+                                val action = BookingSummaryFragmentDirections.actionBookingSummaryToReceipt(
+                                    bookingAppointmentUiModel = uiEvent.bookingAppointmentUiModel
+                                )
+                                findNavController().navigate(action)
                             }
 
                             is BookingSummaryUiEvent.ShowError -> {

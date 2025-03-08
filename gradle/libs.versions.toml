@@ -22,6 +22,7 @@ lifecycle = "2.8.7"
 ktor = "3.0.2"
 glide = "4.16.0"
 kotlinxDateTime = "0.6.2"
+qrGenerator = "4.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -57,6 +58,8 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
+
+qrGenerator = { module = "com.journeyapps:zxing-android-embedded", version.ref = "qrGenerator" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

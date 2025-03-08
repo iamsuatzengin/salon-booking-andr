@@ -1,10 +1,15 @@
 package com.zapplications.salonbooking.domain.model
 
+import android.os.Parcelable
 import com.zapplications.salonbooking.core.extensions.orZero
 import com.zapplications.salonbooking.data.response.BookingAppointmentApiModel
 import com.zapplications.salonbooking.domain.model.enums.BookingStatusType
 import com.zapplications.salonbooking.domain.model.enums.PaymentType
+import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
+@Parcelize
+@Serializable
 data class BookingAppointmentUiModel(
     val bookingId: String,
     val salonName: String,
@@ -15,7 +20,7 @@ data class BookingAppointmentUiModel(
     val paymentType: PaymentType,
     val status: BookingStatusType,
     val selectedServices: List<SelectedServices>
-)
+) : Parcelable
 
 fun BookingAppointmentApiModel.toUiModel() = BookingAppointmentUiModel(
     bookingId = bookingId.orEmpty(),
