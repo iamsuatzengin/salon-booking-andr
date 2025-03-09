@@ -74,12 +74,7 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
             tvSalonLocation.text = address
             tvSalonWorkHours.text = workHours
             tvSalonDescription.text = description
-            tvSalonRating.text = buildString {
-                append(rating)
-                append(" (")
-                append(reviewerCount)
-                append(")")
-            }
+            tvSalonRating.text = getString(R.string.text_rating, rating, reviewerCount)
 
             initCustomTab(services)
             initSalonImage(uiModel.imageUrl)
@@ -104,7 +99,8 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
         binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
 
         binding.btnContinue.setOnClickListener {
-            val action = SalonDetailFragmentDirections.actionSalonDetailToStylistList(viewModel.salonId)
+            val action =
+                SalonDetailFragmentDirections.actionSalonDetailToStylistList(viewModel.salonId)
             sharedViewModel.apply {
                 salon = viewModel.uiState.value
                 selectedServices = binding.customTabView.selectedServices

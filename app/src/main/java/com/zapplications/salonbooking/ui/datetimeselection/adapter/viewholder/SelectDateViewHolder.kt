@@ -2,6 +2,7 @@ package com.zapplications.salonbooking.ui.datetimeselection.adapter.viewholder
 
 import androidx.recyclerview.widget.RecyclerView
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.extensions.BLANK
 import com.zapplications.salonbooking.core.extensions.color
 import com.zapplications.salonbooking.databinding.ItemViewSelectDateBinding
 import com.zapplications.salonbooking.databinding.ItemViewSelectDateRowBinding
@@ -51,7 +52,11 @@ class SelectDateViewHolder(
         dateUiModel: DateUiModel,
         selectedDateUiModel: DateUiModel?,
     ) {
-        tvDayOfMonthAndName.text = dateUiModel.month + " " + dateUiModel.dayOfMonthNumber
+        tvDayOfMonthAndName.text = buildString {
+            append(dateUiModel.month)
+            append(BLANK)
+            append(dateUiModel.dayOfMonthNumber)
+        }
         tvDayName.text = dateUiModel.dayOfWeekText
 
         if (selectedDateUiModel == dateUiModel) {

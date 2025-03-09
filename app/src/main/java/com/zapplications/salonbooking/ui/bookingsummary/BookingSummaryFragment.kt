@@ -14,10 +14,15 @@ import com.zapplications.salonbooking.core.extensions.TEN
 import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.loadImage
 import com.zapplications.salonbooking.core.extensions.toast
+import com.zapplications.salonbooking.core.ui.dialog.statusdialog.ButtonConfig
+import com.zapplications.salonbooking.core.ui.dialog.statusdialog.StatusDialog
+import com.zapplications.salonbooking.core.ui.dialog.statusdialog.StatusDialogState
+import com.zapplications.salonbooking.core.ui.dialog.statusdialog.statusDialogBuilder
 import com.zapplications.salonbooking.core.ui.pricingdetails.model.BookingPrice
 import com.zapplications.salonbooking.core.ui.pricingdetails.model.BookingPricingDetail
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentBookingSummaryBinding
+import com.zapplications.salonbooking.domain.model.BookingAppointmentUiModel
 import com.zapplications.salonbooking.domain.model.SelectedServices
 import com.zapplications.salonbooking.domain.model.ServiceUiModel
 import com.zapplications.salonbooking.domain.model.enums.PaymentType
@@ -30,6 +35,8 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
     private val binding by viewBinding(FragmentBookingSummaryBinding::bind)
     private val sharedViewModel: AppointmentSharedViewModel by navGraphViewModels(R.id.home_graph)
     private val viewModel: BookingSummaryViewModel by viewModels()
+
+    private var loadingStatusDialog: StatusDialog? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +51,9 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
                 launch {
                     viewModel.uiState.collect { uiState ->
                         if (uiState.isLoading) {
-                            toast("Loading")
+                            loading()
+                        } else {
+                            loadingStatusDialog?.dismissNow()
                         }
                     }
                 }
@@ -52,16 +61,10 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
                 launch {
                     viewModel.uiEvent.collect { uiEvent ->
                         when (uiEvent) {
-                            is BookingSummaryUiEvent.BookingAppointmentSuccessFull -> {
-                                val action = BookingSummaryFragmentDirections.actionBookingSummaryToReceipt(
-                                    bookingAppointmentUiModel = uiEvent.bookingAppointmentUiModel
-                                )
-                                findNavController().navigate(action)
-                            }
+                            is BookingSummaryUiEvent.BookingAppointmentSuccessFull ->
+                                success(uiEvent.bookingAppointmentUiModel)
 
-                            is BookingSummaryUiEvent.ShowError -> {
-                                toast(message = uiEvent.message)
-                            }
+                            is BookingSummaryUiEvent.ShowError -> failed()
                         }
                     }
                 }
@@ -71,24 +74,21 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
 
     private fun initView() {
         initSalonCard()
-        binding.tvBookingDate.text = buildString {
-            append(sharedViewModel.selectedDate?.dayOfWeekText)
-            append(" , ")
-            append(sharedViewModel.selectedDate?.month)
-            append(" ")
-            append(sharedViewModel.selectedDate?.dayOfMonthNumber)
-            append(" at ")
-            append(sharedViewModel.selectedTime?.time)
-        }
+        binding.tvBookingDate.text = getString(
+            R.string.text_booking_date,
+            sharedViewModel.selectedDate?.dayOfWeekText,
+            sharedViewModel.selectedDate?.month,
+            sharedViewModel.selectedDate?.dayOfMonthNumber,
+            sharedViewModel.selectedTime?.time.toString()
+        )
 
-        binding.tvStylist.text = buildString {
-            append(sharedViewModel.selectedStylist?.fullName)
-            append(" - ")
-            append(
-                sharedViewModel.salon?.services?.firstOrNull()?.customDuration
-                    ?: sharedViewModel.salon?.services?.firstOrNull()?.defaultDuration
-            )
-        }
+        binding.tvStylist.text = getString(
+            R.string.text_stylist,
+            sharedViewModel.selectedStylist?.fullName,
+            sharedViewModel.salon?.services?.firstOrNull()?.customDuration
+                ?: sharedViewModel.salon?.services?.firstOrNull()?.defaultDuration
+        )
+
         sharedViewModel.selectedServices?.let { initPricingDetails(it) }
 
         handleClickEvents()
@@ -104,7 +104,11 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
                 radius = TEN
             )
             tvSalonLocationString.text = address
-            tvRating.text = "$rating ($reviewerCount)"
+            tvRating.text = getString(
+                R.string.text_rating,
+                rating,
+                reviewerCount
+            )
         }
     }
 
@@ -121,7 +125,7 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
 
     private fun handleProceedButtonClick() {
         if (!binding.rbPayOnlineNow.isChecked && !binding.rbPayAtSalon.isChecked) {
-            toast("Please, select payment type!")
+            toast(getString(R.string.message_please_select_payment_type))
             return
         }
 
@@ -171,5 +175,71 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
         )
 
         viewModel.bookAppointment(request)
+    }
+
+    private fun loading() {
+        val x = statusDialogBuilder {
+            title(getString(R.string.title_status_dialog_payment_loading))
+            description(getString(R.string.description_status_dialog_payment_loading))
+            state(StatusDialogState.LOADING)
+        }
+
+        loadingStatusDialog = x.show(childFragmentManager, LOADING_DIALOG_TAG)
+    }
+
+    private fun success(bookingAppointmentUiModel: BookingAppointmentUiModel) {
+        statusDialogBuilder {
+            title(getString(R.string.title_status_dialog_appointment_confirmed))
+            description(getString(R.string.description_status_dialog_confirmed))
+            state(StatusDialogState.SUCCESS)
+            buttons(
+                listOf(
+                    ButtonConfig(
+                        title = getString(R.string.btn_view_receipt),
+                        action = {
+                            val action =
+                                BookingSummaryFragmentDirections.actionBookingSummaryToReceipt(
+                                    bookingAppointmentUiModel = bookingAppointmentUiModel
+                                )
+                            findNavController().navigate(action)
+                        }
+                    ),
+                    ButtonConfig(
+                        title = getString(R.string.btn_back_to_home),
+                        action = {
+                            findNavController().popBackStack(R.id.homeFragment, false)
+                        }
+                    )
+                )
+            )
+            show(childFragmentManager, SUCCESS_DIALOG_TAG)
+        }
+    }
+
+    private fun failed() {
+        statusDialogBuilder {
+            title(getString(R.string.title_status_dialog_payment_failed))
+            description(getString(R.string.description_status_dialog_payment_failed))
+            state(StatusDialogState.FAILED)
+            buttons(
+                listOf(
+                    ButtonConfig(
+                        title = getString(R.string.btn_try_again),
+                        action = { dismiss() }
+                    ),
+                    ButtonConfig(
+                        title = getString(R.string.btn_change_payment_method),
+                        action = { dismiss() }
+                    )
+                )
+            )
+            show(childFragmentManager, FAILED_DIALOG_TAG)
+        }
+    }
+
+    companion object {
+        const val SUCCESS_DIALOG_TAG = "SUCCESS"
+        const val FAILED_DIALOG_TAG = "FAILED"
+        const val LOADING_DIALOG_TAG = "LOADING"
     }
 }

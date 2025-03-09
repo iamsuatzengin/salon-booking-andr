@@ -79,11 +79,30 @@
     <string name="title_location_settings">Open location settings</string>
     <string name="description_location_settings">You can list salons near you. Can you turn on location?</string>
 
+    <!-- Status Dialog text -->
+    <string name="title_status_dialog_appointment_confirmed">Your salon appointment is confirmed!</string>
+    <string name="description_status_dialog_confirmed">Thank you for your payment. We look forward to seeing you soon.</string>
+    <string name="btn_view_receipt">View Receipt</string>
+    <string name="btn_back_to_home">Back to Home</string>
+    <string name="title_status_dialog_payment_failed">Payment Failed</string>
+    <string name="description_status_dialog_payment_failed">We couldn\'t process your payment. Please check your card details or try another payment method.</string>
+    <string name="btn_try_again">Try Again</string>
+    <string name="btn_change_payment_method">Change Payment Method</string>
+    <string name="title_status_dialog_payment_loading">Processing Your Payment…</string>
+    <string name="description_status_dialog_payment_loading">Please wait while we complete your transaction.</string>
+    <string name="message_please_select_payment_type">Please, select payment type!</string>
+
+    <!-- Enum text -->
     <string name="at_salon">At salon</string>
     <string name="online">Online</string>
     <string name="upcoming">Upcoming</string>
     <string name="completed">Completed</string>
     <string name="cancelled">Cancelled</string>
 
+    <string name="text_booking_date">%s, %s %d at %s</string>
+    <string name="text_stylist">%s - %s</string>
+    <string name="text_rating">%.2f (%d)</string>
+
+    <!-- Mock text -->
     <string name="mock_name_john_doe">John Doe</string>
 </resources>

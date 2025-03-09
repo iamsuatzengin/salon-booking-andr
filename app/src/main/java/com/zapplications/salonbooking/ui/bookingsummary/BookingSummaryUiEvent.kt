@@ -7,5 +7,5 @@ sealed interface BookingSummaryUiEvent {
         val bookingAppointmentUiModel: BookingAppointmentUiModel
     ) : BookingSummaryUiEvent
 
-    class ShowError(val message: String) : BookingSummaryUiEvent
+    data object ShowError : BookingSummaryUiEvent
 }

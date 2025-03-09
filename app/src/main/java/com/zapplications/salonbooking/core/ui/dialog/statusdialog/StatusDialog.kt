@@ -15,6 +15,7 @@ import com.zapplications.salonbooking.core.extensions.TWO
 import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.orTrue
 import com.zapplications.salonbooking.core.extensions.orZero
+import com.zapplications.salonbooking.core.extensions.parcelable
 import com.zapplications.salonbooking.databinding.LayoutStatusDialogBinding
 
 fun statusDialogBuilder(
@@ -46,11 +47,11 @@ fun statusDialogBuilder(
  * - If the `buttons` list contains one or two `ButtonConfig` objects, the buttons are displayed vertically.
  * - Buttons list size cannot be more than 2.
  */
-class StatusDialog(
-    private val statusDialogParam: StatusDialogParam? = null,
-) : DialogFragment() {
+class StatusDialog : DialogFragment() {
     private var _binding: LayoutStatusDialogBinding? = null
     private val binding get() = _binding!!
+
+    private var statusDialogParam: StatusDialogParam? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,20 +61,26 @@ class StatusDialog(
         _binding = LayoutStatusDialogBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
+        statusDialogParam = if (savedInstanceState == null) {
+            arguments?.parcelable(STATUS_DIALOG_PARAM)
+        } else {
+            savedInstanceState.parcelable(STATUS_DIALOG_PARAM)
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initDialogState()
-        initTitle()
-        initDescription()
-        initButtons()
+        initDialogState(state = statusDialogParam?.state)
+        initTitle(title = statusDialogParam?.title)
+        initDescription(description = statusDialogParam?.description)
+        initButtons(buttons = statusDialogParam?.buttons)
     }
 
-    private fun initDialogState() {
-        when (statusDialogParam?.state) {
+    private fun initDialogState(state: StatusDialogState?) {
+        when (state) {
             StatusDialogState.LOADING -> {
                 binding.progressIndicator.isVisible = true
                 binding.btnPrimarySolid.isVisible = false
@@ -98,17 +105,15 @@ class StatusDialog(
         }
     }
 
-    private fun initTitle() {
-        binding.tvDialogTitle.text = statusDialogParam?.title
+    private fun initTitle(title: String?) {
+        binding.tvDialogTitle.text = title
     }
 
-    private fun initDescription() {
-        binding.tvDialogDescription.text = statusDialogParam?.description
+    private fun initDescription(description: String?) {
+        binding.tvDialogDescription.text = description
     }
 
-    private fun initButtons() {
-        val buttons = statusDialogParam?.buttons
-
+    private fun initButtons(buttons: List<ButtonConfig>?) {
         check(buttons?.size.orZero() <= TWO) {
             "Buttons list size cannot be more than 2"
         }
@@ -135,18 +140,29 @@ class StatusDialog(
         setOnClickListener { buttonConfig.action.invoke(this@StatusDialog) }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.apply {
+            putParcelable(STATUS_DIALOG_PARAM, statusDialogParam)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    data class StatusDialogParam(
-        val title: String = "",
-        val description: String = "",
-        val buttons: List<ButtonConfig> = emptyList(),
-        val state: StatusDialogState = StatusDialogState.LOADING,
-        val isCancellable: Boolean = false,
-    )
+    companion object {
+        const val STATUS_DIALOG_PARAM = "STATUS_DIALOG_PARAM"
+        fun newInstance(statusDialogParam: StatusDialogParam): StatusDialog {
+            val args = Bundle().apply {
+                putParcelable(STATUS_DIALOG_PARAM, statusDialogParam)
+            }
+            val dialog = StatusDialog()
+            dialog.arguments = args
+            return dialog
+        }
+    }
 
     class Builder {
         private var param: StatusDialogParam = StatusDialogParam()
@@ -177,7 +193,7 @@ class StatusDialog(
         }
 
         fun show(fragmentManager: FragmentManager, tag: String?): StatusDialog {
-            val dialog = StatusDialog(param)
+            val dialog = newInstance(param)
             dialog.isCancelable = param.isCancellable.orTrue()
             dialog.show(fragmentManager, tag)
 

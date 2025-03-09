@@ -10,6 +10,7 @@ import com.zapplications.salonbooking.domain.model.enums.PaymentType
 import com.zapplications.salonbooking.domain.repository.BookingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.auth.auth
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -36,9 +37,10 @@ class BookingSummaryViewModel @Inject constructor(
 
             val response = bookingRequest?.let { bookingRepository.bookAppointment(it) }
             response?.let { responseModel ->
+                delay(2000)
                 _uiState.update { it.copy(isLoading = false) }
                 _uiEvent.emit(BookingSummaryUiEvent.BookingAppointmentSuccessFull(responseModel))
-            } ?: _uiEvent.emit(BookingSummaryUiEvent.ShowError("Something went wrong!"))
+            } ?: _uiEvent.emit(BookingSummaryUiEvent.ShowError)
         }
     }
 
