@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="AppSwitch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
         <item name="thumbTint">@color/white</item>
         <item name="thumbIcon">@android:color/transparent</item>
@@ -7,8 +8,27 @@
         <item name="trackTint">@color/thumb_color_state</item>
     </style>
 
-    <style name="TabLayoutTextAppearance" parent="" >
+    <style name="TabLayoutTextAppearance" parent="">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/inter_18pt_medium</item>
+    </style>
+
+    <style name="MainButtonSolid" parent="">
+        <item name="android:backgroundTint">@color/color_main</item>
+        <item name="android:textAppearance">@style/ButtonTextAppearance</item>
+        <item name="cornerRadius">@dimen/corner_radius_default</item>
+    </style>
+
+    <style name="SecondaryButtonOutlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/color_main</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textAppearance">@style/ButtonTextAppearance</item>
+        <item name="cornerRadius">@dimen/corner_radius_default</item>
+        <item name="android:textColor">@color/color_main</item>
+    </style>
+
+    <style name="ButtonTextAppearance" parent="">
+        <item name="android:fontFamily">@font/inter_18pt_semibold</item>
+        <item name="android:textSize">@dimen/size16</item>
     </style>
 </resources>
