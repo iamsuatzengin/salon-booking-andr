@@ -1,6 +1,5 @@
 package com.zapplications.salonbooking.ui.stylistlist
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,7 +13,6 @@ import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.adapter.decoration.MarginDecoration
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentStylistListBinding
-import com.zapplications.salonbooking.domain.model.StylistUiModel
 import com.zapplications.salonbooking.ui.shared.AppointmentSharedViewModel
 import com.zapplications.salonbooking.ui.stylistlist.adapter.StylistAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,10 +34,9 @@ class StylistListFragment : Fragment(R.layout.fragment_stylist_list) {
 
         binding.ivBackIcon.setOnClickListener { findNavController().navigateUp() }
         binding.btnSelectAndContinue.setOnClickListener {
-
-            viewModel.selectedStylist?.id?.let { selectedId ->
+            viewModel.selectedStylist?.let {
                 sharedViewModel.selectedStylist = viewModel.selectedStylist
-                navigateToDateTimeSelection(stylistId = selectedId)
+                navigateToDateTimeSelection(stylistId = sharedViewModel.getSelectedStylistId())
             }
         }
     }
@@ -47,17 +44,20 @@ class StylistListFragment : Fragment(R.layout.fragment_stylist_list) {
     private fun collectData() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { uiModel -> initView(uiModel) }
+                viewModel.uiState.collect { uiState ->
+                    initView(uiState)
+                }
             }
         }
     }
 
-    private fun initView(uiModel: List<StylistUiModel>) {
-        adapter?.submitList(uiModel)
+    private fun initView(uiState: StylistListUiState) {
+        adapter?.submitList(uiState.uiItems)
+        binding.btnSelectAndContinue.isEnabled = uiState.buttonEnabled
     }
 
     private fun initRecyclerView() {
-        adapter = StylistAdapter(onStylistClick = ::handleStylistClick)
+        adapter = StylistAdapter()
         binding.rvStylists.addItemDecoration(
             MarginDecoration(
                 excludeLastItem = true,
@@ -66,13 +66,6 @@ class StylistListFragment : Fragment(R.layout.fragment_stylist_list) {
         )
         binding.rvStylists.itemAnimator = null
         binding.rvStylists.adapter = adapter
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun handleStylistClick(stylistUiModel: StylistUiModel) {
-        viewModel.selectStylist(stylistUiModel)
-        adapter?.notifyDataSetChanged()
-        binding.btnSelectAndContinue.isEnabled = viewModel.isSelectAndContinueButtonEnabled
     }
 
     private fun navigateToDateTimeSelection(stylistId: String) {

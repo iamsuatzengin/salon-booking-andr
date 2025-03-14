@@ -84,7 +84,7 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
 
         binding.tvStylist.text = getString(
             R.string.text_stylist,
-            sharedViewModel.selectedStylist?.fullName,
+            sharedViewModel.getSelectedStylistName() ?: getString(R.string.title_any_stylist),
             sharedViewModel.salon?.services?.firstOrNull()?.customDuration
                 ?: sharedViewModel.salon?.services?.firstOrNull()?.defaultDuration
         )
@@ -164,7 +164,7 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
 
         val request = viewModel.createRequest(
             salonId = sharedViewModel.salon?.id.orEmpty(),
-            stylistId = sharedViewModel.selectedStylist?.id.orEmpty(),
+            stylistId = sharedViewModel.getSelectedStylistId(),
             bookingDate = sharedViewModel.selectedDate?.formattedDate.orEmpty(),
             bookingTime = sharedViewModel.selectedTime?.time.toString(),
             totalAmount = totalAmount,
@@ -178,13 +178,13 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
     }
 
     private fun loading() {
-        val x = statusDialogBuilder {
+        val statusDialog = statusDialogBuilder {
             title(getString(R.string.title_status_dialog_payment_loading))
             description(getString(R.string.description_status_dialog_payment_loading))
             state(StatusDialogState.LOADING)
         }
 
-        loadingStatusDialog = x.show(childFragmentManager, LOADING_DIALOG_TAG)
+        loadingStatusDialog = statusDialog.show(childFragmentManager, LOADING_DIALOG_TAG)
     }
 
     private fun success(bookingAppointmentUiModel: BookingAppointmentUiModel) {

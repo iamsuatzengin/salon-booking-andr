@@ -14,6 +14,7 @@ import com.zapplications.salonbooking.domain.usecase.GetWorkingHoursUseCase
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.item.SelectDateViewItem
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.item.SelectTimeViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.TitleViewItem
+import com.zapplications.salonbooking.ui.stylistlist.adapter.item.StylistViewType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,7 +51,9 @@ class DateTimeSelectionViewModel @Inject constructor(
         if (stylistId.isNullOrEmpty()) return
 
         viewModelScope.launch {
-            val availability = repository.getStylistAvailability(stylistId, date) ?: return@launch
+            val availability = if (stylistId != StylistViewType.ANY_STYLIST.name) {
+                repository.getStylistAvailability(stylistId, date) ?: return@launch
+            } else null
 
             uiItems.removeAll { item -> item is SelectTimeViewItem }
             generateTimes(availability).also { t -> uiItems.addAll(t) }

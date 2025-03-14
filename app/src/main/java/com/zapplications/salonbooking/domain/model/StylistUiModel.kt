@@ -9,11 +9,10 @@ data class StylistUiModel(
     val imageUrl: String,
     val specialization: String,
     val isTopRated: Boolean,
-    val salonId: String
-) {
-    var isAnyStylist: Boolean = false
-    var isSelected: Boolean = false
-}
+    val salonId: String,
+    val isSelected: Boolean = false,
+    val isAnyStylist: Boolean = false
+)
 
 fun StylistApiModel.toUiModel() = StylistUiModel(
     id = id.orEmpty(),
@@ -23,12 +22,3 @@ fun StylistApiModel.toUiModel() = StylistUiModel(
     isTopRated = isTopRated.orFalse(),
     salonId = salonId.orEmpty()
 )
-
-fun anyStylistItem() = StylistUiModel(
-    id = "AnyStylist",
-    fullName = "",
-    imageUrl = "",
-    specialization = "",
-    isTopRated = false,
-    salonId = ""
-).apply { isAnyStylist = true }
