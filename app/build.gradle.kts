@@ -81,14 +81,12 @@ dependencies {
 
     implementation(libs.glide)
 
-    // Ktor
     implementation(libs.bundles.ktor.bundle)
 
     implementation(libs.play.services.location)
-
     implementation(libs.kotlinx.datetime)
-
     implementation(libs.qrGenerator)
+    implementation(libs.dataStore)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -23,6 +23,7 @@ ktor = "3.0.2"
 glide = "4.16.0"
 kotlinxDateTime = "0.6.2"
 qrGenerator = "4.3.0"
+dataStore = "1.1.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -60,6 +61,8 @@ ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", 
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 
 qrGenerator = { module = "com.journeyapps:zxing-android-embedded", version.ref = "qrGenerator" }
+
+dataStore = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

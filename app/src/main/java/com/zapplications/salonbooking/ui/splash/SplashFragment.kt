@@ -32,8 +32,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                             findNavController().navigate(R.id.splashToSignIn)
                         }
 
-                        SplashUiEvent.NavigateToHome -> {
-                            checkPermissionsAndNavigate()
+                        is SplashUiEvent.NavigateToHome -> {
+                            checkPermissionsAndNavigate(event.isNavigatedAppPermissionBefore)
                         }
                     }
                 }
@@ -41,8 +41,13 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         }
     }
 
-    private fun checkPermissionsAndNavigate() {
+    private fun checkPermissionsAndNavigate(navigatedAppPermissionBefore: Boolean) {
         with(requireContext()) {
+            if (navigatedAppPermissionBefore) {
+                findNavController().navigate(R.id.splashToHome)
+                return
+            }
+
             if (checkNotificationPermission() && checkLocationPermission()) {
                 findNavController().navigate(R.id.splashToHome)
             } else {

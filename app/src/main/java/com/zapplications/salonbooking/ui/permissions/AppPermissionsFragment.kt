@@ -81,7 +81,11 @@ class AppPermissionsFragment : Fragment(R.layout.fragment_app_permissions) {
         }
 
         btnContinue.setOnClickListener {
-            findNavController().navigate(R.id.appPermissionsToHomeGraph)
+            viewModel.setNavigatedToAppPermissions(
+                onComplete = {
+                    findNavController().navigate(R.id.appPermissionsToHomeGraph)
+                }
+            )
         }
 
         tvBottomInfo.setOnClickListener { navigateToSettingsAppForPermission() }
