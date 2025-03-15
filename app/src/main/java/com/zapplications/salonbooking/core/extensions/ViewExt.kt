@@ -4,6 +4,12 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.View
 
+fun View.visible() { visibility = View.VISIBLE }
+
+fun View.gone() { visibility = View.GONE }
+
+fun View.invisible() { visibility = View.INVISIBLE }
+
 fun View.scaleVisibilityAnimation(
     from: Float = .5f,
     to: Float = 1f,

@@ -38,6 +38,9 @@
     <string name="title_receipt">Receipt</string>
     <string name="title_salon">Salon</string>
     <string name="title_customer_name">Customer Name</string>
+    <string name="title_bottombar_home">Home</string>
+    <string name="title_bottombar_bookings">Bookings</string>
+    <string name="title_bottombar_favourites">Favourites</string>
 
     <!-- Text -->
     <string name="hint_enter_your_email_or_phone_number">Enter your email or phone number.</string>

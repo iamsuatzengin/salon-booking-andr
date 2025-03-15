@@ -6,6 +6,8 @@
     app:startDestination="@id/splashFragment">
 
     <include app:graph="@navigation/home_graph" />
+    <include app:graph="@navigation/favourites_graph" />
+    <include app:graph="@navigation/bookings_graph" />
 
     <fragment
         android:id="@+id/splashFragment"
