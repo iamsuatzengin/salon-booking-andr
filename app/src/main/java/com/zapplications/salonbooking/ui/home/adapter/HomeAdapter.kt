@@ -4,7 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zapplications.salonbooking.core.adapter.BaseItemAdapter
+import com.zapplications.salonbooking.core.adapter.commonview.emptystate.EmptyStateViewHolder
+import com.zapplications.salonbooking.core.adapter.commonview.emptystate.EmptyStateViewItem
 import com.zapplications.salonbooking.databinding.ItemViewBannerBinding
+import com.zapplications.salonbooking.databinding.ItemViewEmptyStateBinding
 import com.zapplications.salonbooking.databinding.ItemViewHomeTopBinding
 import com.zapplications.salonbooking.databinding.ItemViewNearbySalonsBinding
 import com.zapplications.salonbooking.databinding.ItemViewSearchHomeBinding
@@ -32,6 +35,7 @@ class HomeAdapter : BaseItemAdapter() {
             2 -> BannerViewHolder(ItemViewBannerBinding.inflate(inflater, parent, false))
             3 -> TitleViewHolder(ItemViewTitleBinding.inflate(inflater, parent, false))
             4 -> ServiceCategoryViewHolder(ItemViewServiceCategoryBinding.inflate(inflater, parent, false))
+            999 -> EmptyStateViewHolder(ItemViewEmptyStateBinding.inflate(inflater, parent, false))
             else -> NearbySalonViewHolder(ItemViewNearbySalonsBinding.inflate(inflater, parent, false))
         }
     }
@@ -44,6 +48,7 @@ class HomeAdapter : BaseItemAdapter() {
             is TitleViewHolder -> holder.bind(getItem(position) as TitleViewItem)
             is NearbySalonViewHolder -> holder.bind(getItem(position) as NearbySalonViewItem)
             is ServiceCategoryViewHolder -> holder.bind(getItem(position) as ServiceCategoryViewItem)
+            is EmptyStateViewHolder -> holder.bind(getItem(position) as EmptyStateViewItem)
         }
     }
 }

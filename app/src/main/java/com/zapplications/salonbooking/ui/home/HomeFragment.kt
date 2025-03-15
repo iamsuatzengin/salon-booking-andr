@@ -1,6 +1,8 @@
 package com.zapplications.salonbooking.ui.home
 
+import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,17 +13,22 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.LocationUtil
 import com.zapplications.salonbooking.core.LocationUtil.getLocationPermission
+import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
+import com.zapplications.salonbooking.core.extensions.ONE
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkLocationProviderEnabled
 import com.zapplications.salonbooking.core.ui.dialog.CustomDialog
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentHomeBinding
 import com.zapplications.salonbooking.ui.home.adapter.HomeAdapter
-import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,6 +40,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val adapter by lazy { HomeAdapter() }
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
+    private var locationCallback: LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(location: LocationResult) {
+            super.onLocationResult(location)
+            updateLocation(location.lastLocation)
+            Log.i("HomeFragment - LocationCallback", "Location updated: ${location.lastLocation}")
+        }
+    }
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -50,9 +64,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        viewModel.getAllHomePageData(
-            onLocationClick = { handleLocationTitleClick() }
-        )
+
+        getLastKnownLocation()
+
+        if (!isLocationAvailable()) {
+            viewModel.getAllHomePageData(
+                onLocationClick = { handleLocationTitleClick() }
+            )
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,41 +94,45 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
         }
+    }
 
-        if (!isLocationAvailable()) {
-            // TODO request for all salon
+    private fun getLastKnownLocation() {
+        if (requireContext().checkLocationPermission() && requireContext().checkLocationProviderEnabled()) {
+            fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
+                updateLocation(location)
+            }?.addOnFailureListener {
+                Log.e("HomeFragment", "Exception occurred!", it)
+            }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        updateLocation()
-    }
-
-    private fun updateLocation() {
-        if (requireContext().checkLocationPermission() && requireContext().checkLocationProviderEnabled()) {
-            fusedLocationClient?.lastLocation?.addOnSuccessListener { location ->
-                lifecycleScope.launch {
-                    runCatching {
-                        val address = LocationUtil.getFromLocation(
-                            context = requireContext(),
-                            longitude = location.longitude,
-                            latitude = location.latitude
-                        )
-
-                        viewModel.updateLocation(
-                            getString(
-                                R.string.text_location_subadminarea_adminarea,
-                                address?.subAdminArea,
-                                address?.adminArea
-                            )
-                        )
-                        // request - param(longitude, latitude)
-                    }
+    private fun updateLocation(location: Location?) {
+        lifecycleScope.launch {
+            runCatching {
+                if (location == null) {
+                    requestLocationUpdates()
+                    return@launch
                 }
-            }?.addOnFailureListener {
-                Log.e("HomeFragment", "Exception occurred!", it)
+
+                val address = LocationUtil.getFromLocation(
+                    context = requireContext(),
+                    longitude = location.longitude,
+                    latitude = location.latitude
+                )
+
+                viewModel.updateLocation(
+                    getString(
+                        R.string.text_location_subadminarea_adminarea,
+                        address?.subAdminArea,
+                        address?.adminArea
+                    )
+                )
+
+                viewModel.getHomePageDataByLocation(
+                    longitude = location.longitude,
+                    latitude = location.latitude,
+                    onLocationClick = { handleLocationTitleClick() }
+                )
             }
         }
     }
@@ -168,9 +191,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun isLocationAvailable() =
         requireContext().checkLocationPermission() && requireContext().checkLocationProviderEnabled()
 
+    private fun requestLocationUpdates() {
+        if (requireContext().checkLocationPermission()) {
+            val locationRequest = LocationRequest.Builder(5000)
+                .setMaxUpdates(ONE)
+                .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+                .build()
+
+            fusedLocationClient?.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fusedLocationClient?.removeLocationUpdates(locationCallback)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-
         fusedLocationClient = null
     }
 

@@ -3,9 +3,12 @@ package com.zapplications.salonbooking.ui.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.domain.repository.HomeRepository
 import com.zapplications.salonbooking.ui.home.adapter.item.BannerViewItem
 import com.zapplications.salonbooking.core.adapter.Item
+import com.zapplications.salonbooking.core.adapter.commonview.emptystate.EmptyStateViewItem
+import com.zapplications.salonbooking.domain.model.HomePageUiModel
 import com.zapplications.salonbooking.ui.home.adapter.item.NearbySalonViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.SearchViewItem
 import com.zapplications.salonbooking.ui.home.adapter.item.ServiceCategoryViewItem
@@ -36,46 +39,74 @@ class HomeViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val homePage = repository.getAllHomePageData()
-            val recyclerItems: MutableList<Item> = mutableListOf(
-                TopViewItem(
-                    title = "Location",
-                    locationString = homePageUiState.value.locationString,
-                    clickHandler = onLocationClick
-                ),
-                SearchViewItem(hint = "Enter address or city name"),
+            generateHomeUiItems(homePage, onLocationClick)
+        }
+    }
+
+    fun getHomePageDataByLocation(
+        longitude: Double,
+        latitude: Double,
+        onLocationClick: () -> Unit,
+    ) {
+        viewModelScope.launch {
+            val homePageUiModel = repository.getHomePageDataByLocation(
+                longitude = longitude,
+                latitude = latitude
             )
-            homePage?.banner?.let { recyclerItems.add(BannerViewItem(bannerUiModel = it)) }
-            homePage?.categories?.let { categories ->
-                recyclerItems.add(TitleViewItem(title = "Services"))
-                recyclerItems.add(ServiceCategoryViewItem(
-                    categories,
-                    onCategoryClick = {
-                        Log.i("HomeViewModel", "Category clicked: $it")
-                    }
-                ))
-            }
+
+            generateHomeUiItems(homePageUiModel, onLocationClick)
+        }
+    }
+
+    private fun generateHomeUiItems(uiModel: HomePageUiModel?, onLocationClick: () -> Unit) {
+        val recyclerItems: MutableList<Item> = mutableListOf(
+            TopViewItem(
+                title = "Location",
+                locationString = _homePageUiState.value.locationString,
+                clickHandler = onLocationClick
+            ),
+            SearchViewItem(hint = "Enter address or city name"),
+        )
+        uiModel?.banner?.let { recyclerItems.add(BannerViewItem(bannerUiModel = it)) }
+        uiModel?.categories?.let { categories ->
+            recyclerItems.add(TitleViewItem(title = "Services"))
+            recyclerItems.add(ServiceCategoryViewItem(
+                categories,
+                onCategoryClick = {
+                    Log.i("HomeViewModel", "Category clicked: $it")
+                }
+            ))
+        }
+        recyclerItems.add(
+            TitleViewItem(
+                title = "Nearby Salons",
+                actionText = "View on map",
+                actionClickHandler = {
+                    Log.i("HomeViewModel", "Action text clicked")
+                }
+            )
+        )
+
+        if (uiModel?.salons == null || uiModel.salons.isEmpty()) {
             recyclerItems.add(
-                TitleViewItem(
-                    title = "Nearby Salons",
-                    actionText = "View on map",
-                    actionClickHandler = {
-                        Log.i("HomeViewModel", "Action text clicked")
-                    }
+                EmptyStateViewItem(
+                    R.drawable.ic_salon_empty_state,
+                    title = "Salons not found!",
+                    body = "No salons found near you. Try again later."
                 )
             )
-            homePage?.salons?.let {
-                val model = it.mapNotNull { salon ->
-                    salon?.let {
-                        NearbySalonViewItem(salonUiModel = salon, clickHandler = { salonId ->
-                            navigateToSalonDetail(salonId)
-                        })
-                    }
+        } else {
+            val model = uiModel.salons.mapNotNull { salon ->
+                salon?.let {
+                    NearbySalonViewItem(salonUiModel = salon, clickHandler = { salonId ->
+                        navigateToSalonDetail(salonId)
+                    })
                 }
-                recyclerItems.addAll(model)
             }
-
-            _homePageUiState.update { it.copy(homePageUiModel = recyclerItems) }
+            recyclerItems.addAll(model)
         }
+
+        _homePageUiState.update { it.copy(homePageUiModel = recyclerItems) }
     }
 
     fun updateLocation(locationString: String) {

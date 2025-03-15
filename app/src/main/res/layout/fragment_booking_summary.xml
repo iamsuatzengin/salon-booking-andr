@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/margin16"
     android:background="#F8F8F8"
     android:fillViewport="true"
-    android:paddingTop="54dp"
-    android:paddingBottom="24dp"
     android:scrollbars="none"
     tools:context=".ui.bookingsummary.BookingSummaryFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/margin16"
+        android:paddingTop="54dp"
+        android:paddingBottom="24dp"
         android:layout_height="wrap_content">
 
         <ImageView

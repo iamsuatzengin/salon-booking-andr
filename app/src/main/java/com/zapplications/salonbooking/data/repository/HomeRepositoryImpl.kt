@@ -15,5 +15,8 @@ class HomeRepositoryImpl @Inject constructor(
     override suspend fun getHomePageDataByLocation(
         longitude: Double,
         latitude: Double,
-    ): HomePageUiModel? = remoteDataSource.getAllHomePageData()?.toUiModel()
+    ): HomePageUiModel? = remoteDataSource.getHomePageDataByLocation(
+        longitude = longitude,
+        latitude = latitude
+    )?.toUiModel()
 }
