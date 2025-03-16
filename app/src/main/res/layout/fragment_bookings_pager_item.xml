@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    tools:context=".ui.bookings.pager.BookingsPagerItemFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBookings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/margin16" />
+
+    <include
+        android:id="@+id/emptyState"
+        layout="@layout/item_view_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+</FrameLayout>

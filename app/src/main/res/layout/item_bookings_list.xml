@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_salon_service"
+    android:padding="@dimen/padding12">
+
+    <TextView
+        android:id="@+id/tvBookDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:textColor="@color/color_dark1"
+        android:textSize="@dimen/size12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Sep 10, 2024 - 9:30 AM" />
+
+    <ImageView
+        android:id="@+id/ivSalonImage"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="@dimen/margin16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvBookDateTime" />
+
+    <TextView
+        android:id="@+id/tvSalonNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin16"
+        android:layout_marginTop="@dimen/margin10"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:textColor="@color/color_dark1"
+        android:textSize="@dimen/size16"
+        app:layout_constraintStart_toEndOf="@id/ivSalonImage"
+        app:layout_constraintTop_toTopOf="@id/ivSalonImage"
+        tools:text="Salon Name" />
+
+    <TextView
+        android:id="@+id/tvSalonLocationString"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin4"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size14"
+        app:layout_constraintStart_toStartOf="@id/tvSalonNameTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvSalonNameTitle"
+        tools:text="Lakewood, California " />
+
+    <TextView
+        android:id="@+id/tvServices"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin4"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:maxLines="1"
+        android:textColor="@color/color_gray1"
+        android:textSize="@dimen/size14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvSalonNameTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvSalonLocationString"
+        tools:text="Services: Hair Cut, Hair Wash falan greggregre" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnViewReceipt"
+        style="@style/MainButtonSolid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/padding12"
+        android:text="@string/btn_view_receipt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancelBooking"
+        app:layout_constraintTop_toTopOf="@id/btnCancelBooking" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancelBooking"
+        style="@style/SecondaryButtonOutlined"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
+        android:layout_marginEnd="@dimen/margin16"
+        android:paddingVertical="@dimen/padding12"
+        android:text="@string/btn_text_cancel_booking"
+        app:layout_constraintEnd_toStartOf="@+id/btnViewReceipt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivSalonImage" />
+
+    <TextView
+        android:id="@+id/tvCancelledTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_18pt_medium"
+        android:text="@string/cancelled"
+        android:textColor="@color/color_error"
+        android:textSize="@dimen/size12"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

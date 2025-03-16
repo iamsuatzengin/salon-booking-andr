@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updateLayoutParams
 import com.zapplications.salonbooking.R
-import com.zapplications.salonbooking.domain.model.ServiceCategoryType
+import com.zapplications.salonbooking.domain.model.enums.ServiceCategoryType
 
 class ServiceCategoryView(private val context: Context) : LinearLayout(context) {
     private var text: TextView? = null

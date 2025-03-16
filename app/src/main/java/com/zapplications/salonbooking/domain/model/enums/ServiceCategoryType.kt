@@ -1,4 +1,4 @@
-package com.zapplications.salonbooking.domain.model
+package com.zapplications.salonbooking.domain.model.enums
 
 import androidx.annotation.DrawableRes
 import com.zapplications.salonbooking.R

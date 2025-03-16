@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.orZero
 import com.zapplications.salonbooking.data.response.ServiceApiModel
+import com.zapplications.salonbooking.domain.model.enums.ServiceCategoryType
 
 data class ServiceUiModel(
     val serviceId: String,

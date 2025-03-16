@@ -26,6 +26,7 @@
     <dimen name="margin32">32dp</dimen>
     <dimen name="margin36">36dp</dimen>
     <dimen name="margin48">48dp</dimen>
+    <dimen name="margin54">54dp</dimen>
     <dimen name="margin64">64dp</dimen>
 
     <!-- Corner radius -->

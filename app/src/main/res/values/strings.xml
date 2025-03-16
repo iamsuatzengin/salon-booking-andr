@@ -109,4 +109,10 @@
     <!-- Mock text -->
     <string name="mock_name_john_doe">John Doe</string>
     <string name="content_description_salon_empty_state_icon">Salon empty state icon</string>
+
+    <string name="btn_text_cancel_booking">Cancel Booking</string>
+    <string name="text_date_time">%s - %s</string>
+    <string name="text_selected_services">Services: %s</string>
+    <string name="cart_empty_state_title">No bookings!</string>
+    <string name="cart_empty_state_body">No bookings you have. You can book a new service from any salon!</string>
 </resources>
