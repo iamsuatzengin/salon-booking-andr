@@ -9,14 +9,23 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zapplications.salonbooking.MainGraphDirections
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.adapter.decoration.MarginDecoration
 import com.zapplications.salonbooking.core.extensions.toast
+import com.zapplications.salonbooking.core.ui.bottomsheet.MyBottomSheet
+import com.zapplications.salonbooking.core.ui.bottomsheet.MyBottomSheetParam
+import com.zapplications.salonbooking.core.ui.dialog.statusdialog.ButtonConfig
+import com.zapplications.salonbooking.core.ui.dialog.statusdialog.StatusDialogState
+import com.zapplications.salonbooking.core.ui.dialog.statusdialog.statusDialogBuilder
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentBookingsPagerItemBinding
+import com.zapplications.salonbooking.domain.model.BookingAppointmentUiModel
 import com.zapplications.salonbooking.domain.model.BookingsUiModel
 import com.zapplications.salonbooking.domain.model.enums.BookingStatusType
+import com.zapplications.salonbooking.ui.bookings.BookingsUiEvent
 import com.zapplications.salonbooking.ui.bookings.BookingsViewModel
 import com.zapplications.salonbooking.ui.bookings.adapter.BookingItemClickHandler
 import com.zapplications.salonbooking.ui.bookings.adapter.BookingsAdapter
@@ -65,22 +74,80 @@ class BookingsPagerItemFragment : Fragment(R.layout.fragment_bookings_pager_item
     private fun collectData() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { bookings ->
-                    binding.emptyState.root.isVisible = bookings.isEmpty()
-                    binding.rvBookings.isVisible = bookings.isNotEmpty()
+                launch {
+                    viewModel.uiState.collect { bookings ->
+                        binding.emptyState.root.isVisible = bookings.isEmpty()
+                        binding.rvBookings.isVisible = bookings.isNotEmpty()
 
-                    adapter.submitList(bookings)
+                        adapter.submitList(bookings)
+                    }
+                }
+
+                launch {
+                    viewModel.uiEvent.collect { uiEvent ->
+                        when (uiEvent) {
+                            is BookingsUiEvent.NavigateToReceipt -> {
+                                navigateToReceiptFragment(uiEvent.bookingAppointmentUiModel)
+                            }
+
+                            BookingsUiEvent.ShowError -> toast("Something went wrong!")
+                            BookingsUiEvent.BookingCancelledSuccess -> showBookingCancelledSuccessInfoDialog()
+                        }
+                    }
                 }
             }
         }
     }
 
+    private fun navigateToReceiptFragment(bookingAppointmentUiModel: BookingAppointmentUiModel) {
+        val action = MainGraphDirections.actionToReceiptFragment(bookingAppointmentUiModel)
+        findNavController().navigate(action)
+    }
+
     override fun onViewReceiptClick(item: BookingsUiModel) {
-        toast(message = "View receipt clicked for ${item.salon?.salonName}")
+        viewModel.getBookingById(item.id)
     }
 
     override fun onCancelBookingClick(item: BookingsUiModel) {
-        toast(message = "Cancel booking clicked for ${item.salon?.salonName}")
+        MyBottomSheet
+            .newInstance(
+                MyBottomSheetParam(
+                    title = "Cancel Booking",
+                    subtitle = "Are you sure you want to cancel?",
+                    description = "Canceling your appointment will remove it from your upcoming bookings.",
+                    buttons = listOf(
+                        ButtonConfig(
+                            title = "Keep Appointment",
+                            action = { dismiss() }
+                        ),
+                        ButtonConfig(
+                            title = "Yes, Cancel Booking",
+                            action = {
+                                viewModel.cancelBooking(item.id)
+                                dismiss()
+                            }
+                        )
+                    )
+                )
+            )
+            .show(childFragmentManager, "MyBottomSheetBookings")
+    }
+
+    private fun showBookingCancelledSuccessInfoDialog() {
+        statusDialogBuilder {
+            state(StatusDialogState.SUCCESS)
+            title(getString(R.string.title_booking_cancelled))
+            description(getString(R.string.description_booking_cancelled))
+            buttons(
+                listOf(
+                    ButtonConfig(
+                        title = getString(R.string.btn_text_back_to_bookings),
+                        action = { dismiss() }
+                    )
+                )
+            )
+            show(childFragmentManager, "MyBottomSheetBookings")
+        }
     }
 
     companion object {

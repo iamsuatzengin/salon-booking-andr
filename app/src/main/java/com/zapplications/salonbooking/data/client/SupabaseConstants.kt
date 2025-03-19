@@ -9,6 +9,7 @@ object SupabaseConstants {
 
     // Table names
     const val TABLE_STYLIST = "stylist"
+    const val TABLE_BOOKINGS = "bookings"
 
     // Column names
     const val FUNC_PARAM_SALON_ID = "p_salon_id"

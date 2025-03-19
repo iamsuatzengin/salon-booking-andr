@@ -9,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.navigation.navOptions
+import com.zapplications.salonbooking.MainGraphDirections
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.TEN
 import com.zapplications.salonbooking.core.extensions.ZERO
@@ -197,11 +199,18 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
                     ButtonConfig(
                         title = getString(R.string.btn_view_receipt),
                         action = {
-                            val action =
-                                BookingSummaryFragmentDirections.actionBookingSummaryToReceipt(
-                                    bookingAppointmentUiModel = bookingAppointmentUiModel
-                                )
-                            findNavController().navigate(action)
+                            val action = MainGraphDirections.actionToReceiptFragment(
+                                bookingAppointmentUiModel = bookingAppointmentUiModel
+                            )
+                            sharedViewModel.clear()
+                            findNavController().navigate(
+                                directions = action,
+                                navOptions = navOptions {
+                                    popUpTo(R.id.homeFragment) {
+                                        inclusive = false
+                                    }
+                                }
+                            )
                         }
                     ),
                     ButtonConfig(

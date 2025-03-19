@@ -115,4 +115,7 @@
     <string name="text_selected_services">Services: %s</string>
     <string name="cart_empty_state_title">No bookings!</string>
     <string name="cart_empty_state_body">No bookings you have. You can book a new service from any salon!</string>
+    <string name="title_booking_cancelled">Booking Cancelled</string>
+    <string name="description_booking_cancelled">Your appointment has been successfully canceled.</string>
+    <string name="btn_text_back_to_bookings">Back to Bookings</string>
 </resources>

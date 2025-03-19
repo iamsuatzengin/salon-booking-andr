@@ -17,15 +17,10 @@ class BookingsFragment : Fragment(R.layout.fragment_bookings) {
 
     private var pagerAdapter: BookingsPagerAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        pagerAdapter = BookingsPagerAdapter(this)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        pagerAdapter = BookingsPagerAdapter(this)
         initView()
     }
 

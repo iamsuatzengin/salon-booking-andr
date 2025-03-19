@@ -73,9 +73,10 @@
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/padding12"
         android:text="@string/btn_view_receipt"
+        android:layout_marginTop="@dimen/margin16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnCancelBooking"
-        app:layout_constraintTop_toTopOf="@id/btnCancelBooking" />
+        app:layout_constraintTop_toBottomOf="@id/ivSalonImage" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancelBooking"

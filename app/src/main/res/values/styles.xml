@@ -17,6 +17,7 @@
         <item name="android:backgroundTint">@color/color_main</item>
         <item name="android:textAppearance">@style/ButtonTextAppearance</item>
         <item name="cornerRadius">@dimen/corner_radius_default</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="SecondaryButtonOutlined" parent="Widget.Material3.Button.OutlinedButton">
