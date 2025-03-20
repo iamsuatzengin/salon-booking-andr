@@ -61,14 +61,14 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
     private fun collectData() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { uiModel ->
-                    initView(uiModel)
+                viewModel.uiState.collect { uiState ->
+                    initView(uiState.salonUiModel, uiState.isSalonFavorite)
                 }
             }
         }
     }
 
-    private fun initView(uiModel: SalonUiModel?) = with(binding) {
+    private fun initView(uiModel: SalonUiModel?, isSalonFavorite: Boolean) = with(binding) {
         uiModel?.run {
             tvSalonName.text = salonName
             tvSalonLocation.text = address
@@ -76,6 +76,8 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
             tvSalonDescription.text = description
             tvSalonRating.text = getString(R.string.text_rating, rating, reviewerCount)
 
+            viewModel.isFavoriteSelected = isSalonFavorite
+            binding.ivFavoriteIcon.setImageResource(viewModel.favoriteIcon)
             initCustomTab(services)
             initSalonImage(uiModel.imageUrl)
         }
@@ -102,14 +104,14 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
             val action =
                 SalonDetailFragmentDirections.actionSalonDetailToStylistList(viewModel.salonId)
             sharedViewModel.apply {
-                salon = viewModel.uiState.value
+                salon = viewModel.uiState.value.salonUiModel
                 selectedServices = binding.customTabView.selectedServices
             }
             findNavController().navigate(action)
         }
 
         binding.ivFavoriteIcon.setOnClickListener {
-            viewModel.isFavoriteSelected = !viewModel.isFavoriteSelected
+            viewModel.handleFavoriteIconClick()
             binding.ivFavoriteIcon.setImageResource(viewModel.favoriteIcon)
 
             binding.ivFavoriteIcon.scaleAnimation()

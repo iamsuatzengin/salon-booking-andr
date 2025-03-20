@@ -118,4 +118,5 @@
     <string name="title_booking_cancelled">Booking Cancelled</string>
     <string name="description_booking_cancelled">Your appointment has been successfully canceled.</string>
     <string name="btn_text_back_to_bookings">Back to Bookings</string>
+    <string name="title_favourites">Favourites</string>
 </resources>

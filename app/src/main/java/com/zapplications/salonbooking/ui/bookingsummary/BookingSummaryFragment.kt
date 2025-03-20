@@ -12,7 +12,7 @@ import androidx.navigation.navGraphViewModels
 import androidx.navigation.navOptions
 import com.zapplications.salonbooking.MainGraphDirections
 import com.zapplications.salonbooking.R
-import com.zapplications.salonbooking.core.extensions.TEN
+import com.zapplications.salonbooking.core.extensions.CORNER_RADIUS_DEFAULT_PX
 import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.loadImage
 import com.zapplications.salonbooking.core.extensions.toast
@@ -103,7 +103,7 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
             loadImage(
                 url = imageUrl,
                 target = ivSalonImage,
-                radius = TEN
+                radius = CORNER_RADIUS_DEFAULT_PX
             )
             tvSalonLocationString.text = address
             tvRating.text = getString(
