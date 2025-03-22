@@ -3,14 +3,12 @@ package com.zapplications.salonbooking.ui.salondetail
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.ui.BaseFragment
 import com.zapplications.salonbooking.core.extensions.ONE
 import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.loadImage
@@ -27,19 +25,26 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
+class SalonDetailFragment : BaseFragment<SalonDetailViewModel>(R.layout.fragment_salon_detail),
     CustomTabView.TabChangeListener {
     private val binding by viewBinding(FragmentSalonDetailBinding::bind)
-    private val viewModel: SalonDetailViewModel by viewModels()
+
+    override val viewModel: SalonDetailViewModel by viewModels()
+
     private val sharedViewModel: AppointmentSharedViewModel by navGraphViewModels(R.id.home_graph)
 
     private var isButtonAnimated = false
+
+    override suspend fun collectUiStates() {
+        viewModel.uiState.collect { uiState ->
+            initView(uiState.salonUiModel, uiState.isSalonFavorite)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getSalonDetail()
-        collectData()
         handleClickListeners()
 
         binding.customTabView.observable.addObserver {
@@ -53,16 +58,6 @@ class SalonDetailFragment : Fragment(R.layout.fragment_salon_detail),
                 if (isVisible && it.size == ONE && !isButtonAnimated) {
                     isButtonAnimated = true
                     scaleVisibilityAnimation()
-                }
-            }
-        }
-    }
-
-    private fun collectData() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { uiState ->
-                    initView(uiState.salonUiModel, uiState.isSalonFavorite)
                 }
             }
         }

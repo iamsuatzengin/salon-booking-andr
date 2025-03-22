@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zapplications.salonbooking.MainGraphDirections
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.ui.BaseFragment
 import com.zapplications.salonbooking.core.adapter.decoration.MarginDecoration
-import com.zapplications.salonbooking.core.extensions.toast
 import com.zapplications.salonbooking.core.ui.bottomsheet.MyBottomSheet
 import com.zapplications.salonbooking.core.ui.bottomsheet.MyBottomSheetParam
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.ButtonConfig
@@ -25,30 +21,34 @@ import com.zapplications.salonbooking.databinding.FragmentBookingsPagerItemBindi
 import com.zapplications.salonbooking.domain.model.BookingAppointmentUiModel
 import com.zapplications.salonbooking.domain.model.BookingsUiModel
 import com.zapplications.salonbooking.domain.model.enums.BookingStatusType
-import com.zapplications.salonbooking.ui.bookings.BookingsUiEvent
+import com.zapplications.salonbooking.ui.bookings.BookingCancelledSuccess
 import com.zapplications.salonbooking.ui.bookings.BookingsViewModel
+import com.zapplications.salonbooking.ui.bookings.NavigateToReceipt
 import com.zapplications.salonbooking.ui.bookings.adapter.BookingItemClickHandler
 import com.zapplications.salonbooking.ui.bookings.adapter.BookingsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BookingsPagerItemFragment : Fragment(R.layout.fragment_bookings_pager_item),
+class BookingsPagerItemFragment : BaseFragment<BookingsViewModel>(R.layout.fragment_bookings_pager_item),
     BookingItemClickHandler {
     private val binding by viewBinding(FragmentBookingsPagerItemBinding::bind)
-    private val viewModel by viewModels<BookingsViewModel>()
+    override val viewModel by viewModels<BookingsViewModel>()
+
     private val adapter by lazy { BookingsAdapter(this) }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         arguments?.takeIf { it.containsKey(BOOKING_STATUS_TYPE) }?.apply {
             val bookingStatus = arguments?.getString(BOOKING_STATUS_TYPE)
             viewModel.getUserBookings(bookingStatus)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
-        collectData()
     }
 
     private fun initRecyclerView() {
@@ -68,34 +68,26 @@ class BookingsPagerItemFragment : Fragment(R.layout.fragment_bookings_pager_item
             )
             rvBookings.adapter = adapter
         }
-
     }
 
-    private fun collectData() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.uiState.collect { bookings ->
-                        binding.emptyState.root.isVisible = bookings.isEmpty()
-                        binding.rvBookings.isVisible = bookings.isNotEmpty()
-
-                        adapter.submitList(bookings)
-                    }
+    override suspend fun collectUiEvents() {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is NavigateToReceipt -> {
+                    navigateToReceiptFragment(uiEvent.bookingAppointmentUiModel)
                 }
 
-                launch {
-                    viewModel.uiEvent.collect { uiEvent ->
-                        when (uiEvent) {
-                            is BookingsUiEvent.NavigateToReceipt -> {
-                                navigateToReceiptFragment(uiEvent.bookingAppointmentUiModel)
-                            }
-
-                            BookingsUiEvent.ShowError -> toast("Something went wrong!")
-                            BookingsUiEvent.BookingCancelledSuccess -> showBookingCancelledSuccessInfoDialog()
-                        }
-                    }
-                }
+                BookingCancelledSuccess -> showBookingCancelledSuccessInfoDialog()
             }
+        }
+    }
+
+    override suspend fun collectUiStates() {
+        viewModel.uiState.collect { bookings ->
+            binding.emptyState.root.isVisible = bookings.isEmpty()
+            binding.rvBookings.isVisible = bookings.isNotEmpty()
+
+            adapter.submitList(bookings)
         }
     }
 
@@ -146,7 +138,7 @@ class BookingsPagerItemFragment : Fragment(R.layout.fragment_bookings_pager_item
                     )
                 )
             )
-            show(childFragmentManager, "MyBottomSheetBookings")
+            show(childFragmentManager, "StatusDialogSuccess")
         }
     }
 

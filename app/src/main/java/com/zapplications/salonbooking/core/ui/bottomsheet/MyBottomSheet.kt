@@ -3,6 +3,7 @@ package com.zapplications.salonbooking.core.ui.bottomsheet
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.ONE
@@ -30,6 +31,7 @@ class MyBottomSheet: BottomSheetDialogFragment(R.layout.layout_my_bottom_sheet) 
         tvBottomsheetDescription.text = param.description
 
         param.buttons.getOrNull(ZERO)?.let {
+            btnPrimarySolid.isVisible = true
             btnPrimarySolid.text = it.title
             btnPrimarySolid.setOnClickListener { _ ->
                 it.action.invoke(this@MyBottomSheet)
@@ -37,11 +39,14 @@ class MyBottomSheet: BottomSheetDialogFragment(R.layout.layout_my_bottom_sheet) 
         }
 
         param.buttons.getOrNull(ONE)?.let {
+            btnSecondaryOutlined.isVisible = true
             btnSecondaryOutlined.text = it.title
             btnSecondaryOutlined.setOnClickListener { _ ->
                 it.action.invoke(this@MyBottomSheet)
             }
         }
+
+        isCancelable = param.isCancellable
     }
 
     companion object {
@@ -59,5 +64,6 @@ data class MyBottomSheetParam(
     val title: String,
     val subtitle: String? = null,
     val description: String,
+    val isCancellable: Boolean = true,
     val buttons: List<ButtonConfig>
 ) : Parcelable

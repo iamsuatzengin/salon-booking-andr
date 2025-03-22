@@ -3,9 +3,9 @@ package com.zapplications.salonbooking.ui.salondetail
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.ui.BaseViewModel
 import com.zapplications.salonbooking.data.local.entity.FavoriteSalonEntity
 import com.zapplications.salonbooking.domain.repository.FavoritesRepository
 import com.zapplications.salonbooking.domain.repository.SalonDetailRepository
@@ -21,8 +21,8 @@ import javax.inject.Inject
 class SalonDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val repository: SalonDetailRepository,
-    private val favoriteRepository: FavoritesRepository
-) : ViewModel() {
+    private val favoriteRepository: FavoritesRepository,
+) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(SalonDetailUiState())
     val uiState get() = _uiState.asStateFlow()
@@ -41,14 +41,19 @@ class SalonDetailViewModel @Inject constructor(
 
     fun getSalonDetail() {
         viewModelScope.launch {
-            val isFavorite = async{ favoriteRepository.getFavoriteSalonById(salonId) != null }
-            val salonDetailUiModel = async{ repository.getSalonDetail(salonId) }
+            val isFavorite = async { favoriteRepository.getFavoriteSalonById(salonId) != null }
+
+            call(
+                block = { repository.getSalonDetail(salonId) },
+                onSuccess = { salonUiModel ->
+                    _uiState.update {
+                        it.copy(salonUiModel = salonUiModel,)
+                    }
+                }
+            )
 
             _uiState.update {
-                it.copy(
-                    salonUiModel = salonDetailUiModel.await(),
-                    isSalonFavorite = isFavorite.await()
-                )
+                it.copy(isSalonFavorite = isFavorite.await())
             }
         }
     }
