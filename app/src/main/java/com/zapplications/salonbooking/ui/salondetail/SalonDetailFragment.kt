@@ -35,16 +35,14 @@ class SalonDetailFragment : BaseFragment<SalonDetailViewModel>(R.layout.fragment
 
     private var isButtonAnimated = false
 
-    override suspend fun collectUiStates() {
-        viewModel.uiState.collect { uiState ->
-            initView(uiState.salonUiModel, uiState.isSalonFavorite)
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getSalonDetail()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSalonDetail()
         handleClickListeners()
 
         binding.customTabView.observable.addObserver {
@@ -60,6 +58,12 @@ class SalonDetailFragment : BaseFragment<SalonDetailViewModel>(R.layout.fragment
                     scaleVisibilityAnimation()
                 }
             }
+        }
+    }
+
+    override suspend fun collectUiStates() {
+        viewModel.uiState.collect { uiState ->
+            initView(uiState.salonUiModel, uiState.isSalonFavorite)
         }
     }
 

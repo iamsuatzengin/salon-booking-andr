@@ -2,11 +2,7 @@ package com.zapplications.salonbooking.ui.bookingsummary
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.navigation.navOptions
@@ -16,6 +12,8 @@ import com.zapplications.salonbooking.core.extensions.CORNER_RADIUS_DEFAULT_PX
 import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.loadImage
 import com.zapplications.salonbooking.core.extensions.toast
+import com.zapplications.salonbooking.core.ui.BaseFragment
+import com.zapplications.salonbooking.core.ui.ShowError
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.ButtonConfig
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.StatusDialog
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.StatusDialogState
@@ -30,13 +28,12 @@ import com.zapplications.salonbooking.domain.model.ServiceUiModel
 import com.zapplications.salonbooking.domain.model.enums.PaymentType
 import com.zapplications.salonbooking.ui.shared.AppointmentSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
+class BookingSummaryFragment : BaseFragment<BookingSummaryViewModel>(R.layout.fragment_booking_summary) {
     private val binding by viewBinding(FragmentBookingSummaryBinding::bind)
     private val sharedViewModel: AppointmentSharedViewModel by navGraphViewModels(R.id.home_graph)
-    private val viewModel: BookingSummaryViewModel by viewModels()
+    override val viewModel: BookingSummaryViewModel by viewModels()
 
     private var loadingStatusDialog: StatusDialog? = null
 
@@ -44,32 +41,25 @@ class BookingSummaryFragment : Fragment(R.layout.fragment_booking_summary) {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        collectData()
     }
 
-    private fun collectData() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.uiState.collect { uiState ->
-                        if (uiState.isLoading) {
-                            loading()
-                        } else {
-                            loadingStatusDialog?.dismissNow()
-                        }
-                    }
-                }
+    override suspend fun collectUiStates() {
+        viewModel.uiState.collect { uiState ->
+            if (uiState.isLoading) {
+                loading()
+            } else {
+                loadingStatusDialog?.dismissNow()
+            }
+        }
+    }
 
-                launch {
-                    viewModel.uiEvent.collect { uiEvent ->
-                        when (uiEvent) {
-                            is BookingSummaryUiEvent.BookingAppointmentSuccessFull ->
-                                success(uiEvent.bookingAppointmentUiModel)
+    override suspend fun collectUiEvents() {
+        viewModel.uiEvent.collect { uiEvent ->
+            when (uiEvent) {
+                is BookingAppointmentSuccessFull ->
+                    success(uiEvent.bookingAppointmentUiModel)
 
-                            is BookingSummaryUiEvent.ShowError -> failed()
-                        }
-                    }
-                }
+                is ShowError -> failed()
             }
         }
     }

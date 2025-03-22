@@ -1,7 +1,9 @@
 package com.zapplications.salonbooking.ui.bookingsummary
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zapplications.salonbooking.core.extensions.EMPTY
+import com.zapplications.salonbooking.core.ui.BaseViewModel
+import com.zapplications.salonbooking.core.ui.ShowError
 import com.zapplications.salonbooking.data.client.supabaseClient
 import com.zapplications.salonbooking.data.request.BookingAppointmentRequest
 import com.zapplications.salonbooking.domain.model.SelectedServices
@@ -11,11 +13,8 @@ import com.zapplications.salonbooking.domain.repository.BookingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.jan.supabase.auth.auth
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -24,12 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class BookingSummaryViewModel @Inject constructor(
     private val bookingRepository: BookingRepository,
-) : ViewModel() {
+) : BaseViewModel() {
     private val _uiState = MutableStateFlow(BookingSummaryUiState())
     val uiState: StateFlow<BookingSummaryUiState> get() = _uiState.asStateFlow()
-
-    private val _uiEvent = MutableSharedFlow<BookingSummaryUiEvent>()
-    val uiEvent: SharedFlow<BookingSummaryUiEvent> get() = _uiEvent.asSharedFlow()
 
     fun bookAppointment(bookingRequest: BookingAppointmentRequest?) {
         viewModelScope.launch {
@@ -39,8 +35,8 @@ class BookingSummaryViewModel @Inject constructor(
             response?.let { responseModel ->
                 delay(2000)
                 _uiState.update { it.copy(isLoading = false) }
-                _uiEvent.emit(BookingSummaryUiEvent.BookingAppointmentSuccessFull(responseModel))
-            } ?: _uiEvent.emit(BookingSummaryUiEvent.ShowError)
+                sendEvent(BookingAppointmentSuccessFull(responseModel))
+            } ?: sendEvent(ShowError(EMPTY))
         }
     }
 

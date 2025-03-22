@@ -6,11 +6,8 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -21,10 +18,12 @@ import com.google.android.gms.location.Priority
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.LocationUtil
 import com.zapplications.salonbooking.core.LocationUtil.getLocationPermission
+import com.zapplications.salonbooking.core.UiEvent
 import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
 import com.zapplications.salonbooking.core.extensions.ONE
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkLocationProviderEnabled
+import com.zapplications.salonbooking.core.ui.BaseFragment
 import com.zapplications.salonbooking.core.ui.dialog.CustomDialog
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentHomeBinding
@@ -33,9 +32,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : BaseFragment<HomeViewModel>(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
-    private val viewModel: HomeViewModel by viewModels()
+    override val viewModel: HomeViewModel by viewModels()
 
     private val adapter by lazy { HomeAdapter() }
 
@@ -44,7 +43,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         override fun onLocationResult(location: LocationResult) {
             super.onLocationResult(location)
             updateLocation(location.lastLocation)
-            Log.i("HomeFragment - LocationCallback", "Location updated: ${location.lastLocation}")
         }
     }
 
@@ -78,21 +76,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
+    }
 
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.homePageUiState.collect { state ->
-                        adapter.submitList(state.homePageUiModel)
-                    }
-                }
+    override suspend fun collectUiStates() {
+        viewModel.homePageUiState.collect { state ->
+            adapter.submitList(state.homePageUiModel)
+        }
+    }
 
-                launch {
-                    viewModel.homePageUiEvent.collect { event ->
-                        handleUiEvent(event)
-                    }
-                }
-            }
+    override suspend fun collectUiEvents() {
+        viewModel.uiEvent.collect { event ->
+            handleUiEvent(event)
         }
     }
 
@@ -143,9 +137,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.rvHome.addItemDecoration(MultiTypeMarginDecoration())
     }
 
-    private fun handleUiEvent(event: HomeUiEvent) {
+    private fun handleUiEvent(event: UiEvent) {
         when (event) {
-            is HomeUiEvent.NavigateToSalonDetail -> {
+            is NavigateToSalonDetail -> {
                 val action = HomeFragmentDirections.actionHomeToSalonDetail(event.salonId)
                 findNavController().navigate(action)
             }

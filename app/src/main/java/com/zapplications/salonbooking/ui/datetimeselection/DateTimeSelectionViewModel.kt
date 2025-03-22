@@ -2,10 +2,10 @@ package com.zapplications.salonbooking.ui.datetimeselection
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zapplications.salonbooking.core.adapter.Item
 import com.zapplications.salonbooking.core.extensions.orTrue
+import com.zapplications.salonbooking.core.ui.BaseViewModel
 import com.zapplications.salonbooking.domain.model.StylistAvailabilityUiModel
 import com.zapplications.salonbooking.domain.model.datetime.DateUiModel
 import com.zapplications.salonbooking.domain.repository.SalonDetailRepository
@@ -16,9 +16,7 @@ import com.zapplications.salonbooking.ui.datetimeselection.adapter.item.SelectTi
 import com.zapplications.salonbooking.ui.home.adapter.item.TitleViewItem
 import com.zapplications.salonbooking.ui.stylistlist.adapter.item.StylistViewType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -30,13 +28,10 @@ class DateTimeSelectionViewModel @Inject constructor(
     private val repository: SalonDetailRepository,
     private val getThreeDateFromNowUseCase: GetThreeDateFromNowUseCase,
     private val getWorkingHoursUseCase: GetWorkingHoursUseCase,
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(DateTimeSelectionUiState())
     val uiState get() = _uiState.asStateFlow()
-
-    private val _uiEvent = MutableSharedFlow<DateTimeSelectionUiEvent>()
-    val uiEvent = _uiEvent.asSharedFlow()
 
     private val stylistId = savedStateHandle.get<String>(STYLIST_ID_KEY)
 
@@ -50,14 +45,26 @@ class DateTimeSelectionViewModel @Inject constructor(
     private fun getStylistAvailability(date: String) {
         if (stylistId.isNullOrEmpty()) return
 
-        viewModelScope.launch {
-            val availability = if (stylistId != StylistViewType.ANY_STYLIST.name) {
-                repository.getStylistAvailability(stylistId, date) ?: return@launch
-            } else null
+        if (stylistId != StylistViewType.ANY_STYLIST.name) {
+            call(
+                block = {
+                    repository.getStylistAvailability(stylistId, date)
+                },
+                onSuccess = { availability ->
+                    uiItems.removeAll { item -> item is SelectTimeViewItem }
+                    generateTimes(availability).also { t -> uiItems.addAll(t) }
 
+                    _uiState.update {
+                        it.copy(
+                            items = uiItems.toList(),
+                            isConfirmButtonEnabled = handleConfirmButtonEnabledState()
+                        )
+                    }
+                }
+            )
+        } else {
             uiItems.removeAll { item -> item is SelectTimeViewItem }
-            generateTimes(availability).also { t -> uiItems.addAll(t) }
-
+            generateTimes(null).also { t -> uiItems.addAll(t) }
             _uiState.update {
                 it.copy(
                     items = uiItems.toList(),
