@@ -25,6 +25,9 @@ kotlinxDateTime = "0.6.2"
 qrGenerator = "4.3.0"
 dataStore = "1.1.3"
 room = "2.6.1"
+googleServices = "4.4.2"
+firebaseBom = "33.11.0"
+crashlytics = "3.0.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -70,6 +73,10 @@ qrGenerator = { module = "com.journeyapps:zxing-android-embedded", version.ref =
 
 dataStore = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStore" }
 
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -78,6 +85,8 @@ parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parce
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 navigation-safe-args =  { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
+gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics"}
 
 [bundles]
 ktor-bundle = [

@@ -1,6 +1,8 @@
 package com.zapplications.salonbooking.core
 
 import android.graphics.Bitmap
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.serialization.json.Json
@@ -45,5 +47,6 @@ inline fun <reified T> T.qrCode(): Bitmap? = runCatching {
     )
 }.getOrElse {
     it.printStackTrace()
+    Firebase.crashlytics.recordException(it)
     null
 }

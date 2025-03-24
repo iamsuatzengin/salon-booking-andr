@@ -10,6 +10,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.LocationUtil.getLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
@@ -119,6 +121,8 @@ class AppPermissionsFragment : Fragment(R.layout.fragment_app_permissions) {
         )
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+    }.onFailure {
+        Firebase.crashlytics.recordException(it)
     }
 
     companion object {

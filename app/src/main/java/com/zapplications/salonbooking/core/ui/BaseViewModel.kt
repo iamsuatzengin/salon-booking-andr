@@ -2,6 +2,8 @@ package com.zapplications.salonbooking.core.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import com.zapplications.salonbooking.core.UiEvent
 import com.zapplications.salonbooking.core.coroutineflow.runCoroutine
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -40,6 +42,8 @@ abstract class BaseViewModel : ViewModel() {
                 onError = { throwable ->
                     _baseUiEvent.emit(ShowError(throwable.message.toString()))
                     onError?.invoke(throwable)
+
+                    Firebase.crashlytics.recordException(throwable)
                 },
                 onCompletion = { throwable ->
                     _loadingState.update { false }
@@ -47,6 +51,8 @@ abstract class BaseViewModel : ViewModel() {
                     if (throwable != null) {
                         _baseUiEvent.emit(ShowError(throwable.message.toString()))
                         onError?.invoke(throwable)
+
+                        Firebase.crashlytics.recordException(throwable)
                     }
                 },
                 block = block

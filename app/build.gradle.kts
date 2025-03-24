@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.navigation.safe.args)
+    alias(libs.plugins.gms.google.services)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -91,6 +93,11 @@ dependencies {
     implementation(libs.room)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
