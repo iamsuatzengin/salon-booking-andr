@@ -32,16 +32,17 @@ abstract class BaseViewModel : ViewModel() {
     fun <T> call(
         block: suspend () -> T,
         onError: ((Throwable) -> Unit)? = null,
-        onSuccess: (T) -> Unit,
+        onSuccess: ((T) -> Unit)? = null,
     ) {
         viewModelScope.launch {
             runCoroutine(
-                onLoading = {
-                    _loadingState.update { true }
-                },
+                onLoading = { _loadingState.update { true } },
                 onError = { throwable ->
-                    _baseUiEvent.emit(ShowError(throwable.message.toString()))
-                    onError?.invoke(throwable)
+                    if(onError != null) {
+                        onError.invoke(throwable)
+                    } else {
+                        _baseUiEvent.emit(ShowError(throwable.message.toString()))
+                    }
 
                     Firebase.crashlytics.recordException(throwable)
                 },
@@ -49,15 +50,52 @@ abstract class BaseViewModel : ViewModel() {
                     _loadingState.update { false }
 
                     if (throwable != null) {
-                        _baseUiEvent.emit(ShowError(throwable.message.toString()))
-                        onError?.invoke(throwable)
+                        if(onError != null) {
+                            onError.invoke(throwable)
+                        } else {
+                            _baseUiEvent.emit(ShowError(throwable.message.toString()))
+                        }
 
                         Firebase.crashlytics.recordException(throwable)
                     }
                 },
                 block = block
             ).collect {
-                if (it != null) onSuccess(it)
+                if (it != null) onSuccess?.invoke(it)
+            }
+        }
+    }
+
+    fun <T> callWithoutLoading(
+        block: suspend () -> T,
+        onError: ((Throwable) -> Unit)? = null,
+        onSuccess: ((T) -> Unit)? = null,
+    ) {
+        viewModelScope.launch {
+            runCoroutine(
+                onError = { throwable ->
+                    if(onError != null) {
+                        onError.invoke(throwable)
+                    } else {
+                        _baseUiEvent.emit(ShowError(throwable.message.toString()))
+                    }
+
+                    Firebase.crashlytics.recordException(throwable)
+                },
+                onCompletion = { throwable ->
+                    if (throwable != null) {
+                        if(onError != null) {
+                            onError.invoke(throwable)
+                        } else {
+                            _baseUiEvent.emit(ShowError(throwable.message.toString()))
+                        }
+
+                        Firebase.crashlytics.recordException(throwable)
+                    }
+                },
+                block = block
+            ).collect {
+                if (it != null) onSuccess?.invoke(it)
             }
         }
     }

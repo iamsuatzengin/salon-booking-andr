@@ -11,16 +11,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.registerReceiver
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkNotificationPermission
+import com.zapplications.salonbooking.core.ui.BaseFragment
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentVerifyBinding
 import com.zapplications.salonbooking.domain.model.SignInType
@@ -28,11 +25,10 @@ import com.zapplications.salonbooking.receiver.SMSReceiver
 import com.zapplications.salonbooking.receiver.SmsReceiverListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.jan.supabase.auth.status.SessionStatus
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class VerifyFragment : Fragment(R.layout.fragment_verify), SmsReceiverListener {
-    private val viewModel: VerifyViewModel by viewModels()
+class VerifyFragment : BaseFragment<VerifyViewModel>(R.layout.fragment_verify), SmsReceiverListener {
+    override val viewModel: VerifyViewModel by viewModels()
     private val binding by viewBinding(FragmentVerifyBinding::bind)
     private var receiver: SMSReceiver? = null
 
@@ -57,7 +53,6 @@ class VerifyFragment : Fragment(R.layout.fragment_verify), SmsReceiverListener {
         super.onViewCreated(view, savedInstanceState)
 
         initOtpView()
-        collectData()
 
         binding.tvSentDigitCodeInfo.text = getString(
             R.string.text_sent_digit_code_info,
@@ -71,14 +66,12 @@ class VerifyFragment : Fragment(R.layout.fragment_verify), SmsReceiverListener {
         }
     }
 
-    private fun collectData() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-                viewModel.authenticationState.collect { state ->
-                    if (state is SessionStatus.Authenticated) {
-                        checkPermissionsAndNavigate()
-                    }
-                }
+    override suspend fun collectUiStates() {
+        super.collectUiStates()
+
+        viewModel.authenticationState.collect { state ->
+            if (state is SessionStatus.Authenticated) {
+                checkPermissionsAndNavigate()
             }
         }
     }
@@ -147,7 +140,7 @@ class VerifyFragment : Fragment(R.layout.fragment_verify), SmsReceiverListener {
 
     private fun parseOtp(message: String?) {
         message?.let { sms ->
-            val regex = Regex(OTP_PATTERN)
+            val regex = Regex(VerifyViewModel.OTP_PATTERN)
             if (regex.containsMatchIn(sms)) {
                 val code = regex.find(sms)?.value
                 viewModel.otpCode = code
@@ -170,9 +163,5 @@ class VerifyFragment : Fragment(R.layout.fragment_verify), SmsReceiverListener {
         super.onDestroy()
         receiver?.let { requireActivity().unregisterReceiver(it) }
         receiver = null
-    }
-
-    companion object {
-        const val OTP_PATTERN = "(\\d{6})"
     }
 }
