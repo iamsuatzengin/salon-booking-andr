@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.crashlytics.crashlytics
 import com.zapplications.salonbooking.core.UiEvent
+import com.zapplications.salonbooking.core.coroutineflow.ApiErrorModel
+import com.zapplications.salonbooking.core.coroutineflow.AppException
 import com.zapplications.salonbooking.core.coroutineflow.runCoroutine
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,8 +40,10 @@ abstract class BaseViewModel : ViewModel() {
             runCoroutine(
                 onLoading = { _loadingState.update { true } },
                 onError = { throwable ->
-                    if(onError != null) {
+                    if (onError != null) {
                         onError.invoke(throwable)
+                    } else if (throwable is AppException) {
+                        _baseUiEvent.emit(ShowApiError(throwable.errorModel))
                     } else {
                         _baseUiEvent.emit(ShowError(throwable.message.toString()))
                     }
@@ -50,8 +54,10 @@ abstract class BaseViewModel : ViewModel() {
                     _loadingState.update { false }
 
                     if (throwable != null) {
-                        if(onError != null) {
+                        if (onError != null) {
                             onError.invoke(throwable)
+                        } else if (throwable is AppException) {
+                            _baseUiEvent.emit(ShowApiError(throwable.errorModel))
                         } else {
                             _baseUiEvent.emit(ShowError(throwable.message.toString()))
                         }
@@ -74,8 +80,10 @@ abstract class BaseViewModel : ViewModel() {
         viewModelScope.launch {
             runCoroutine(
                 onError = { throwable ->
-                    if(onError != null) {
+                    if (onError != null) {
                         onError.invoke(throwable)
+                    } else if (throwable is AppException) {
+                        _baseUiEvent.emit(ShowApiError(throwable.errorModel))
                     } else {
                         _baseUiEvent.emit(ShowError(throwable.message.toString()))
                     }
@@ -84,8 +92,10 @@ abstract class BaseViewModel : ViewModel() {
                 },
                 onCompletion = { throwable ->
                     if (throwable != null) {
-                        if(onError != null) {
+                        if (onError != null) {
                             onError.invoke(throwable)
+                        } else if (throwable is AppException) {
+                            _baseUiEvent.emit(ShowApiError(throwable.errorModel))
                         } else {
                             _baseUiEvent.emit(ShowError(throwable.message.toString()))
                         }
@@ -106,3 +116,4 @@ abstract class BaseViewModel : ViewModel() {
 }
 
 data class ShowError(val message: String) : UiEvent
+data class ShowApiError(val errorModel: ApiErrorModel) : UiEvent

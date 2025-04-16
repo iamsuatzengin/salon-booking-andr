@@ -1,5 +1,6 @@
 package com.zapplications.salonbooking.data.datasource.remote
 
+import com.zapplications.salonbooking.core.coroutineflow.apiCall
 import com.zapplications.salonbooking.data.client.supabaseClient
 import io.github.jan.supabase.auth.OtpType
 import io.github.jan.supabase.auth.auth
@@ -34,11 +35,11 @@ class AuthRemoteDataSource @Inject constructor() {
         )
     }
 
-    suspend fun signInWithEmailOTP(email: String) = withContext(Dispatchers.IO) {
-        supabaseClient.auth.signInWith(OTP) {
-            this.email = email
+    suspend fun signInWithEmailOTP(email: String) = apiCall(
+        block = {
+            supabaseClient.auth.signInWith(OTP) { this.email = email }
         }
-    }
+    )
 
     suspend fun verifyEmailOTP(email: String, otp: String) = withContext(Dispatchers.IO) {
         supabaseClient.auth.verifyEmailOtp(

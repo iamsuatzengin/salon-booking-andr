@@ -76,7 +76,34 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes private val layoutRes
     private fun eventHandler(event: UiEvent) {
         when (event) {
             is ShowError -> {
-                showErrorDialog(event.message)
+                showErrorDialog(
+                    title = "Error",
+                    message = event.message,
+                    buttons = listOf(
+                        ButtonConfig(
+                            title = "Close",
+                            action = {
+                                dismiss()
+                                findNavController().navigateUp()
+                            }
+                        )
+                    )
+                )
+            }
+            is ShowApiError -> {
+                showErrorDialog(
+                    title = event.errorModel.title.orEmpty(),
+                    message = event.errorModel.description.orEmpty(),
+                    buttons = event.errorModel.buttons ?: listOf(
+                        ButtonConfig(
+                            title = "Close",
+                            action = {
+                                dismiss()
+                                findNavController().navigateUp()
+                            }
+                        )
+                    )
+                )
             }
         }
     }
@@ -91,20 +118,16 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes private val layoutRes
         )
     }
 
-    private fun showErrorDialog(message: String) {
+    private fun showErrorDialog(
+        title: String,
+        message: String,
+        buttons: List<ButtonConfig> = emptyList(),
+    ) {
         bottomSheet = MyBottomSheet.newInstance(
             MyBottomSheetParam(
-                title = "Error",
+                title = title,
                 description = message,
-                buttons = listOf(
-                    ButtonConfig(
-                        title = "Close",
-                        action = {
-                            dismiss()
-                            findNavController().navigateUp()
-                        }
-                    )
-                ),
+                buttons = buttons,
                 isCancellable = false
             )
         )
