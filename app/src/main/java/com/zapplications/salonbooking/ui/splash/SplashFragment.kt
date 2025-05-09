@@ -11,14 +11,11 @@ import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkNotificationPermission
-import com.zapplications.salonbooking.core.viewBinding
-import com.zapplications.salonbooking.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
-    private val binding by viewBinding(FragmentSplashBinding::bind)
     private val viewModel: SplashViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

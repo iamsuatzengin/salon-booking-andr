@@ -68,7 +68,7 @@
         android:id="@+id/btnContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin36"
+        android:layout_marginBottom="@dimen/margin24"
         android:text="@string/btn_text_continue"
         app:backgroundTint="@color/color_main"
         app:cornerRadius="@dimen/corner_radius_default" />

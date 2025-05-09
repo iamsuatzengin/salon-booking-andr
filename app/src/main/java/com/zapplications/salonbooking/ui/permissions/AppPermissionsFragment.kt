@@ -16,6 +16,8 @@ import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.LocationUtil.getLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkNotificationPermission
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
+import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentAppPermissionsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,6 +57,7 @@ class AppPermissionsFragment : Fragment(R.layout.fragment_app_permissions) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.root.applySystemBarInsetsAsPadding(InsetSides(bottom = true))
         setSwitchesState()
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {

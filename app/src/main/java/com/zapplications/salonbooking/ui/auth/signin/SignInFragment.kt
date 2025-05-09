@@ -9,6 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.drawable
 import com.zapplications.salonbooking.core.ui.BaseFragment
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
+import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentSignInBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,6 +51,7 @@ class SignInFragment : BaseFragment<SignInViewModel>(R.layout.fragment_sign_in) 
     }
 
     private fun initView() = with(binding) {
+        binding.llContent.applySystemBarInsetsAsPadding(InsetSides(bottom = true, isConsumed = true))
         btnContinue.setOnClickListener {
             val emailOrPhoneNumber = etEmailOrPhoneNumber.text.toString().trim()
             viewModel.handleContinue(input = emailOrPhoneNumber)

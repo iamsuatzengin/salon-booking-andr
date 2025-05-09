@@ -15,6 +15,7 @@
         android:src="@drawable/bg_signin" />
 
     <LinearLayout
+        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -80,7 +81,7 @@
             android:layout_marginBottom="@dimen/margin24"
             app:buttonBackgroundColor="@color/white"
             app:buttonIcon="@drawable/ic_googlepn"
-            app:buttonText="Continue with Apple"
+            app:buttonText="Continue with Google"
             app:buttonTextColor="@color/black" />
     </LinearLayout>
 </FrameLayout>

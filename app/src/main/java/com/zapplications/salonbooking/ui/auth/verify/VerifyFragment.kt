@@ -18,6 +18,8 @@ import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkNotificationPermission
 import com.zapplications.salonbooking.core.ui.BaseFragment
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
+import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsMargin
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentVerifyBinding
 import com.zapplications.salonbooking.domain.model.SignInType
@@ -77,6 +79,7 @@ class VerifyFragment : BaseFragment<VerifyViewModel>(R.layout.fragment_verify), 
     }
 
     private fun initOtpView() = with(binding) {
+        btnContinue.applySystemBarInsetsAsMargin(InsetSides(bottom = true))
         btnContinue.setOnClickListener {
             if (layoutOtp.hasAnyEmptyField()) {
                 layoutOtp.onError()
