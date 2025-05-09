@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
+import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.ui.pricingdetails.PricingDetailItemView
 import com.zapplications.salonbooking.core.ui.pricingdetails.model.BookingPrice
 import com.zapplications.salonbooking.core.viewBinding
@@ -14,6 +16,9 @@ import com.zapplications.salonbooking.domain.model.enums.BookingStatusType
 import com.zapplications.salonbooking.domain.model.enums.PaymentType
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * TODO [com.zapplications.salonbooking.core.ui.BaseFragment] implement et
+ */
 @AndroidEntryPoint
 class ReceiptFragment : Fragment(R.layout.fragment_receipt) {
     private val binding by viewBinding(FragmentReceiptBinding::bind)
@@ -26,6 +31,8 @@ class ReceiptFragment : Fragment(R.layout.fragment_receipt) {
     }
 
     private fun initView() = with(binding) {
+        binding.root.applySystemBarInsetsAsPadding(InsetSides(top = true, bottom = true))
+
         val uiModel = viewModel.bookingAppointmentUiModel
         viewModel.generateQrCodeBitmap { qrBitmap ->
             ivQrCode.setImageBitmap(qrBitmap)
@@ -53,6 +60,6 @@ class ReceiptFragment : Fragment(R.layout.fragment_receipt) {
         }
 
         ivBackIcon.setOnClickListener { findNavController().navigateUp() }
-        btnDownloadReceipt.setOnClickListener {  }
+        btnDownloadReceipt.setOnClickListener { }
     }
 }

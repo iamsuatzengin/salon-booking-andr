@@ -24,6 +24,8 @@ import com.zapplications.salonbooking.core.extensions.ONE
 import com.zapplications.salonbooking.core.extensions.checkLocationPermission
 import com.zapplications.salonbooking.core.extensions.checkLocationProviderEnabled
 import com.zapplications.salonbooking.core.ui.BaseFragment
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
+import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.ui.dialog.CustomDialog
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentHomeBinding
@@ -121,20 +123,25 @@ class HomeFragment : BaseFragment<HomeViewModel>(R.layout.fragment_home) {
                         address?.adminArea
                     )
                 )
-
-                viewModel.getHomePageDataByLocation(
+                // TODO burası böyle pushlanmayacak
+                viewModel.getAllHomePageData(
+                    onLocationClick = {handleLocationTitleClick()}
+                )
+                /*viewModel.getHomePageDataByLocation(
                     longitude = location.longitude,
                     latitude = location.latitude,
                     onLocationClick = { handleLocationTitleClick() }
-                )
+                )*/
             }
         }
     }
 
-    private fun initRecyclerView() {
-        binding.rvHome.adapter = adapter
-        binding.rvHome.itemAnimator = null
-        binding.rvHome.addItemDecoration(MultiTypeMarginDecoration())
+    private fun initRecyclerView() = with(binding) {
+        rvHome.adapter = adapter
+        rvHome.itemAnimator = null
+        rvHome.addItemDecoration(MultiTypeMarginDecoration())
+
+        rvHome.applySystemBarInsetsAsPadding(InsetSides(top = true))
     }
 
     private fun handleUiEvent(event: UiEvent) {

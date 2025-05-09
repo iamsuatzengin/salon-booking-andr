@@ -8,6 +8,7 @@ import androidx.navigation.navGraphViewModels
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.adapter.decoration.MultiTypeMarginDecoration
 import com.zapplications.salonbooking.core.ui.BaseFragment
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentDateTimeSelectionBinding
 import com.zapplications.salonbooking.ui.datetimeselection.adapter.DateTimeSelectionAdapter
@@ -56,4 +57,7 @@ class DateTimeSelectionFragment : BaseFragment<DateTimeSelectionViewModel>(R.lay
         rvMultiType.itemAnimator = null
         rvMultiType.addItemDecoration(MultiTypeMarginDecoration())
     }
+
+    override fun canRootViewApplyInset(): Boolean = true
+    override fun adjustRootViewInsetSides(): InsetSides = InsetSides(top = true, bottom = true)
 }

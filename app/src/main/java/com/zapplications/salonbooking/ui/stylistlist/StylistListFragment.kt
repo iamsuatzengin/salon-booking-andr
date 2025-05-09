@@ -8,6 +8,7 @@ import androidx.navigation.navGraphViewModels
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.adapter.decoration.MarginDecoration
 import com.zapplications.salonbooking.core.ui.BaseFragment
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentStylistListBinding
 import com.zapplications.salonbooking.ui.shared.AppointmentSharedViewModel
@@ -66,4 +67,7 @@ class StylistListFragment : BaseFragment<StylistListViewModel>(R.layout.fragment
             StylistListFragmentDirections.actionStylistListToDateTimeSelection(stylistId = stylistId)
         findNavController().navigate(action)
     }
+
+    override fun canRootViewApplyInset(): Boolean = true
+    override fun adjustRootViewInsetSides(): InsetSides = InsetSides(top = true, bottom = true)
 }

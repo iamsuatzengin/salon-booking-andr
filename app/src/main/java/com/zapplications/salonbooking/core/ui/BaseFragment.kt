@@ -10,6 +10,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.UiEvent
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
+import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.ui.bottomsheet.MyBottomSheet
 import com.zapplications.salonbooking.core.ui.bottomsheet.MyBottomSheetParam
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.ButtonConfig
@@ -39,6 +41,10 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes private val layoutRes
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (canRootViewApplyInset()) {
+            view.applySystemBarInsetsAsPadding(adjustRootViewInsetSides())
+        }
 
         collectStates()
     }
@@ -134,6 +140,9 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes private val layoutRes
 
         bottomSheet?.show(childFragmentManager, "MyBottomSheet")
     }
+
+    open fun canRootViewApplyInset(): Boolean = false
+    open fun adjustRootViewInsetSides(): InsetSides = InsetSides()
 
     override fun onDestroy() {
         super.onDestroy()

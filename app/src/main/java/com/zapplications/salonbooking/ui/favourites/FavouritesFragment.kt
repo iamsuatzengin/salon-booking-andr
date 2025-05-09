@@ -10,12 +10,17 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.adapter.decoration.MarginDecoration
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
+import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentFavouritesBinding
 import com.zapplications.salonbooking.ui.favourites.adapter.FavoritesSalonAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+/**
+ * TODO [com.zapplications.salonbooking.core.ui.BaseFragment] implement et
+ */
 @AndroidEntryPoint
 class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
     private val binding by viewBinding(FragmentFavouritesBinding::bind)
@@ -25,6 +30,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.root.applySystemBarInsetsAsPadding(InsetSides(top = true))
 
         viewModel.getAllFavoriteSalonsFromLocal()
 

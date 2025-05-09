@@ -14,6 +14,7 @@ import com.zapplications.salonbooking.core.extensions.loadImage
 import com.zapplications.salonbooking.core.extensions.toast
 import com.zapplications.salonbooking.core.ui.BaseFragment
 import com.zapplications.salonbooking.core.ui.ShowError
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.ButtonConfig
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.StatusDialog
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.StatusDialogState
@@ -235,6 +236,9 @@ class BookingSummaryFragment : BaseFragment<BookingSummaryViewModel>(R.layout.fr
             show(childFragmentManager, FAILED_DIALOG_TAG)
         }
     }
+
+    override fun canRootViewApplyInset(): Boolean = true
+    override fun adjustRootViewInsetSides(): InsetSides = InsetSides(top = true, bottom = true)
 
     companion object {
         const val SUCCESS_DIALOG_TAG = "SUCCESS"

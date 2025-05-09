@@ -14,6 +14,8 @@ import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.loadImage
 import com.zapplications.salonbooking.core.extensions.scaleAnimation
 import com.zapplications.salonbooking.core.extensions.scaleVisibilityAnimation
+import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
+import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.ui.tabview.CustomTabView
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentSalonDetailBinding
@@ -42,6 +44,7 @@ class SalonDetailFragment : BaseFragment<SalonDetailViewModel>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.root.applySystemBarInsetsAsPadding(InsetSides(top = true, bottom = true))
 
         handleClickListeners()
 
@@ -125,6 +128,9 @@ class SalonDetailFragment : BaseFragment<SalonDetailViewModel>(R.layout.fragment
             }
         }
     }
+
+    override fun canRootViewApplyInset(): Boolean = true
+    override fun adjustRootViewInsetSides(): InsetSides = InsetSides(top = true, bottom = true)
 
     override fun onTabChanged(position: Int) {
         scrollToButton()

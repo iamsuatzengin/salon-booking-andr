@@ -17,14 +17,14 @@ import androidx.core.view.updateLayoutParams
  * @property top Whether to apply the top system bar inset as a top margin.
  * @property right Whether to apply the right system bar inset as a right margin.
  * @property bottom Whether to apply the bottom system bar inset as a bottom margin.
- * @property isConsumed Whether the insets should be consumed after applying them.
+ * @property isConsumed Whether the insets should be consumed after applying them. Default is `true`
  */
 data class InsetSides(
     val left: Boolean = false,
     val top: Boolean = false,
     val right: Boolean = false,
     val bottom: Boolean = false,
-    val isConsumed: Boolean = true,
+    val isConsumed: Boolean = true
 )
 
 /**
