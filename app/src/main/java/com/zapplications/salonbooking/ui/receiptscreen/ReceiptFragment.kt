@@ -2,10 +2,12 @@ package com.zapplications.salonbooking.ui.receiptscreen
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.extensions.toast
+import com.zapplications.salonbooking.core.ui.BaseFragment
+import com.zapplications.salonbooking.core.ui.ShowError
 import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
 import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.ui.pricingdetails.PricingDetailItemView
@@ -16,13 +18,10 @@ import com.zapplications.salonbooking.domain.model.enums.BookingStatusType
 import com.zapplications.salonbooking.domain.model.enums.PaymentType
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * TODO [com.zapplications.salonbooking.core.ui.BaseFragment] implement et
- */
 @AndroidEntryPoint
-class ReceiptFragment : Fragment(R.layout.fragment_receipt) {
+class ReceiptFragment : BaseFragment<ReceiptViewModel>(R.layout.fragment_receipt) {
     private val binding by viewBinding(FragmentReceiptBinding::bind)
-    private val viewModel: ReceiptViewModel by viewModels()
+    override val viewModel: ReceiptViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,12 +30,11 @@ class ReceiptFragment : Fragment(R.layout.fragment_receipt) {
     }
 
     private fun initView() = with(binding) {
-        binding.root.applySystemBarInsetsAsPadding(InsetSides(top = true, bottom = true))
+        binding.clContainer.applySystemBarInsetsAsPadding(InsetSides(top = true, bottom = true))
 
         val uiModel = viewModel.bookingAppointmentUiModel
-        viewModel.generateQrCodeBitmap { qrBitmap ->
-            ivQrCode.setImageBitmap(qrBitmap)
-        }
+
+        viewModel.generateQrCodeBitmap()
 
         tvSalonName.text = uiModel?.salonName
         tvBookingDate.text = uiModel?.bookingDate
@@ -61,5 +59,21 @@ class ReceiptFragment : Fragment(R.layout.fragment_receipt) {
 
         ivBackIcon.setOnClickListener { findNavController().navigateUp() }
         btnDownloadReceipt.setOnClickListener { }
+    }
+
+    override suspend fun collectUiStates() {
+        viewModel.uiState.collect { bitmap ->
+            binding.ivQrCode.setImageBitmap(bitmap)
+        }
+    }
+
+    override suspend fun collectUiEvents() {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is ShowError -> {
+                    toast(message = event.message)
+                }
+            }
+        }
     }
 }

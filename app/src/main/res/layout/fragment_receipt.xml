@@ -1,255 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F8F8"
-    android:orientation="vertical"
-    android:paddingHorizontal="@dimen/margin16"
+    android:scrollbars="none"
     tools:context=".ui.receiptscreen.ReceiptFragment">
 
-    <ImageView
-        android:id="@+id/ivBackIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/content_description_back_icon"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTopBarTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin8"
-        android:fontFamily="@font/inter_18pt_semibold"
-        android:text="@string/title_receipt"
-        android:textColor="@color/color_dark1"
-        android:textSize="@dimen/size16"
-        app:layout_constraintBottom_toBottomOf="@id/ivBackIcon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivBackIcon"
-        app:layout_constraintTop_toTopOf="@id/ivBackIcon" />
-
-    <ImageView
-        android:id="@+id/ivQrCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin24"
-        android:contentDescription="@string/content_description_qr_code"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTopBarTitle" />
-
-    <TextView
-        android:id="@+id/tvQrCodeInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin8"
-        android:fontFamily="@font/inter_18pt_regular"
-        android:text="@string/title_qr_code_info"
-        android:textAlignment="center"
-        android:textColor="@color/color_dark1"
-        android:textSize="@dimen/size14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivQrCode" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clBookingSummary"
+        android:id="@+id/clContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin24"
-        android:background="@drawable/bg_rounded10_white"
-        android:padding="@dimen/padding16"
-        app:layout_constraintTop_toBottomOf="@id/tvQrCodeInfo">
+        android:paddingHorizontal="@dimen/margin16">
 
-        <TextView
-            android:id="@+id/tvSalonTitle"
+        <ImageView
+            android:id="@+id/ivBackIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:text="@string/title_salon"
-            android:textColor="@color/color_dark1"
-            android:textSize="@dimen/size14"
+            android:contentDescription="@string/content_description_back_icon"
+            android:src="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvSalonName"
+            android:id="@+id/tvTopBarTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin8"
+            android:fontFamily="@font/inter_18pt_semibold"
+            android:text="@string/title_receipt"
+            android:textColor="@color/color_dark1"
+            android:textSize="@dimen/size16"
+            app:layout_constraintBottom_toBottomOf="@id/ivBackIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBackIcon"
+            app:layout_constraintTop_toTopOf="@id/ivBackIcon" />
+
+        <ImageView
+            android:id="@+id/ivQrCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:textColor="@color/color_gray1"
-            android:textSize="@dimen/size14"
+            android:layout_marginTop="@dimen/margin24"
+            android:contentDescription="@string/content_description_qr_code"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Hair Falan" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTopBarTitle" />
 
         <TextView
-            android:id="@+id/tvCustomerNameTitle"
+            android:id="@+id/tvQrCodeInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
+            android:layout_marginTop="@dimen/margin8"
             android:fontFamily="@font/inter_18pt_regular"
-            android:text="@string/title_customer_name"
+            android:text="@string/title_qr_code_info"
+            android:textAlignment="center"
             android:textColor="@color/color_dark1"
             android:textSize="@dimen/size14"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSalonTitle" />
-
-        <TextView
-            android:id="@+id/tvCustomerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:text="@string/mock_name_john_doe"
-            android:textColor="@color/color_gray1"
-            android:textSize="@dimen/size14"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSalonName" />
-
-        <TextView
-            android:id="@+id/tvBookingDateTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:text="@string/title_booking_date"
-            android:textColor="@color/color_dark1"
-            android:textSize="@dimen/size14"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCustomerNameTitle" />
+            app:layout_constraintTop_toBottomOf="@id/ivQrCode" />
 
-        <TextView
-            android:id="@+id/tvBookingDate"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clBookingSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin24"
+            android:background="@drawable/bg_rounded10_white"
+            android:padding="@dimen/padding16"
+            app:layout_constraintTop_toBottomOf="@id/tvQrCodeInfo">
+
+            <TextView
+                android:id="@+id/tvSalonTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="@string/title_salon"
+                android:textColor="@color/color_dark1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSalonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:textColor="@color/color_gray1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Hair Falan" />
+
+            <TextView
+                android:id="@+id/tvCustomerNameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="@string/title_customer_name"
+                android:textColor="@color/color_dark1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSalonTitle" />
+
+            <TextView
+                android:id="@+id/tvCustomerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="@string/mock_name_john_doe"
+                android:textColor="@color/color_gray1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSalonName" />
+
+            <TextView
+                android:id="@+id/tvBookingDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="@string/title_booking_date"
+                android:textColor="@color/color_dark1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCustomerNameTitle" />
+
+            <TextView
+                android:id="@+id/tvBookingDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:textColor="@color/color_gray1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCustomerName"
+                tools:text="September 10, 2024" />
+
+            <TextView
+                android:id="@+id/tvBookingTimeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="@string/title_booking_time"
+                android:textColor="@color/color_dark1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingDateTitle" />
+
+            <TextView
+                android:id="@+id/tvBookingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:textColor="@color/color_gray1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingDate"
+                tools:text="9:30 AM" />
+
+            <TextView
+                android:id="@+id/tvStylistTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="@string/title_stylist"
+                android:textColor="@color/color_dark1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingTimeTitle" />
+
+            <TextView
+                android:id="@+id/tvStylist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:textColor="@color/color_gray1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBookingTime"
+                tools:text="Any stylist" />
+
+            <TextView
+                android:id="@+id/tvStatusTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="@string/title_status"
+                android:textColor="@color/color_dark1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStylistTitle" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:textColor="@color/color_gray1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStylist"
+                tools:text="Upcoming" />
+
+            <TextView
+                android:id="@+id/tvPaymentTypeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="@string/title_payment_type"
+                android:textColor="@color/color_dark1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStatusTitle" />
+
+            <TextView
+                android:id="@+id/tvPaymentType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin16"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:textColor="@color/color_gray1"
+                android:textSize="@dimen/size14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStatus"
+                tools:text="Online" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/llBookingServicesAndPrices"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:textColor="@color/color_gray1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCustomerName"
-            tools:text="September 10, 2024" />
+            android:background="@drawable/bg_rounded10_white"
+            android:orientation="vertical"
+            android:padding="@dimen/padding16"
+            app:layout_constraintTop_toBottomOf="@id/clBookingSummary" />
 
-        <TextView
-            android:id="@+id/tvBookingTimeTitle"
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDownloadReceipt"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:text="@string/title_booking_time"
-            android:textColor="@color/color_dark1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBookingDateTitle" />
-
-        <TextView
-            android:id="@+id/tvBookingTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:textColor="@color/color_gray1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBookingDate"
-            tools:text="9:30 AM" />
-
-        <TextView
-            android:id="@+id/tvStylistTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:text="@string/title_stylist"
-            android:textColor="@color/color_dark1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBookingTimeTitle" />
-
-        <TextView
-            android:id="@+id/tvStylist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:textColor="@color/color_gray1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBookingTime"
-            tools:text="Any stylist" />
-
-        <TextView
-            android:id="@+id/tvStatusTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:text="@string/title_status"
-            android:textColor="@color/color_dark1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStylistTitle" />
-
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:textColor="@color/color_gray1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStylist"
-            tools:text="Upcoming" />
-
-        <TextView
-            android:id="@+id/tvPaymentTypeTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:text="@string/title_payment_type"
-            android:textColor="@color/color_dark1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStatusTitle" />
-
-        <TextView
-            android:id="@+id/tvPaymentType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin16"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:textColor="@color/color_gray1"
-            android:textSize="@dimen/size14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStatus"
-            tools:text="Online" />
+            android:layout_marginBottom="@dimen/margin24"
+            android:backgroundTint="@color/color_main"
+            android:text="@string/btn_download_receipt"
+            app:cornerRadius="@dimen/corner_radius_default"
+            app:layout_constraintTop_toBottomOf="@id/llBookingServicesAndPrices" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/llBookingServicesAndPrices"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin16"
-        android:background="@drawable/bg_rounded10_white"
-        android:orientation="vertical"
-        android:padding="@dimen/padding16"
-        app:layout_constraintTop_toBottomOf="@id/clBookingSummary" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnDownloadReceipt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin24"
-        android:backgroundTint="@color/color_main"
-        android:text="@string/btn_download_receipt"
-        app:cornerRadius="@dimen/corner_radius_default"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
