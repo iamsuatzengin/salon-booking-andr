@@ -2,7 +2,6 @@ package com.zapplications.salonbooking.ui.bookings
 
 import androidx.lifecycle.viewModelScope
 import com.zapplications.salonbooking.core.ui.BaseViewModel
-import com.zapplications.salonbooking.core.ui.ShowError
 import com.zapplications.salonbooking.data.client.supabaseClient
 import com.zapplications.salonbooking.domain.model.BookingsUiModel
 import com.zapplications.salonbooking.domain.model.enums.BookingStatusType
@@ -35,9 +34,7 @@ class BookingsViewModel @Inject constructor(
                     )
                 },
                 onSuccess = { list ->
-                    _uiState.update {
-                        list
-                    }
+                    _uiState.update { list }
                 }
             )
         }
@@ -51,7 +48,7 @@ class BookingsViewModel @Inject constructor(
             onSuccess = { bookingAppointment ->
                 bookingAppointment?.let {
                     sendEvent(NavigateToReceipt(it))
-                } ?: sendEvent(ShowError("Booking not found"))
+                }
             }
         )
     }
@@ -68,7 +65,7 @@ class BookingsViewModel @Inject constructor(
                 result?.let {
                     getUserBookings(status = BookingStatusType.UPCOMING.name)
                     sendEvent(BookingCancelledSuccess)
-                } ?: sendEvent(ShowError("Booking not cancelled!"))
+                }
             }
         )
     }

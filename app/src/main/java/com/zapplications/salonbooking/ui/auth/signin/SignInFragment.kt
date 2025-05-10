@@ -7,6 +7,7 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.UiEvent
 import com.zapplications.salonbooking.core.extensions.drawable
 import com.zapplications.salonbooking.core.ui.BaseFragment
 import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
@@ -26,18 +27,15 @@ class SignInFragment : BaseFragment<SignInViewModel>(R.layout.fragment_sign_in) 
         initView()
     }
 
-    override suspend fun collectUiEvents() {
-        super.collectUiEvents()
-        viewModel.uiEvent.collect { uiEvent ->
-            when (uiEvent) {
-                is SignInUiEvent.NavigateToVerifyScreen -> {
-                    changeEditTextBackground(R.drawable.bg_edittext_white_rounded)
-                    navigateToVerifyScreen(uiEvent)
-                }
+    override fun handleUiEvents(event: UiEvent) {
+        when (event) {
+            is SignInUiEvent.NavigateToVerifyScreen -> {
+                changeEditTextBackground(R.drawable.bg_edittext_white_rounded)
+                navigateToVerifyScreen(event)
+            }
 
-                is SignInUiEvent.ShowError -> {
-                    changeEditTextBackground(R.drawable.bg_edittext_error_state)
-                }
+            is SignInUiEvent.ShowError -> {
+                changeEditTextBackground(R.drawable.bg_edittext_error_state)
             }
         }
     }

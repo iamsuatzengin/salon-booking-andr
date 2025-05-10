@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zapplications.salonbooking.MainGraphDirections
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.UiEvent
 import com.zapplications.salonbooking.core.ui.BaseFragment
 import com.zapplications.salonbooking.core.adapter.decoration.MarginDecoration
 import com.zapplications.salonbooking.core.ui.bottomsheet.MyBottomSheet
@@ -70,15 +71,13 @@ class BookingsPagerItemFragment : BaseFragment<BookingsViewModel>(R.layout.fragm
         }
     }
 
-    override suspend fun collectUiEvents() {
-        viewModel.uiEvent.collect { uiEvent ->
-            when (uiEvent) {
-                is NavigateToReceipt -> {
-                    navigateToReceiptFragment(uiEvent.bookingAppointmentUiModel)
-                }
-
-                BookingCancelledSuccess -> showBookingCancelledSuccessInfoDialog()
+    override fun handleUiEvents(event: UiEvent) {
+        when (event) {
+            is NavigateToReceipt -> {
+                navigateToReceiptFragment(event.bookingAppointmentUiModel)
             }
+
+            BookingCancelledSuccess -> showBookingCancelledSuccessInfoDialog()
         }
     }
 

@@ -18,7 +18,7 @@ class BookingRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookById(bookingId: String): BookingAppointmentUiModel? {
-        return dataSource.getBookById(bookingId).getOrNull()?.toUiModel()
+        return dataSource.getBookById(bookingId).getOrThrow()?.toUiModel()
     }
 
     override suspend fun getUserBookings(userId: String, status: String): List<BookingsUiModel> {

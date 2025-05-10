@@ -13,9 +13,6 @@ import com.zapplications.salonbooking.domain.model.enums.BookingStatusType
 import com.zapplications.salonbooking.ui.bookings.pager.BookingsPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * TODO [com.zapplications.salonbooking.core.ui.BaseFragment] implement et
- */
 @AndroidEntryPoint
 class BookingsFragment : Fragment(R.layout.fragment_bookings) {
     private val binding by viewBinding(FragmentBookingsBinding::bind)

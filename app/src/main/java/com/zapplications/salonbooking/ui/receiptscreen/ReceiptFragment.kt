@@ -5,9 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
-import com.zapplications.salonbooking.core.extensions.toast
 import com.zapplications.salonbooking.core.ui.BaseFragment
-import com.zapplications.salonbooking.core.ui.ShowError
 import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
 import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.ui.pricingdetails.PricingDetailItemView
@@ -64,16 +62,6 @@ class ReceiptFragment : BaseFragment<ReceiptViewModel>(R.layout.fragment_receipt
     override suspend fun collectUiStates() {
         viewModel.uiState.collect { bitmap ->
             binding.ivQrCode.setImageBitmap(bitmap)
-        }
-    }
-
-    override suspend fun collectUiEvents() {
-        viewModel.uiEvent.collect { event ->
-            when (event) {
-                is ShowError -> {
-                    toast(message = event.message)
-                }
-            }
         }
     }
 }

@@ -86,9 +86,12 @@ class HomeFragment : BaseFragment<HomeViewModel>(R.layout.fragment_home) {
         }
     }
 
-    override suspend fun collectUiEvents() {
-        viewModel.uiEvent.collect { event ->
-            handleUiEvent(event)
+    override fun handleUiEvents(event: UiEvent) {
+        when (event) {
+            is NavigateToSalonDetail -> {
+                val action = HomeFragmentDirections.actionHomeToSalonDetail(event.salonId)
+                findNavController().navigate(action)
+            }
         }
     }
 
@@ -142,15 +145,6 @@ class HomeFragment : BaseFragment<HomeViewModel>(R.layout.fragment_home) {
         rvHome.addItemDecoration(MultiTypeMarginDecoration())
 
         rvHome.applySystemBarInsetsAsPadding(InsetSides(top = true))
-    }
-
-    private fun handleUiEvent(event: UiEvent) {
-        when (event) {
-            is NavigateToSalonDetail -> {
-                val action = HomeFragmentDirections.actionHomeToSalonDetail(event.salonId)
-                findNavController().navigate(action)
-            }
-        }
     }
 
     private fun handleLocationTitleClick() {

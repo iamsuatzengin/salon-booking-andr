@@ -8,12 +8,12 @@ import androidx.navigation.navGraphViewModels
 import androidx.navigation.navOptions
 import com.zapplications.salonbooking.MainGraphDirections
 import com.zapplications.salonbooking.R
+import com.zapplications.salonbooking.core.UiEvent
 import com.zapplications.salonbooking.core.extensions.CORNER_RADIUS_DEFAULT_PX
 import com.zapplications.salonbooking.core.extensions.ZERO
 import com.zapplications.salonbooking.core.extensions.loadImage
 import com.zapplications.salonbooking.core.extensions.toast
 import com.zapplications.salonbooking.core.ui.BaseFragment
-import com.zapplications.salonbooking.core.ui.ShowError
 import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.ButtonConfig
 import com.zapplications.salonbooking.core.ui.dialog.statusdialog.StatusDialog
@@ -54,14 +54,12 @@ class BookingSummaryFragment : BaseFragment<BookingSummaryViewModel>(R.layout.fr
         }
     }
 
-    override suspend fun collectUiEvents() {
-        viewModel.uiEvent.collect { uiEvent ->
-            when (uiEvent) {
-                is BookingAppointmentSuccessFull ->
-                    success(uiEvent.bookingAppointmentUiModel)
+    override fun handleUiEvents(event: UiEvent) {
+        when (event) {
+            is BookingSummaryUiEvent.BookingAppointmentSuccessFull ->
+                success(event.bookingAppointmentUiModel)
 
-                is ShowError -> failed()
-            }
+            is BookingSummaryUiEvent.ShowError -> failed()
         }
     }
 

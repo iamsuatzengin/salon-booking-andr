@@ -1,9 +1,6 @@
 package com.zapplications.salonbooking.ui.bookingsummary
 
-import androidx.lifecycle.viewModelScope
-import com.zapplications.salonbooking.core.extensions.EMPTY
 import com.zapplications.salonbooking.core.ui.BaseViewModel
-import com.zapplications.salonbooking.core.ui.ShowError
 import com.zapplications.salonbooking.data.client.supabaseClient
 import com.zapplications.salonbooking.data.request.BookingAppointmentRequest
 import com.zapplications.salonbooking.domain.model.SelectedServices
@@ -16,8 +13,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,16 +23,19 @@ class BookingSummaryViewModel @Inject constructor(
     val uiState: StateFlow<BookingSummaryUiState> get() = _uiState.asStateFlow()
 
     fun bookAppointment(bookingRequest: BookingAppointmentRequest?) {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true) }
-
-            val response = bookingRequest?.let { bookingRepository.bookAppointment(it) }
-            response?.let { responseModel ->
+        call(
+            block = {
+                val uiModel = bookingRequest?.let { bookingRepository.bookAppointment(it) }
                 delay(2000)
-                _uiState.update { it.copy(isLoading = false) }
-                sendEvent(BookingAppointmentSuccessFull(responseModel))
-            } ?: sendEvent(ShowError(EMPTY))
-        }
+
+                uiModel // return booking appointment ui model
+            },
+            onSuccess = { uiModel ->
+                uiModel?.let {
+                    sendEvent(BookingSummaryUiEvent.BookingAppointmentSuccessFull(it))
+                }
+            }
+        )
     }
 
     fun createRequest(

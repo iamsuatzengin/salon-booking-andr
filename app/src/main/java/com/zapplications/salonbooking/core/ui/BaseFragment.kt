@@ -10,6 +10,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.UiEvent
+import com.zapplications.salonbooking.core.extensions.toast
 import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
 import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.ui.bottomsheet.MyBottomSheet
@@ -29,10 +30,9 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes private val layoutRes
 
     /**
      * This method is optional. You can use this method for collecting UI event.
-     * Just override and collect shared flow. You don't need to launch with lifecycle in your fragments.
+     * Just handle ui events. You don't need to collect shared flow and launch with lifecycle in your fragments.
      */
-    open suspend fun collectUiEvents() = Unit
-
+    open fun handleUiEvents(event: UiEvent) = Unit
     /**
      * This method is optional. You can use this method for collecting UI state.
      * Just override and collect state flow. You don't need to launch with lifecycle in your fragments.
@@ -57,7 +57,16 @@ abstract class BaseFragment<VM : BaseViewModel>(@LayoutRes private val layoutRes
                 }
 
                 launch {
-                    collectUiEvents()
+                    viewModel.uiEvent.collect { event ->
+                        when (event) {
+                            is ShowError -> {
+                                toast(message = event.message)
+                            }
+                            else -> {
+                                handleUiEvents(event)
+                            }
+                        }
+                    }
                 }
 
                 launch {

@@ -8,6 +8,7 @@ import com.zapplications.salonbooking.core.ui.BaseViewModel
 import com.zapplications.salonbooking.core.ui.ShowError
 import com.zapplications.salonbooking.domain.model.BookingAppointmentUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -32,6 +33,7 @@ class ReceiptViewModel @Inject constructor(
             bitmap?.let { b ->
                 _uiState.update { b }
             } ?: run {
+                delay(500)
                 sendEvent(ShowError("Qr code could not be generated"))
             }
         }
