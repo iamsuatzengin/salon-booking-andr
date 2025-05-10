@@ -12,14 +12,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clContainer"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin16"
-        android:paddingBottom="24dp"
-        android:layout_height="wrap_content">
+        android:paddingBottom="24dp">
 
         <ImageView
             android:id="@+id/ivBackIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin16"
             android:contentDescription="@string/content_description_back_icon"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"

@@ -2,29 +2,22 @@ package com.zapplications.salonbooking.ui.favourites
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zapplications.salonbooking.R
 import com.zapplications.salonbooking.core.adapter.decoration.MarginDecoration
+import com.zapplications.salonbooking.core.ui.BaseFragment
 import com.zapplications.salonbooking.core.ui.applyinset.InsetSides
 import com.zapplications.salonbooking.core.ui.applyinset.applySystemBarInsetsAsPadding
 import com.zapplications.salonbooking.core.viewBinding
 import com.zapplications.salonbooking.databinding.FragmentFavouritesBinding
 import com.zapplications.salonbooking.ui.favourites.adapter.FavoritesSalonAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
-/**
- * TODO [com.zapplications.salonbooking.core.ui.BaseFragment] implement et
- */
 @AndroidEntryPoint
-class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
+class FavouritesFragment : BaseFragment<FavouritesViewModel>(R.layout.fragment_favourites) {
     private val binding by viewBinding(FragmentFavouritesBinding::bind)
-    private val viewModel by viewModels<FavouritesViewModel>()
+    override val viewModel by viewModels<FavouritesViewModel>()
 
     private val adapter by lazy { FavoritesSalonAdapter() }
 
@@ -35,7 +28,6 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
         viewModel.getAllFavoriteSalonsFromLocal()
 
         initRecyclerView()
-        collectData()
     }
 
     private fun initRecyclerView() = with(binding) {
@@ -45,13 +37,12 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
         rvFavorites.adapter = adapter
     }
 
-    private fun collectData() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect {
-                    adapter.submitList(it)
-                }
-            }
+    override suspend fun collectUiStates() {
+        viewModel.uiState.collect {
+            adapter.submitList(it)
         }
     }
+
+    override fun canRootViewApplyInset(): Boolean = true
+    override fun adjustRootViewInsetSides() = super.adjustRootViewInsetSides().copy(top = true)
 }

@@ -41,12 +41,15 @@
 
     <TextView
         android:id="@+id/tvSalonLocationString"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin4"
+        android:ellipsize="end"
         android:fontFamily="@font/inter_18pt_medium"
+        android:maxLines="1"
         android:textColor="@color/color_gray1"
         android:textSize="@dimen/size14"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvSalonNameTitle"
         app:layout_constraintTop_toBottomOf="@id/tvSalonNameTitle"
         tools:text="Lakewood, California " />
@@ -71,9 +74,9 @@
         style="@style/MainButtonSolid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin16"
         android:paddingVertical="@dimen/padding12"
         android:text="@string/btn_view_receipt"
-        android:layout_marginTop="@dimen/margin16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnCancelBooking"
         app:layout_constraintTop_toBottomOf="@id/ivSalonImage" />

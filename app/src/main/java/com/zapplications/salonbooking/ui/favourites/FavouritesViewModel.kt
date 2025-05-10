@@ -1,7 +1,7 @@
 package com.zapplications.salonbooking.ui.favourites
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zapplications.salonbooking.core.ui.BaseViewModel
 import com.zapplications.salonbooking.data.local.entity.FavoriteSalonEntity
 import com.zapplications.salonbooking.domain.repository.FavoritesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavouritesViewModel @Inject constructor(
     private val repository: FavoritesRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow<List<FavoriteSalonEntity>>(emptyList())
     val uiState: StateFlow<List<FavoriteSalonEntity>> = _uiState.asStateFlow()

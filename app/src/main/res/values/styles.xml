@@ -30,6 +30,6 @@
 
     <style name="ButtonTextAppearance" parent="">
         <item name="android:fontFamily">@font/inter_18pt_semibold</item>
-        <item name="android:textSize">@dimen/size16</item>
+        <item name="android:textSize">@dimen/size14</item>
     </style>
 </resources>

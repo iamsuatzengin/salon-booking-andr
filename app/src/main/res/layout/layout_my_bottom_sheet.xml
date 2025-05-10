@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_bottomsheet"
     android:backgroundTint="@color/white"
+    android:paddingBottom="@dimen/padding24"
     android:paddingHorizontal="@dimen/padding16">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
