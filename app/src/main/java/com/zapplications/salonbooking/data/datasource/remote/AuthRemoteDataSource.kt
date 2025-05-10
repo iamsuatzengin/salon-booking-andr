@@ -5,8 +5,6 @@ import com.zapplications.salonbooking.data.client.supabaseClient
 import io.github.jan.supabase.auth.OtpType
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.builtin.OTP
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AuthRemoteDataSource @Inject constructor() {
@@ -14,13 +12,13 @@ class AuthRemoteDataSource @Inject constructor() {
 
     val sessionStatusStateFlow = supabaseClient.auth.sessionStatus
 
-    suspend fun signInWithPhoneOTP(phoneNumber: String) = withContext(Dispatchers.IO) {
+    suspend fun signInWithPhoneOTP(phoneNumber: String) = apiCall {
         supabaseClient.auth.signInWith(OTP) {
             phone = phoneNumber
         }
     }
 
-    suspend fun verifyPhoneOTP(phoneNumber: String, otp: String) = withContext(Dispatchers.IO) {
+    suspend fun verifyPhoneOTP(phoneNumber: String, otp: String) = apiCall {
         supabaseClient.auth.verifyPhoneOtp(
             type = OtpType.Phone.SMS,
             phone = phoneNumber,
@@ -28,7 +26,7 @@ class AuthRemoteDataSource @Inject constructor() {
         )
     }
 
-    suspend fun resendPhoneOTP(phoneNumber: String) = withContext(Dispatchers.IO) {
+    suspend fun resendPhoneOTP(phoneNumber: String) = apiCall {
         supabaseClient.auth.resendPhone(
             type = OtpType.Phone.SMS,
             phone = phoneNumber
@@ -41,7 +39,7 @@ class AuthRemoteDataSource @Inject constructor() {
         }
     )
 
-    suspend fun verifyEmailOTP(email: String, otp: String) = withContext(Dispatchers.IO) {
+    suspend fun verifyEmailOTP(email: String, otp: String) = apiCall {
         supabaseClient.auth.verifyEmailOtp(
             type = OtpType.Email.EMAIL,
             email = email,
@@ -49,7 +47,7 @@ class AuthRemoteDataSource @Inject constructor() {
         )
     }
 
-    suspend fun resendEmailOTP(email: String) = withContext(Dispatchers.IO) {
+    suspend fun resendEmailOTP(email: String) = apiCall {
         supabaseClient.auth.resendEmail(
             type = OtpType.Email.SIGNUP,
             email = email

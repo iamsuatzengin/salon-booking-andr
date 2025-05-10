@@ -9,7 +9,7 @@ suspend fun <T> apiCall(
     dispatcher: CoroutineDispatcher = Dispatchers.IO,
     block: suspend () -> T,
 ) = withContext(dispatcher) {
-    runCatching { block() }.onFailure { throwable ->
+    runCatching { block() }.getOrElse { throwable ->
         when (throwable) {
             is AuthRestException -> {
                 throw AppException(ApiErrorModel.authenticationCommonError)

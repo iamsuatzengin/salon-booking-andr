@@ -18,7 +18,7 @@ class BookingRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBookById(bookingId: String): BookingAppointmentUiModel? {
-        return dataSource.getBookById(bookingId).getOrThrow()?.toUiModel()
+        return dataSource.getBookById(bookingId)?.toUiModel()
     }
 
     override suspend fun getUserBookings(userId: String, status: String): List<BookingsUiModel> {
@@ -28,5 +28,5 @@ class BookingRepositoryImpl @Inject constructor(
     override suspend fun updateBooking(
         bookingId: String,
         statusType: BookingStatusType,
-    ): PostgrestResult? = dataSource.updateBooking(bookingId = bookingId, statusType = statusType)
+    ): PostgrestResult = dataSource.updateBooking(bookingId = bookingId, statusType = statusType)
 }
