@@ -1,7 +1,10 @@
 package com.zapplications.salonbooking
 
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.WindowManager.LayoutParams.FLAG_SECURE
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.zapplications.salonbooking.core.extensions.gone
+import com.zapplications.salonbooking.core.extensions.hideKeyboard
 import com.zapplications.salonbooking.core.extensions.visible
 import com.zapplications.salonbooking.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,5 +55,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus is EditText) {
+            val outRect = Rect()
+            currentFocus?.getGlobalVisibleRect(outRect)
+            if (ev?.action == MotionEvent.ACTION_DOWN && !outRect.contains(ev.x.toInt(), ev.y.toInt())) {
+                hideKeyboard()
+                currentFocus?.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }
